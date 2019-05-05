@@ -26,7 +26,7 @@ return {
 
     {
       componentType = "viewport",
-      class = "heart.CategoryComponentManager",
+      class = "heart.graphics.ViewportComponentManager",
     },
 
     {
@@ -99,23 +99,13 @@ return {
   entities = {
     {
       components = {
-        bone = {},
-        camera = {},
-      },
-
-      children = {
-        {
-          components = {
-            bone = {
-              scaleX = 20 / 600,
-              scaleY = 20 / 600,
-              originX = 400,
-              originY = 300,
-            },
-
-            viewport = {},
-          },
+        bone = {
+          scaleX = 10,
+          scaleY = 10,
         },
+
+        camera = {},
+        viewport = {},
       },
     },
 

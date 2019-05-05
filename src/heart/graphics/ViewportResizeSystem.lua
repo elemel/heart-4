@@ -6,17 +6,16 @@ function ViewportResizeSystem:init(game, config)
   self.game = assert(game)
   self.bones = assert(self.game.componentManagers.bone)
   self.viewportEntities = assert(self.game.componentEntitySets.viewport)
+  self.viewportComponents = assert(self.game.componentManagers.viewport)
 end
 
 function ViewportResizeSystem:resize(width, height)
-  local transforms = self.bones.transforms
-  local scale = 8 / height
-  local originX = 0.5 * width
-  local originY = 0.5 * height
+  local widths = self.viewportComponents.widths
+  local heights = self.viewportComponents.heights
 
   for entityId in pairs(self.viewportEntities) do
-    local transform = transforms[entityId]
-    transform:setTransformation(0, 0, 0, scale, scale, originX, originY)
+    widths[entityId] = width
+    heights[entityId] = height
   end
 end
 
