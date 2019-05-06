@@ -13,15 +13,17 @@ local function removeArrayValues(t, v)
   end
 end
 
-local function clear(t)
-  for k in pairs(t) do
-    t[k] = nil
-  end
-end
-
-local function clearArray(t)
-  while #t > 0 do
-    t[#t] = nil
+local function clear(t, v)
+  if v == nil then
+    for k in pairs(t) do
+      t[k] = nil
+    end
+  else
+    for k, v2 in pairs(t) do
+      if v2 == v then
+        t[k] = nil
+      end
+    end
   end
 end
 
@@ -47,7 +49,6 @@ end
 
 return {
   clear = clear,
-  clearArray = clearArray,
   keys = keys,
   removeArrayValues = removeArrayValues,
   values = values,
