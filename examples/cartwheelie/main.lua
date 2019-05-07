@@ -11,7 +11,7 @@ function love.load()
   love.physics.setMeter(1)
 
   local resourceLoaders = {}
-  local config = require("resources.levels.start")
+  local config = require("resources.levels.level")
   game = heart.Game.new(resourceLoaders, config)
 end
 
