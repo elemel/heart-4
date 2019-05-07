@@ -50,6 +50,11 @@ return {
     },
 
     {
+      componentType = "revoluteJoint",
+      class = "heart.physics.RevoluteJointComponentManager",
+    },
+
+    {
       componentType = "wheelJoint",
       class = "heart.physics.WheelJointComponentManager",
     },
@@ -110,6 +115,8 @@ return {
     },
 
     {
+      transform = {0, 2},
+
       components = {
         body = {},
 
@@ -132,64 +139,13 @@ return {
     },
 
     {
+      prototype = "resources.entities.minecart",
+      transform = {0, 0},
+    },
+
+    {
+      prototype = "resources.entities.rider",
       transform = {0, -2},
-
-      components = {
-        body = {
-          bodyType = "dynamic",
-        },
-
-        rectangleFixture = {
-          width = 1.5,
-          height = 0.75,
-        },
-
-        minecartPlayer = {},
-      },
-
-      children = {
-        {
-          transform = {-0.75, 0.375},
-
-          components = {
-            body = {
-              bodyType = "dynamic",
-            },
-
-            circleFixture = {
-              radius = 0.375,
-              friction = 5,
-            },
-
-            wheelJoint = {
-              springFrequency = 4,
-              springDampingRatio = 1,
-              motorEnabled = true,
-            },
-          },
-        },
-
-        {
-          transform = {0.75, 0.375},
-
-          components = {
-            body = {
-              bodyType = "dynamic",
-            },
-
-            circleFixture = {
-              radius = 0.375,
-              friction = 5,
-            },
-
-            wheelJoint = {
-              springFrequency = 4,
-              springDampingRatio = 1,
-              motorEnabled = true,
-            },
-          },
-        },
-      },
     },
   },
 }
