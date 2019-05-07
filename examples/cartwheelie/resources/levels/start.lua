@@ -60,7 +60,7 @@ return {
     },
 
     {
-      componentType = "minecartPlayer",
+      componentType = "minecart",
       class = "heart.CategoryComponentManager",
     },
   },
@@ -80,7 +80,7 @@ return {
 
     fixedUpdate = {
       {
-        class = "resources.scripts.MinecartPlayerFixedUpdateSystem",
+        class = "resources.scripts.MinecartFixedUpdateSystem",
       },
 
       {

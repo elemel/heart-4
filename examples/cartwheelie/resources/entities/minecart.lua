@@ -9,7 +9,7 @@ return {
       height = 0.75,
     },
 
-    minecartPlayer = {},
+    minecart = {},
   },
 
   children = {

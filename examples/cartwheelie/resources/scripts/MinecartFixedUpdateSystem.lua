@@ -1,22 +1,20 @@
 local class = require("heart.class")
 local mathUtils = require("heart.math.utils")
 
-local MinecartPlayerFixedUpdateSystem = class.newClass()
+local MinecartFixedUpdateSystem = class.newClass()
 
-function MinecartPlayerFixedUpdateSystem:init(game, config)
+function MinecartFixedUpdateSystem:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
-
-  self.minecartPlayerEntities =
-    assert(self.game.componentEntitySets.minecartPlayer)
+  self.minecartEntities = assert(self.game.componentEntitySets.minecart)
 end
 
-function MinecartPlayerFixedUpdateSystem:fixedUpdate(dt)
+function MinecartFixedUpdateSystem:fixedUpdate(dt)
   local leftInput = love.keyboard.isDown("a")
   local rightInput = love.keyboard.isDown("d")
   local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
 
-  for entityId in pairs(self.minecartPlayerEntities) do
+  for entityId in pairs(self.minecartEntities) do
     for _, wheelJointId in ipairs(self.game:findDescendantComponents(entityId, "wheelJoint")) do
       local wheelJoint = assert(self.physicsDomain.wheelJoints[wheelJointId])
       wheelJoint:setMaxMotorTorque(5 * math.abs(inputX))
@@ -25,4 +23,4 @@ function MinecartPlayerFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return MinecartPlayerFixedUpdateSystem
+return MinecartFixedUpdateSystem
