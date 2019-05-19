@@ -10,7 +10,10 @@ function love.load()
 
   love.physics.setMeter(1)
 
-  local resourceLoaders = {}
+  local resourceLoaders = {
+    image = heart.graphics.ImageResourceLoader.new()
+  }
+
   local config = require("resources.levels.level")
   game = heart.Game.new(resourceLoaders, config)
 end

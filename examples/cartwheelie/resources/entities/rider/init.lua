@@ -9,6 +9,8 @@ return {
       width = 0.4,
       height = 0.8,
     },
+
+    rider = {},
   },
 
   children = {

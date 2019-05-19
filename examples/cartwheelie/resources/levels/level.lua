@@ -50,6 +50,11 @@ return {
     },
 
     {
+      componentType = "motorJoint",
+      class = "heart.physics.MotorJointComponentManager",
+    },
+
+    {
       componentType = "revoluteJoint",
       class = "heart.physics.RevoluteJointComponentManager",
     },
@@ -60,7 +65,17 @@ return {
     },
 
     {
+      componentType = "sprite",
+      class = "heart.graphics.SpriteComponentManager",
+    },
+
+    {
       componentType = "minecart",
+      class = "heart.CategoryComponentManager",
+    },
+
+    {
+      componentType = "rider",
       class = "heart.CategoryComponentManager",
     },
   },
@@ -74,13 +89,21 @@ return {
 
     drawWorld = {
       {
+        class = "heart.graphics.SpriteDrawWorldSystem",
+      },
+
+      {
         class = "heart.physics.PhysicsDrawWorldSystem",
       },
     },
 
     fixedUpdate = {
+      -- {
+      --   class = "resources.scripts.MinecartFixedUpdateSystem",
+      -- },
+
       {
-        class = "resources.scripts.MinecartFixedUpdateSystem",
+        class = "resources.scripts.RiderFixedUpdateSystem",
       },
 
       {
