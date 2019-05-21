@@ -6,14 +6,15 @@ function love.load()
   love.window.setMode(800, 600, {
     fullscreentype = "desktop",
     resizable = true,
+    msaa = 4,
   })
 
   love.graphics.setDefaultFilter("linear", "nearest")
-
   love.physics.setMeter(1)
 
   local resourceLoaders = {
-    image = heart.graphics.ImageResourceLoader.new()
+    image = heart.graphics.ImageResourceLoader.new(),
+    mesh = heart.graphics.MeshResourceLoader.new(),
   }
 
   local config = require("resources.levels.level")

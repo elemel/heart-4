@@ -6,7 +6,7 @@ function ImageResourceLoader:init()
   self.images = {}
 end
 
-function ImageResourceLoader:load(filename)
+function ImageResourceLoader:loadResource(filename)
   local image = self.images[filename]
 
   if not image then

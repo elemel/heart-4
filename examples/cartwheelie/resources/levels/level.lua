@@ -75,6 +75,11 @@ return {
     },
 
     {
+      componentType = "mesh",
+      class = "heart.graphics.MeshComponentManager",
+    },
+
+    {
       componentType = "minecart",
       class = "heart.CategoryComponentManager",
     },
@@ -95,6 +100,10 @@ return {
     drawWorld = {
       {
         class = "heart.graphics.SpriteDrawWorldSystem",
+      },
+
+      {
+        class = "heart.graphics.MeshDrawWorldSystem",
       },
 
       {
@@ -122,6 +131,10 @@ return {
       {
         class = "heart.graphics.BoneToSpriteFixedUpdateSystem",
       },
+
+      {
+        class = "heart.graphics.BoneToMeshFixedUpdateSystem",
+      },
     },
 
     resize = {
@@ -138,12 +151,16 @@ return {
       {
         class = "heart.graphics.SpriteUpdateSystem",
       },
+
+      {
+        class = "heart.graphics.MeshUpdateSystem",
+      },
     },
   },
 
   entities = {
     {
-      transform = {0, 0, 0, 10},
+      transform = {0, 0, 0, 5},
 
       components = {
         bone = {},
@@ -183,7 +200,7 @@ return {
 
     {
       prototype = "resources.entities.rider",
-      transform = {0, -2},
+      transform = {0, -2, 0},
     },
   },
 }

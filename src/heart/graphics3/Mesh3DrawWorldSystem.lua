@@ -2,9 +2,9 @@
 local class = require("heart.class")
 local table = require("heart.table")
 
-local MeshDrawWorldSystem = class.newClass()
+local Mesh3DrawWorldSystem = class.newClass()
 
-function MeshDrawWorldSystem:init(game, config)
+function Mesh3DrawWorldSystem:init(game, config)
   self.game = assert(game)
   self.fixedTimeStepDomain = assert(self.game.domains.fixedTimeStep)
   self.bones = assert(self.game.componentManagers.bone)
@@ -87,7 +87,7 @@ function MeshDrawWorldSystem:init(game, config)
   self.shader = love.graphics.newShader(pixelShaderCode, vertexShaderCode)
 end
 
-function MeshDrawWorldSystem:drawWorld()
+function Mesh3DrawWorldSystem:drawWorld()
   local timeStepFraction =
     self.fixedTimeStepDomain.accumulatedTimeStep /
     self.fixedTimeStepDomain.fixedTimeStep
@@ -127,4 +127,4 @@ function MeshDrawWorldSystem:drawWorld()
   love.graphics.setDepthMode()
 end
 
-return MeshDrawWorldSystem
+return Mesh3DrawWorldSystem

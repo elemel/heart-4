@@ -86,6 +86,7 @@ function RiderFixedUpdateSystem:fixedUpdate(dt)
 
       joint:setLinearOffset(x, y)
       joint:setAngularOffset(angularOffset)
+
     end
   end
 end
