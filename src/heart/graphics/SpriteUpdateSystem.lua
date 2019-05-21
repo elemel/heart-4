@@ -1,5 +1,5 @@
 local class = require("heart.class")
-local mathUtils = require("heart.math.utils")
+local heartMath = require("heart.math")
 
 local SpriteUpdateSystem = class.newClass()
 
@@ -19,7 +19,7 @@ function SpriteUpdateSystem:update(dt)
 
   for id in pairs(self.boneEntities) do
     if self.spriteEntities[id] then
-      mathUtils.mixTransforms(
+      heartMath.mixTransforms(
         transforms[id], previousTransforms[id], t, interpolatedTransforms[id])
     end
   end

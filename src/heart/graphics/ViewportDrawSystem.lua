@@ -1,5 +1,5 @@
 local class = require("heart.class")
-local mathUtils = require("heart.math.utils")
+local heartMath = require("heart.math")
 
 local ViewportDrawSystem = class.newClass()
 
@@ -19,7 +19,7 @@ function ViewportDrawSystem:draw()
     love.graphics.translate(0.5 * widths[entityId], 0.5 * heights[entityId])
     love.graphics.scale(heights[entityId], heights[entityId])
 
-    local _, _, _, scaleX, scaleY = mathUtils.decompose2(viewportTransform)
+    local _, _, _, scaleX, scaleY = heartMath.decompose2(viewportTransform)
     local scale = math.sqrt(math.abs(scaleX * scaleY))
 
     love.graphics.push()

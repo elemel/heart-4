@@ -1,5 +1,5 @@
 local class = require("heart.class")
-local mathUtils = require("heart.math.utils")
+local heartMath = require("heart.math")
 
 local RectangleFixtureComponentManager = class.newClass()
 
@@ -20,7 +20,7 @@ function RectangleFixtureComponentManager:createComponent(
   local angle = config.angle or 0
 
   local x1, y1, x2, y2, x3, y3, x4, y4 =
-    mathUtils.rectangleVertices(x, y, width, height, angle)
+    heartMath.rectangleVertices(x, y, width, height, angle)
 
   x1, y1 = body:getLocalPoint(transform:transformPoint(x1, y1))
   x2, y2 = body:getLocalPoint(transform:transformPoint(x2, y2))

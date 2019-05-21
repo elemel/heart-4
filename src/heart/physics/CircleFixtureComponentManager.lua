@@ -1,5 +1,5 @@
 local class = require("heart.class")
-local mathUtils = require("heart.math.utils")
+local heartMath = require("heart.math")
 
 local CircleFixtureComponentManager = class.newClass()
 
@@ -18,7 +18,7 @@ function CircleFixtureComponentManager:createComponent(
   x, y = transform:transformPoint(x, y)
   x, y = body:getLocalPoint(x, y)
   local radius = config.radius or 0.5
-  radius = mathUtils.transformRadius(transform, radius)
+  radius = heartMath.transformRadius(transform, radius)
   local shape = love.physics.newCircleShape(x, y, radius)
   local density = config.density or 1
   local fixture = love.physics.newFixture(body, shape, density)

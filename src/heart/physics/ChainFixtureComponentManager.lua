@@ -1,5 +1,5 @@
 local class = require("heart.class")
-local mathUtils = require("heart.math.utils")
+local heartMath = require("heart.math")
 local physicsUtils = require("heart.physics.utils")
 
 local ChainFixtureComponentManager = class.newClass()
@@ -16,7 +16,7 @@ function ChainFixtureComponentManager:createComponent(
   local body = self.physicsDomain.bodies[bodyId]
   local loop = config.loop == true
   local points = assert(config.points)
-  local worldPoints = mathUtils.transformPoints2(transform, points)
+  local worldPoints = heartMath.transformPoints2(transform, points)
   local localPoints = physicsUtils.getLocalPoints(body, worldPoints)
 
   local shape = love.physics.newChainShape(loop, localPoints)

@@ -1,5 +1,5 @@
 local class = require("heart.class")
-local mathUtils = require("heart.math.utils")
+local heartMath = require("heart.math")
 
 local BodyComponentManager = class.newClass()
 
@@ -13,7 +13,7 @@ function BodyComponentManager:createComponent(entityId, config, transform)
   local y = config.y or 0
   x, y = transform:transformPoint(x, y)
   local angle = config.angle or 0
-  angle = mathUtils.transformAngle(transform, angle)
+  angle = heartMath.transformAngle(transform, angle)
   local bodyType = config.bodyType or "static"
   local body = love.physics.newBody(self.physicsDomain.world, x, y, bodyType)
   body:setUserData(entityId)

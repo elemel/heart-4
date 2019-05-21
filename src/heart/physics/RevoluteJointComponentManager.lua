@@ -1,5 +1,4 @@
 local class = require("heart.class")
-local mathUtils = require("heart.math.utils")
 
 local RevoluteJointComponentManager = class.newClass()
 

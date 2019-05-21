@@ -1,6 +1,5 @@
 local class = require("heart.class")
 local heartTable = require("heart.table")
-local mathUtils = require("heart.math.utils")
 
 local Game = class.newClass()
 
