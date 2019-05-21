@@ -48,6 +48,8 @@ return {
       transform = {-0.75, 0.375},
 
       components = {
+        bone = {},
+
         body = {
           bodyType = "dynamic",
         },
@@ -63,12 +65,29 @@ return {
           motorEnabled = true,
         },
       },
+
+      children = {
+        {
+          transform = {0, 0, 0, 1 / 16, 1 / 16, 8, 8},
+
+          components = {
+            bone = {},
+            parentConstraint = {},
+
+            sprite = {
+              image = "resources/images/wheel.png",
+            },
+          },
+        },
+      },
     },
 
     {
       transform = {0.75, 0.375},
 
       components = {
+        bone = {},
+
         body = {
           bodyType = "dynamic",
         },
@@ -83,9 +102,20 @@ return {
           springDampingRatio = 1,
           motorEnabled = true,
         },
+      },
 
-        sprite = {
-          image = "resources/images/wheel.png",
+      children = {
+        {
+          transform = {0, 0, 0, 1 / 16, 1 / 16, 8, 8},
+
+          components = {
+            bone = {},
+            parentConstraint = {},
+
+            sprite = {
+              image = "resources/images/wheel.png",
+            },
+          },
         },
       },
     },

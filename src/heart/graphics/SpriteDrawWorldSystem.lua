@@ -5,22 +5,19 @@ local SpriteDrawWorldSystem = class.newClass()
 
 function SpriteDrawWorldSystem:init(game, config)
   self.game = assert(game)
-  self.bones = assert(self.game.componentManagers.bone)
-  self.sprites = assert(self.game.componentManagers.sprite)
   self.spriteEntities = assert(self.game.componentEntitySets.sprite)
+  self.spriteComponents = assert(self.game.componentManagers.sprite)
 end
 
 function SpriteDrawWorldSystem:drawWorld(viewportId)
-  local transforms = self.bones.transforms
-  local entityIds = heartTable.keys(self.spriteEntities)
-  local zs = self.sprites.zs
-  table.sort(entityIds, function(a, b) return zs[a] < zs[b] end)
-  local images = self.sprites.images
+  local transforms = self.spriteComponents.interpolatedTransforms
+  local ids = heartTable.keys(self.spriteEntities)
+  local zs = self.spriteComponents.zs
+  table.sort(ids, function(a, b) return zs[a] < zs[b] end)
+  local images = self.spriteComponents.images
 
-  for i, entityId in ipairs(entityIds) do
-    local image = images[entityId]
-    local transform = transforms[entityId]
-    love.graphics.draw(image, transform)
+  for _, id in ipairs(ids) do
+    love.graphics.draw(images[id], transforms[id])
   end
 end
 

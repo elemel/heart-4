@@ -20,6 +20,11 @@ return {
     },
 
     {
+      componentType = "parentConstraint",
+      class = "heart.rigging.ParentConstraintComponentManager",
+    },
+
+    {
       componentType = "camera",
       class = "heart.CategoryComponentManager",
     },
@@ -98,16 +103,24 @@ return {
     },
 
     fixedUpdate = {
-      -- {
-      --   class = "resources.scripts.MinecartFixedUpdateSystem",
-      -- },
-
       {
         class = "resources.scripts.RiderFixedUpdateSystem",
       },
 
       {
         class = "heart.physics.WorldFixedUpdateSystem",
+      },
+
+      {
+        class = "heart.physics.BodyToBoneFixedUpdateSystem",
+      },
+
+      {
+        class = "heart.rigging.ParentConstraintFixedUpdateSystem",
+      },
+
+      {
+        class = "heart.graphics.BoneToSpriteFixedUpdateSystem",
       },
     },
 
@@ -121,17 +134,19 @@ return {
       {
         class = "heart.event.TimeUpdateSystem",
       },
+
+      {
+        class = "heart.graphics.SpriteUpdateSystem",
+      },
     },
   },
 
   entities = {
     {
-      components = {
-        bone = {
-          scaleX = 10,
-          scaleY = 10,
-        },
+      transform = {0, 0, 0, 10},
 
+      components = {
+        bone = {},
         camera = {},
         viewport = {},
       },

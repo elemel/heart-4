@@ -8,6 +8,8 @@ function love.load()
     resizable = true,
   })
 
+  love.graphics.setDefaultFilter("linear", "nearest")
+
   love.physics.setMeter(1)
 
   local resourceLoaders = {

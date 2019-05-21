@@ -104,6 +104,50 @@ function decompose2(transform)
   return x, y, angle, scaleX, scaleY, 0, 0, shearX, shearY
 end
 
+function mixTransforms(a, b, t, c)
+  local a11, a12, a13, a14,
+    a21, a22, a23, a24,
+    a31, a32, a33, a34,
+    a41, a42, a43, a44 = a:getMatrix()
+
+  local b11, b12, b13, b14,
+    b21, b22, b23, b24,
+    b31, b32, b33, b34,
+    b41, b42, b43, b44 = b:getMatrix()
+
+  local s = 1 - t
+
+  local c11 = s * a11 + t * b11
+  local c12 = s * a12 + t * b12
+  local c13 = s * a13 + t * b13
+  local c14 = s * a14 + t * b14
+
+  local c21 = s * a21 + t * b21
+  local c22 = s * a22 + t * b22
+  local c23 = s * a23 + t * b23
+  local c24 = s * a24 + t * b24
+
+  local c31 = s * a31 + t * b31
+  local c32 = s * a32 + t * b32
+  local c33 = s * a33 + t * b33
+  local c34 = s * a34 + t * b34
+
+  local c41 = s * a41 + t * b41
+  local c42 = s * a42 + t * b42
+  local c43 = s * a43 + t * b43
+  local c44 = s * a44 + t * b44
+
+  c = c or love.math.newTransform()
+
+  c:setMatrix(
+    c11, c12, c13, c14,
+    c21, c22, c23, c24,
+    c31, c32, c33, c34,
+    c41, c42, c43, c44)
+
+  return c
+end
+
 function transformPoints2(transform, source, target)
   target = target or {}
   local transformPoint = transform.transformPoint
@@ -157,6 +201,7 @@ return {
   mix = mix,
   mix2 = mix2,
   mixAngles = mixAngles,
+  mixTransforms = mixTransforms,
   normalize2 = normalize2,
   normalizeAngle = normalizeAngle,
   rectangleVertices = rectangleVertices,
