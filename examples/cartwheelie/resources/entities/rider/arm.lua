@@ -32,7 +32,7 @@ return {
 
         revoluteJoint = {
           limitsEnabled = true,
-          lowerLimit = -0.75 * math.pi,
+          lowerLimit = -0.875 * math.pi,
           upperLimit = 0,
         },
       },
