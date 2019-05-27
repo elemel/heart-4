@@ -1,5 +1,7 @@
 return {
   components = {
+    bone = {},
+
     body = {
       bodyType = "dynamic",
     },
@@ -40,6 +42,19 @@ return {
           x = 0.7,
           width = 0.1,
           height = 0.75,
+        },
+      },
+    },
+
+    {
+      transform = {0, 0, 0, 0.001, 0.001, 1000, 1000},
+
+      components = {
+        bone = {},
+        parentConstraint = {},
+
+        mesh = {
+          mesh = "resources/meshes/minecart.svg",
         },
       },
     },

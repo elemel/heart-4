@@ -26,7 +26,7 @@ return {
 
     {
       componentType = "camera",
-      class = "heart.CategoryComponentManager",
+      class = "heart.graphics.CameraComponentManager",
     },
 
     {
@@ -134,6 +134,10 @@ return {
 
       {
         class = "heart.graphics.BoneToMeshFixedUpdateSystem",
+      },
+
+      {
+        class = "heart.graphics.BoneToCameraFixedUpdateSystem",
       },
     },
 
