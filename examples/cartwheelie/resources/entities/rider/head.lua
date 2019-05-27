@@ -21,14 +21,14 @@ return {
 
   children = {
     {
-      transform = {0, 0, 0, 0.001, 0.001, 1000, 600},
+      transform = {0, 0, 0, 0.001, 0.001, 500, 500},
 
       components = {
         bone = {},
         parentConstraint = {},
 
         mesh = {
-          mesh = "resources/meshes/rider.svg",
+          mesh = "resources/meshes/rider/head.svg",
         },
       },
     },

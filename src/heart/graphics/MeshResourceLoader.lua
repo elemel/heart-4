@@ -5,13 +5,6 @@ local xml = require("heart.external.xml")
 local MeshResourceLoader = class.newClass()
 
 function MeshResourceLoader:init()
-  self.vertexFormat = {
-    {"VertexPosition", "float", 2},
-    {"VertexTexCoord", "float", 2},
-    {"VertexColor", "byte", 4},
-    {"BoneIndex", "float", 4},
-  }
-
   self.meshes = {}
 end
 
@@ -21,10 +14,10 @@ function MeshResourceLoader:loadResource(filename)
   if not mesh then
     local text = assert(love.filesystem.read(filename))
     local doc = xml.collect(text)
-    local element = svg.findElement(doc, "id", "head")
+    local element = doc[2]
     local vertices = {}
     self:loadElement(element, vertices)
-    mesh = love.graphics.newMesh(self.vertexFormat, vertices, "triangles")
+    mesh = love.graphics.newMesh(vertices, "triangles")
     self.meshes[filename] = mesh
   end
 
@@ -35,9 +28,10 @@ function MeshResourceLoader:loadElement(t, vertices)
   if t.label == "path" then
     local pathString = assert(t.xarg.d)
     local path = svg.parsePath(pathString)
+    local polygon = svg.renderPath(path)
 
-    if #path >= 6 then
-      local triangles = love.math.triangulate(path)
+    if #polygon >= 6 then
+      local triangles = love.math.triangulate(polygon)
       local styleString = assert(t.xarg.style)
       local style = svg.parseStyle(styleString)
       local colorString = assert(style.fill)
@@ -46,9 +40,9 @@ function MeshResourceLoader:loadElement(t, vertices)
 
       for i, triangle in ipairs(triangles) do
         local x1, y1, x2, y2, x3, y3 = unpack(triangle)
-        table.insert(vertices, {x1, y1, 0, 0, r, g, b, a, 0})
-        table.insert(vertices, {x2, y2, 0, 0, r, g, b, a, 0})
-        table.insert(vertices, {x3, y3, 0, 0, r, g, b, a, 0})
+        table.insert(vertices, {x1, y1, 0, 0, r, g, b, a})
+        table.insert(vertices, {x2, y2, 0, 0, r, g, b, a})
+        table.insert(vertices, {x3, y3, 0, 0, r, g, b, a})
       end
     end
   else
