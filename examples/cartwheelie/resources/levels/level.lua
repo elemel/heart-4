@@ -159,6 +159,10 @@ return {
       {
         class = "heart.graphics.MeshUpdateSystem",
       },
+
+      {
+        class = "heart.graphics.CameraUpdateSystem",
+      },
     },
   },
 
