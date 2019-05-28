@@ -1,52 +1,87 @@
 -- Adapted from: http://lua-users.org/wiki/LuaXml
 
-local function parseargs(s)
-  local arg = {}
-  string.gsub(s, "([%-%w:]+)=([\"'])(.-)%2", function (w, _, a)
-    arg[w] = a
+local xml = {}
+
+local function parseAttributes(s)
+  local attributes = {}
+
+  string.gsub(s, "([%-%w:]+)%s*=%s*([\"'])(.-)%2", function (name, quote, value)
+    attributes[name] = value
   end)
-  return arg
+
+  return attributes
 end
     
-local function collect(s)
-  local stack = {}
-  local top = {}
-  table.insert(stack, top)
-  local ni,c,label,xarg, empty
-  local i, j = 1, 1
+function xml.parseDocument(s)
+  local stack = {{}}
+  local i = 1
+  local line = 1
+
   while true do
-    ni,j,c,label,xarg, empty = string.find(s, "<(%/?)([%w:]+)(.-)(%/?)>", i)
-    if not ni then break end
-    local text = string.sub(s, i, ni-1)
+    local j, k, endSlash, name, attributesString, emptySlash =
+      string.find(s, "<(%/?)([%-%w:]+)(.-)(%/?)>", i)
+
+    if not j then
+      break
+    end
+
+    local text = string.sub(s, i, j - 1)
+
+    for newline in string.gmatch(text, "\n") do
+      line = line + 1
+    end
+
     if not string.find(text, "^%s*$") then
-      table.insert(top, text)
+      table.insert(stack[#stack], text)
     end
-    if empty == "/" then  -- empty element tag
-      table.insert(top, {label=label, xarg=parseargs(xarg), empty=1})
-    elseif c == "" then   -- start tag
-      top = {label=label, xarg=parseargs(xarg)}
-      table.insert(stack, top)   -- new level
-    else  -- end tag
-      local toclose = table.remove(stack)  -- remove top
-      top = stack[#stack]
-      if #stack < 1 then
-        error("nothing to close with "..label)
+
+    if endSlash == "/" then
+      if #stack == 1 then
+        error("Missing start tag for end tag: " .. name)
       end
-      if toclose.label ~= label then
-        error("trying to close "..toclose.label.." with "..label)
+
+      if stack[#stack].name ~= name then
+        error(
+          "End tag \"" .. name ..
+          "\" does not match start tag \"" .. stack[#stack].name .. "\"")
       end
-      table.insert(top, toclose)
+
+      local element = table.remove(stack)
+      table.insert(stack[#stack], element)
+    else
+      local attributes = parseAttributes(attributesString)
+
+      local element = {
+        name = name,
+        attributes = attributes,
+        line = line,
+      }
+
+      for newline in string.gmatch(attributesString, "\n") do
+        line = line + 1
+      end
+
+      if emptySlash == "/" then
+        table.insert(stack[#stack], element)
+      else
+        table.insert(stack, element)
+      end
     end
-    i = j+1
+
+    i = k + 1
   end
+
   local text = string.sub(s, i)
+
   if not string.find(text, "^%s*$") then
     table.insert(stack[#stack], text)
   end
+
   if #stack > 1 then
-    error("unclosed "..stack[#stack].label)
+    error("Missing end tag for start tag: " .. stack[#stack].name)
   end
+
   return stack[1]
 end
 
-return {collect = collect}
+return xml

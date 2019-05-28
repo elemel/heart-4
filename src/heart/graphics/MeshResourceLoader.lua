@@ -13,8 +13,9 @@ function MeshResourceLoader:loadResource(filename)
 
   if not mesh then
     local text = assert(love.filesystem.read(filename))
-    local doc = xml.collect(text)
-    local element = doc[2]
+    print(filename)
+    local document = xml.parseDocument(text)
+    local element = document[#document]
     local vertices = {}
     self:loadElement(element, vertices)
     mesh = love.graphics.newMesh(vertices, "triangles")
@@ -24,15 +25,15 @@ function MeshResourceLoader:loadResource(filename)
   return mesh
 end
 
-function MeshResourceLoader:loadElement(t, vertices)
-  if t.label == "path" then
-    local pathString = assert(t.xarg.d)
+function MeshResourceLoader:loadElement(element, vertices)
+  if element.name == "path" then
+    local pathString = assert(element.attributes.d)
     local path = svg.parsePath(pathString)
     local polygon = svg.renderPath(path)
 
     if #polygon >= 6 then
       local triangles = love.math.triangulate(polygon)
-      local styleString = assert(t.xarg.style)
+      local styleString = assert(element.attributes.style)
       local style = svg.parseStyle(styleString)
       local colorString = assert(style.fill)
       local r, g, b = svg.parseColor(colorString)
@@ -46,7 +47,7 @@ function MeshResourceLoader:loadElement(t, vertices)
       end
     end
   else
-    for i, v in ipairs(t) do
+    for i, v in ipairs(element) do
       if type(v) == "table" then
         self:loadElement(v, vertices)
       end

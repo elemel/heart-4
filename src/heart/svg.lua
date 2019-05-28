@@ -96,7 +96,7 @@ function svg.evaluateCubic(x1, y1, x2, y2, x3, y3, x4, y4, t)
 end
 
 function svg.findElement(t, k, v)
-  if t.xarg and t.xarg[k] == v then
+  if t.attributes and t.attributes[k] == v then
     return t
   end
 
