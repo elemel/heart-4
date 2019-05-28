@@ -74,7 +74,7 @@ function RiderFixedUpdateSystem:fixedUpdate(dt)
 
       if inputY ~= 1 then
         x = x + inputX * walkSpeed * dt / 0.3
-        y = y - 1.1
+        y = y - 1.15
       else
         x = x + 0.5 * inputX * walkSpeed * dt / 0.3
         y = y - 0.6
