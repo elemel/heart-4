@@ -12,15 +12,15 @@ function SpriteUpdateSystem:init(game, config)
 end
 
 function SpriteUpdateSystem:update(dt)
-  local transforms = self.spriteComponents.transforms
   local previousTransforms = self.spriteComponents.previousTransforms
+  local transforms = self.spriteComponents.transforms
   local t = self.timeDomain.accumulatedTimeStep / self.timeDomain.fixedTimeStep
   local interpolatedTransforms = self.spriteComponents.interpolatedTransforms
 
   for id in pairs(self.boneEntities) do
     if self.spriteEntities[id] then
       heartMath.mixTransforms(
-        transforms[id], previousTransforms[id], t, interpolatedTransforms[id])
+        previousTransforms[id], transforms[id], t, interpolatedTransforms[id])
     end
   end
 end

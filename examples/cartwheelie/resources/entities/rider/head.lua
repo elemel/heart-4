@@ -1,6 +1,8 @@
 return {
   components = {
-    bone = {},
+    bone = {
+      flat = true,
+    },
 
     body = {
       bodyType = "dynamic",

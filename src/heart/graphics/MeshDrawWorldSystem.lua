@@ -9,11 +9,15 @@ function MeshDrawWorldSystem:init(game, config)
 end
 
 function MeshDrawWorldSystem:drawWorld(viewportId)
+  love.graphics.setDepthMode("lequal", true)
+
   local transforms = self.meshComponents.interpolatedTransforms
 
   for id, mesh in pairs(self.meshComponents.meshes) do
     love.graphics.draw(mesh, transforms[id])
   end
+
+  love.graphics.setDepthMode()
 end
 
 return MeshDrawWorldSystem

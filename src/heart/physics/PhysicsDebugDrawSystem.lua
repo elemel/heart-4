@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local PhysicsDrawWorldSystem = class.newClass()
+local PhysicsDebugDrawSystem = class.newClass()
 
-function PhysicsDrawWorldSystem:init(game, config)
+function PhysicsDebugDrawSystem:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
 
@@ -11,7 +11,7 @@ function PhysicsDrawWorldSystem:init(game, config)
   }
 end
 
-function PhysicsDrawWorldSystem:drawWorld(viewportId)
+function PhysicsDebugDrawSystem:debugDraw(viewportId)
   local r, g, b, a = love.graphics.getColor()
 
   for i, body in ipairs(self.physicsDomain.world:getBodies()) do
@@ -25,8 +25,7 @@ function PhysicsDrawWorldSystem:drawWorld(viewportId)
         local shapeType = shape:getType()
 
         if shapeType == "polygon" then
-          love.graphics.polygon(
-              "line", body:getWorldPoints(shape:getPoints()))
+          love.graphics.polygon("line", body:getWorldPoints(shape:getPoints()))
         elseif shapeType == "circle" then
           local x, y = body:getWorldPoint(shape:getPoint())
           local radius = shape:getRadius()
@@ -59,4 +58,4 @@ function PhysicsDrawWorldSystem:drawWorld(viewportId)
   love.graphics.setColor(r, g, b, a)
 end
 
-return PhysicsDrawWorldSystem
+return PhysicsDebugDrawSystem

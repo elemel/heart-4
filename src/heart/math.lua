@@ -190,6 +190,56 @@ function rectangleVertices(x, y, width, height, angle)
   return x1, y1, x2, y2, x3, y3, x4, y4
 end
 
+local globalTransform = love.math.newTransform()
+
+function newTransform3(
+  x, y, z, rx, ry, rz, sx, sy, sz, ox, oy, oz, kx, ky, kz)
+
+  local transform = love.math.newTransform()
+
+  if x or y or z then
+    globalTransform:setMatrix(
+      1, 0, 0, x or 0,
+      0, 1, 0, y or 0,
+      0, 0, 1, z or 0,
+      0, 0, 0, 1)
+
+    transform:apply(globalTransform)
+  end
+
+  if rz then
+    globalTransform:setMatrix(
+      cos(rz), -sin(rz), 0, 0,
+      sin(rz), cos(rz), 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1)
+
+    transform:apply(globalTransform)
+  end
+
+  if sx or sy or sz then
+    globalTransform:setMatrix(
+      sx or 1, 0, 0, 0,
+      0, sy or 1, 0, 0,
+      0, 0, sz or 1, 0,
+      0, 0, 0, 1)
+
+    transform:apply(globalTransform)
+  end
+
+  if ox or oy or oz then
+    globalTransform:setMatrix(
+      1, 0, 0, -(ox or 0),
+      0, 1, 0, -(oy or 0),
+      0, 0, 1, -(oz or 0),
+      0, 0, 0, 1)
+
+    transform:apply(globalTransform)
+  end
+
+  return transform
+end
+
 return {
   clamp = clamp,
   clampLength2 = clampLength2,
@@ -202,6 +252,7 @@ return {
   mix2 = mix2,
   mixAngles = mixAngles,
   mixTransforms = mixTransforms,
+  newTransform3 = newTransform3,
   normalize2 = normalize2,
   normalizeAngle = normalizeAngle,
   rectangleVertices = rectangleVertices,

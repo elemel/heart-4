@@ -13,7 +13,6 @@ function MeshResourceLoader:loadResource(filename)
 
   if not mesh then
     local text = assert(love.filesystem.read(filename))
-    print(filename)
     local document = xml.parseDocument(text)
     local element = document[#document]
     local vertices = {}

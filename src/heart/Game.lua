@@ -1,4 +1,5 @@
 local class = require("heart.class")
+local heartMath = require("heart.math")
 local heartTable = require("heart.table")
 
 local Game = class.newClass()
@@ -130,7 +131,22 @@ function Game:createEntity(parentId, config, transform)
   local componentConfigs = config.components
 
   if config.transform then
-    transform = transform * love.math.newTransform(unpack(config.transform))
+    local localTransform = love.math.newTransform()
+
+    if config.transform.z then
+      localTransform:setMatrix(
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, config.transform.z,
+        0, 0, 0, 1)
+
+      transform = transform * localTransform
+    end
+
+    localTransform:setTransformation(unpack(config.transform))
+    transform = transform * localTransform
+  elseif config.transform3 then
+    transform = transform * heartMath.newTransform3(unpack(config.transform3))
   end
 
   if componentConfigs then
@@ -263,6 +279,7 @@ function Game:expandEntityConfig(config)
     id = config.id,
     parent = config.parent,
     transform = config.transform,
+    transform3 = config.transform3,
   }
 
   if config.components or prototype.components then

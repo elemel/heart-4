@@ -105,9 +105,11 @@ return {
       {
         class = "heart.graphics.MeshDrawWorldSystem",
       },
+    },
 
+    debugDraw = {
       {
-        class = "heart.physics.PhysicsDrawWorldSystem",
+        class = "heart.physics.PhysicsDebugDrawSystem",
       },
     },
 
@@ -122,6 +124,10 @@ return {
 
       {
         class = "heart.physics.BodyToBoneFixedUpdateSystem",
+      },
+
+      {
+        class = "resources.scripts.RiderToCameraFixedUpdateSystem",
       },
 
       {
@@ -178,6 +184,16 @@ return {
     },
 
     {
+      transform = {0, 0, 0, 0.001, 0.001, 8000, 8000, z = -1},
+
+      components = {
+        mesh = {
+          mesh = "resources/meshes/background.svg",
+        },
+      },
+    },
+
+    {
       transform = {0, 2},
 
       components = {
@@ -185,17 +201,26 @@ return {
 
         chainFixture = {
           points = {
-            -5, 0.1,
-            -4, -0.2,
-            -3, 0.3,
-            -2, 0.4,
-            -1, -0.1,
-            0, 0,
-            1, -0.3,
-            2, 0.2,
-            3, 0.5,
-            4, -0.4,
-            5, -0.5,
+            -8, 0.2,
+            -7, 0.7,
+            -6, 1.2,
+            -5, 1.5,
+            -4, 1.4,
+            -3, 1,
+            -2, 0.55,
+            -1.5, 0.35,
+            -1, 0.25,
+            -0.5, 0.2,
+            0, 0.3,
+            0.5, 0.4,
+            1, 0.55,
+            2, 0.8,
+            3, 1,
+            4, 1.2,
+            5, 1.1,
+            6, 0.8,
+            7, 0.3,
+            8, -0.3,
           },
         },
       },
@@ -203,12 +228,12 @@ return {
 
     {
       prototype = "resources.entities.minecart",
-      transform = {0, 0},
+      transform = {-4, 0},
     },
 
     {
       prototype = "resources.entities.rider",
-      transform = {0, -2, 0},
+      transform = {-4, -2},
     },
   },
 }

@@ -9,7 +9,7 @@ return {
     rectangleFixture = {
       width = 1.5,
       height = 0.75,
-      sensor = true,
+      groupIndex = -2,
     },
 
     minecart = {},
@@ -72,6 +72,7 @@ return {
         circleFixture = {
           radius = 0.3,
           friction = 5,
+          groupIndex = -2,
         },
 
         wheelJoint = {
@@ -110,6 +111,7 @@ return {
         circleFixture = {
           radius = 0.3,
           friction = 5,
+          groupIndex = -2,
         },
 
         wheelJoint = {

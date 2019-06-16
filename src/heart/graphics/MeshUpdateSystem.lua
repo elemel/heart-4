@@ -12,15 +12,15 @@ function MeshUpdateSystem:init(game, config)
 end
 
 function MeshUpdateSystem:update(dt)
-  local transforms = self.meshComponents.transforms
   local previousTransforms = self.meshComponents.previousTransforms
+  local transforms = self.meshComponents.transforms
   local t = self.timeDomain.accumulatedTimeStep / self.timeDomain.fixedTimeStep
   local interpolatedTransforms = self.meshComponents.interpolatedTransforms
 
   for id in pairs(self.boneEntities) do
     if self.meshEntities[id] then
       heartMath.mixTransforms(
-        transforms[id], previousTransforms[id], t, interpolatedTransforms[id])
+        previousTransforms[id], transforms[id], t, interpolatedTransforms[id])
     end
   end
 end

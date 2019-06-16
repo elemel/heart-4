@@ -11,14 +11,14 @@ function CameraUpdateSystem:init(game, config)
 end
 
 function CameraUpdateSystem:update(dt)
-  local transforms = self.cameraComponents.transforms
   local previousTransforms = self.cameraComponents.previousTransforms
+  local transforms = self.cameraComponents.transforms
   local t = self.timeDomain.accumulatedTimeStep / self.timeDomain.fixedTimeStep
   local interpolatedTransforms = self.cameraComponents.interpolatedTransforms
 
   for id in pairs(self.cameraEntities) do
     heartMath.mixTransforms(
-      transforms[id], previousTransforms[id], t, interpolatedTransforms[id])
+      previousTransforms[id], transforms[id], t, interpolatedTransforms[id])
   end
 end
 

@@ -1,5 +1,9 @@
 return {
   components = {
+    bone = {
+      flat = true,
+    },
+
     body = {
       bodyType = "dynamic",
     },
@@ -20,9 +24,26 @@ return {
 
   children = {
     {
+      transform = {0, 0, 0, 0.001, 0.001, 500, 500},
+
+      components = {
+        bone = {},
+        parentConstraint = {},
+
+        mesh = {
+          mesh = "resources/meshes/rider/upper-leg.svg",
+        },
+      },
+    },
+
+    {
       transform = {0, 0.35},
 
       components = {
+        bone = {
+          flat = true,
+        },
+
         body = {
           bodyType = "dynamic",
         },
@@ -43,9 +64,26 @@ return {
 
       children = {
         {
+          transform = {0, 0, 0, 0.001, 0.001, 500, 500},
+
+          components = {
+            bone = {},
+            parentConstraint = {},
+
+            mesh = {
+              mesh = "resources/meshes/rider/lower-leg.svg",
+            },
+          },
+        },
+
+        {
           transform = {0, 0.35},
 
           components = {
+            bone = {
+              flat = true,
+            },
+
             body = {
               bodyType = "dynamic",
             },
@@ -62,6 +100,21 @@ return {
               limitsEnabled = true,
               lowerLimit = -0.25 * math.pi,
               upperLimit = 0.25 * math.pi,
+            },
+          },
+
+          children = {
+            {
+              transform = {0, 0, 0, 0.001, 0.001, 500, 500},
+
+              components = {
+                bone = {},
+                parentConstraint = {},
+
+                mesh = {
+                  mesh = "resources/meshes/rider/foot.svg",
+                },
+              },
             },
           },
         },
