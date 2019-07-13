@@ -47,9 +47,33 @@ local function values(t, vs)
   return vs
 end
 
+local function get2(t, x, y)
+  return t[x] and t[x][y]
+end
+
+local function set2(t, x, y, v)
+  if v == nil then
+    if t[x] then
+      t[x][y] = nil
+
+      if next(t[x]) == nil then
+        t[x] = nil
+      end
+    end
+  else
+    if not t[x] then
+      t[x] = {}
+    end
+
+    t[x][y] = v
+  end
+end
+
 return {
   clear = clear,
+  get2 = get2,
   keys = keys,
   removeArrayValues = removeArrayValues,
+  set2 = set2,
   values = values,
 }

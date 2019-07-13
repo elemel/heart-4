@@ -4,41 +4,42 @@ local atan2 = math.atan2
 local cos = math.cos
 local max = math.max
 local min = math.min
+local modf = math.modf
 local pi = math.pi
 local sin = math.sin
 local sqrt = math.sqrt
 
-function sign(x)
+local function sign(x)
   return x < 0 and -1 or 1
 end
 
-function clamp(x, x1, x2)
+local function clamp(x, x1, x2)
   return min(max(x, x1), x2)
 end
 
 -- https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/smoothstep.xhtml
-function smoothstep(x1, x2, x)
+local function smoothstep(x1, x2, x)
   local t = clamp((x - x1) / (x2 - x1), 0, 1)
   return t * t * (3 - 2 * t)
 end
 
-function length2(x, y)
+local function length2(x, y)
   return sqrt(x * x + y * y)
 end
 
-function distance2(x1, y1, x2, y2)
+local function distance2(x1, y1, x2, y2)
   return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
 end
 
-function dot2(x1, y1, x2, y2)
+local function dot2(x1, y1, x2, y2)
   return x1 * x2 + y1 * y2
 end
 
-function cross2(x1, y1, x2, y2)
+local function cross2(x1, y1, x2, y2)
   return x1 * y2 - x2 * y1
 end
 
-function normalize2(x, y)
+local function normalize2(x, y)
   local length = length2(x, y)
 
   if length == 0 then
@@ -48,30 +49,30 @@ function normalize2(x, y)
   return x / length, y / length, length
 end
 
-function clampLength2(x, y, minLength, maxLength)
+local function clampLength2(x, y, minLength, maxLength)
   local x, y, length = normalize2(x, y)
   local clampedLength = clamp(length, minLength, maxLength)
   return x * clampedLength, y * clampedLength, length
 end
 
-function mix(x1, x2, t)
+local function mix(x1, x2, t)
   return (1 - t) * x1 + t * x2
 end
 
-function mix2(x1, y1, x2, y2, t)
+local function mix2(x1, y1, x2, y2, t)
   return (1 - t) * x1 + t * x2, (1 - t) * y1 + t * y2
 end
 
-function normalizeAngle(a)
+local function normalizeAngle(a)
   return (a + pi) % (2 * pi) - pi
 end
 
-function mixAngles(a1, a2, t)
+local function mixAngles(a1, a2, t)
   return a1 + normalizeAngle(a2 - a1) * t
 end
 
 -- http://frederic-wang.fr/decomposition-of-2d-transform-matrices.html
-function decompose2(transform)
+local function decompose2(transform)
   local t11, t12, t13, t14,
     t21, t22, t23, t24,
     t31, t32, t33, t34,
@@ -104,7 +105,7 @@ function decompose2(transform)
   return x, y, angle, scaleX, scaleY, 0, 0, shearX, shearY
 end
 
-function mixTransforms(a, b, t, c)
+local function mixTransforms(a, b, t, c)
   local a11, a12, a13, a14,
     a21, a22, a23, a24,
     a31, a32, a33, a34,
@@ -148,7 +149,7 @@ function mixTransforms(a, b, t, c)
   return c
 end
 
-function transformPoints2(transform, source, target)
+local function transformPoints2(transform, source, target)
   target = target or {}
   local transformPoint = transform.transformPoint
 
@@ -160,19 +161,19 @@ function transformPoints2(transform, source, target)
   return target
 end
 
-function transformVector2(transform, x, y)
+local function transformVector2(transform, x, y)
   local originX, originY = transform:transformPoint(0, 0)
   local worldX, worldY = transform:transformPoint(x, y)
   return worldX - originX, worldY - originY
 end
 
-function transformAngle(transform, angle)
+local function transformAngle(transform, angle)
   local originX, originY = transform:transformPoint(0, 0)
   local worldX, worldY = transform:transformPoint(cos(angle), sin(angle))
   return atan2(worldY - originY, worldX - originX)
 end
 
-function transformRadius(transform, radius)
+local function transformRadius(transform, radius)
   local _, _, _, scaleX, scaleY = decompose2(transform)
   local scale = sqrt(abs(scaleX * scaleY))
   return scale * radius
@@ -180,7 +181,7 @@ end
 
 local rectangleVerticesTransform = love.math.newTransform()
 
-function rectangleVertices(x, y, width, height, angle)
+local function rectangleVertices(x, y, width, height, angle)
   local transform = rectangleVerticesTransform
   transform:setTransformation(x, y, angle, width, height)
   local x1, y1 = transform:transformPoint(-0.5, -0.5)
@@ -192,7 +193,7 @@ end
 
 local globalTransform = love.math.newTransform()
 
-function newTransform3(
+local function newTransform3(
   x, y, z, rx, ry, rz, sx, sy, sz, ox, oy, oz, kx, ky, kz)
 
   local transform = love.math.newTransform()
@@ -240,6 +241,145 @@ function newTransform3(
   return transform
 end
 
+local function fbm(x, noise, octave, lacunarity, gain)
+    noise = noise or love.math.noise
+    octave = octave or 3
+    lacunarity = lacunarity or 2
+    gain = gain or 1 / lacunarity
+
+    local integralOctave, fractionalOctave = modf(octave)
+    local amplitude = 1
+
+    local totalNoise = 0
+    local totalAmplitude = 0
+
+    for i = 1, integralOctave do
+        totalNoise = totalNoise + amplitude * noise(x, 0)
+        totalAmplitude = totalAmplitude + amplitude
+
+        x = x * lacunarity
+        amplitude = amplitude * gain
+    end
+
+    if fractionalOctave > 0 then
+        totalNoise = totalNoise + fractionalOctave * amplitude * noise(x)
+        totalAmplitude = totalAmplitude + fractionalOctave * amplitude
+    end
+
+    return totalNoise / totalAmplitude
+end
+
+local function fbm2(x, y, noise, octave, lacunarityX, lacunarityY, gain)
+    noise = noise or love.math.noise
+    octave = octave or 3
+    lacunarityX = lacunarityX or 2
+    lacunarityY = lacunarityY or 2
+    gain = gain or 2 / (lacunarityX + lacunarityY)
+
+    local integralOctave, fractionalOctave = modf(octave)
+    local amplitude = 1
+
+    local totalNoise = 0
+    local totalAmplitude = 0
+
+    for i = 1, integralOctave do
+        totalNoise = totalNoise + amplitude * noise(x, y)
+        totalAmplitude = totalAmplitude + amplitude
+
+        x = x * lacunarityX
+        y = y * lacunarityY
+
+        amplitude = amplitude * gain
+    end
+
+    if fractionalOctave > 0 then
+        totalNoise = totalNoise + fractionalOctave * amplitude * noise(x, y)
+        totalAmplitude = totalAmplitude + fractionalOctave * amplitude
+    end
+
+    return totalNoise / totalAmplitude
+end
+
+local function fbm3(
+    x, y, z, noise, octave, lacunarityX, lacunarityY, lacunarityZ, gain)
+
+    noise = noise or love.math.noise
+    octave = octave or 3
+
+    lacunarityX = lacunarityX or 2
+    lacunarityY = lacunarityY or 2
+    lacunarityZ = lacunarityZ or 2
+
+    gain = gain or 3 / (lacunarityX + lacunarityY + lacunarityZ)
+
+    local integralOctave, fractionalOctave = modf(octave)
+    local amplitude = 1
+
+    local totalNoise = 0
+    local totalAmplitude = 0
+
+    for i = 1, integralOctave do
+        totalNoise = totalNoise + amplitude * noise(x, y, z)
+        totalAmplitude = totalAmplitude + amplitude
+
+        x = x * lacunarityX
+        y = y * lacunarityY
+        z = z * lacunarityZ
+
+        amplitude = amplitude * gain
+    end
+
+    if fractionalOctave > 0 then
+        totalNoise = totalNoise + fractionalOctave * amplitude * noise(x, y, z)
+        totalAmplitude = totalAmplitude + fractionalOctave * amplitude
+    end
+
+    return totalNoise / totalAmplitude
+end
+
+local function fbm4(
+    x, y, z, w,
+    noise,
+    octave,
+    lacunarityX, lacunarityY, lacunarityZ, lacunarityW,
+    gain)
+
+    noise = noise or love.math.noise
+    octave = octave or 3
+
+    lacunarityX = lacunarityX or 2
+    lacunarityY = lacunarityY or 2
+    lacunarityZ = lacunarityZ or 2
+    lacunarityW = lacunarityW or 2
+
+    gain = gain or 4 / (lacunarityX + lacunarityY + lacunarityZ + lacunarityW)
+
+    local integralOctave, fractionalOctave = modf(octave)
+    local amplitude = 1
+
+    local totalNoise = 0
+    local totalAmplitude = 0
+
+    for i = 1, integralOctave do
+        totalNoise = totalNoise + amplitude * noise(x, y, z, w)
+        totalAmplitude = totalAmplitude + amplitude
+
+        x = x * lacunarityX
+        y = y * lacunarityY
+        z = z * lacunarityZ
+        w = w * lacunarityW
+
+        amplitude = amplitude * gain
+    end
+
+    if fractionalOctave > 0 then
+        totalNoise = totalNoise + fractionalOctave * amplitude * noise(x, y, z, w)
+        totalAmplitude = totalAmplitude + fractionalOctave * amplitude
+    end
+
+    return totalNoise / totalAmplitude
+end
+
 return {
   clamp = clamp,
   clampLength2 = clampLength2,
@@ -247,6 +387,10 @@ return {
   decompose2 = decompose2,
   distance2 = distance2,
   dot2 = dot2,
+  fbm = fbm,
+  fbm2 = fbm2,
+  fbm3 = fbm3,
+  fbm4 = fbm4,
   length2 = length2,
   mix = mix,
   mix2 = mix2,

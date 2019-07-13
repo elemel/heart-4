@@ -43,7 +43,9 @@ function ViewportDrawSystem:draw()
       love.graphics.scale(heights[id], heights[id])
       love.graphics.applyTransform(debugTransform:inverse())
       love.graphics.setLineWidth(scale / heights[id])
+      love.graphics.setColor(0, 1, 0, 1)
       self.game:handleEvent("debugDraw", id)
+      love.graphics.setColor(1, 1, 1, 1)
       love.graphics.pop()
     end
   end
