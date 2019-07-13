@@ -1,3 +1,3 @@
-# heart-4
+# heart
 
 Entity–component–system in LÖVE
