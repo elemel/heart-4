@@ -241,6 +241,27 @@ local function newTransform3(
   return transform
 end
 
+local function bounds2(points)
+  local minX = math.huge
+  local minY = math.huge
+
+  local maxX = -math.huge
+  local maxY = -math.huge
+
+  for i = 1, #points, 2 do
+    local x = points[i]
+    local y = points[i + 1]
+
+    minX = min(minX, x)
+    minY = min(minY, y)
+
+    maxX = max(maxX, x)
+    maxY = max(maxY, y)
+  end
+
+  return minX, minY, maxX, maxY
+end
+
 local function fbm(x, noise, octave, lacunarity, gain)
     noise = noise or love.math.noise
     octave = octave or 3
@@ -381,6 +402,7 @@ local function fbm4(
 end
 
 return {
+  bounds2 = bounds2,
   clamp = clamp,
   clampLength2 = clampLength2,
   cross2 = cross2,

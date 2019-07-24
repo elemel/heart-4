@@ -12,6 +12,7 @@ function PhysicsDomain:init(game, config)
 
   self.chainFixtures = {}
   self.circleFixtures = {}
+  self.polygonFixtures = {}
   self.rectangleFixtures = {}
 
   self.frictionJoints = {}
