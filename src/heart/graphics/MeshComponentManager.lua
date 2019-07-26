@@ -14,8 +14,9 @@ function MeshComponentManager:init(game, config)
 end
 
 function MeshComponentManager:createComponent(id, config, transform)
-  local meshFilename = assert(config.mesh, "Missing mesh")
-  self.meshes[id] = self.meshResources:loadResource(meshFilename)
+  if config.mesh then
+    self.meshes[id] = self.meshResources:loadResource(config.mesh)
+  end
 
   self.transforms[id] = transform:clone()
   self.previousTransforms[id] = transform:clone()
