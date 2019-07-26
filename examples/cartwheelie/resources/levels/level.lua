@@ -16,12 +16,12 @@ return {
   componentManagers = {
     {
       componentType = "bone",
-      class = "heart.rigging.BoneComponentManager",
+      class = "heart.animation.BoneComponentManager",
     },
 
     {
       componentType = "parentConstraint",
-      class = "heart.rigging.ParentConstraintComponentManager",
+      class = "heart.animation.ParentConstraintComponentManager",
     },
 
     {
@@ -131,7 +131,7 @@ return {
       },
 
       {
-        class = "heart.rigging.ParentConstraintFixedUpdateSystem",
+        class = "heart.animation.ParentConstraintFixedUpdateSystem",
       },
 
       {
