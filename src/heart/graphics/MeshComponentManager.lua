@@ -16,6 +16,11 @@ end
 function MeshComponentManager:createComponent(id, config, transform)
   if config.mesh then
     self.meshes[id] = self.meshResources:loadResource(config.mesh)
+  else
+    local vertexCount = assert(config.vertexCount)
+    local drawMode = config.drawMode or "fan"
+    local usage = config.usage or "dynamic"
+    self.meshes[id] = love.graphics.newMesh(vertexCount, drawMode, usage)
   end
 
   self.transforms[id] = transform:clone()
