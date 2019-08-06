@@ -1,5 +1,7 @@
 local class = require("heart.class")
+local getLocalPoints = heart.physics.getLocalPoints
 local heartMath = require("heart.math")
+local transformPoints2 = heart.math.transformPoints2
 
 local PolygonFixtureComponentManager = class.newClass()
 
@@ -16,7 +18,8 @@ function PolygonFixtureComponentManager:createComponent(id, config, transform)
   if config.localVertices then
     localVertices = config.localVertices
   else
-    localVertices = heart.physics.getLocalPoints(body, config.vertices)
+    local vertices = transformPoints2(transform, config.vertices)
+    localVertices = getLocalPoints(body, vertices)
   end
 
   local shape = love.physics.newPolygonShape(localVertices)
