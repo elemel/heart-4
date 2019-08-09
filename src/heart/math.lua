@@ -262,6 +262,13 @@ local function bounds2(points)
   return minX, minY, maxX, maxY
 end
 
+local function rotate2(x, y, angle)
+  local cosAngle = cos(angle)
+  local sinAngle = sin(angle)
+
+  return cosAngle * x - sinAngle * y, sinAngle * x + cosAngle * y
+end
+
 local function fbm(x, noise, octave, lacunarity, gain)
     noise = noise or love.math.noise
     octave = octave or 3
@@ -422,6 +429,7 @@ return {
   normalize2 = normalize2,
   normalizeAngle = normalizeAngle,
   rectangleVertices = rectangleVertices,
+  rotate2 = rotate2,
   sign = sign,
   smoothstep = smoothstep,
   transformAngle = transformAngle,
