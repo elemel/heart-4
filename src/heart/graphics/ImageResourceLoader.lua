@@ -10,6 +10,7 @@ function ImageResourceLoader:loadResource(filename)
   local image = self.images[filename]
 
   if not image then
+    -- print("Loading image: " .. filename)
     image = love.graphics.newImage(filename)
     self.images[filename] = image
   end

@@ -14,7 +14,7 @@ end
 function MeshUpdateSystem:update(dt)
   local previousTransforms = self.meshComponents.previousTransforms
   local transforms = self.meshComponents.transforms
-  local t = self.timeDomain.accumulatedTimeStep / self.timeDomain.fixedTimeStep
+  local t = self.timeDomain.accumulatedDt / self.timeDomain.fixedDt
   local interpolatedTransforms = self.meshComponents.interpolatedTransforms
 
   for id in pairs(self.boneEntities) do

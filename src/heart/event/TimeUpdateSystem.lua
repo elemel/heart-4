@@ -8,16 +8,12 @@ function TimeUpdateSystem:init(game, config)
 end
 
 function TimeUpdateSystem:update(dt)
-  local fixedTimeStep = self.timeDomain.fixedTimeStep
+  local fixedDt = self.timeDomain.fixedDt
+  self.timeDomain.accumulatedDt = self.timeDomain.accumulatedDt + dt
 
-  self.timeDomain.accumulatedTimeStep =
-    self.timeDomain.accumulatedTimeStep + dt
-
-  while self.timeDomain.accumulatedTimeStep - fixedTimeStep >= 0 do
-    self.timeDomain.accumulatedTimeStep =
-      self.timeDomain.accumulatedTimeStep - fixedTimeStep
-
-    self.game:handleEvent("fixedUpdate", fixedTimeStep)
+  while self.timeDomain.accumulatedDt - fixedDt >= 0 do
+    self.timeDomain.accumulatedDt = self.timeDomain.accumulatedDt - fixedDt
+    self.game:handleEvent("fixedUpdate", fixedDt)
   end
 end
 

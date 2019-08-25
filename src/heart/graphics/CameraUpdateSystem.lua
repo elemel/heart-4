@@ -13,7 +13,7 @@ end
 function CameraUpdateSystem:update(dt)
   local previousTransforms = self.cameraComponents.previousTransforms
   local transforms = self.cameraComponents.transforms
-  local t = self.timeDomain.accumulatedTimeStep / self.timeDomain.fixedTimeStep
+  local t = self.timeDomain.accumulatedDt / self.timeDomain.fixedDt
   local interpolatedTransforms = self.cameraComponents.interpolatedTransforms
 
   for id in pairs(self.cameraEntities) do
