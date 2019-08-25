@@ -47,33 +47,147 @@ local function values(t, vs)
   return vs
 end
 
-local function get2(t, x, y)
-  return t[x] and t[x][y]
+local function get(t, k, v)
+  local v2 = t[k]
+
+  if v2 == nil then
+    return v
+  end
+
+  return v2
 end
 
-local function set2(t, x, y, v)
+local function get2(t, k1, k2, v)
+  t = t[k1]
+
+  if t == nil then
+    return v
+  end
+
+  local v2 = t[k2]
+
+  if v2 == nil then
+    return v
+  end
+
+  return v2
+end
+
+local function get3(t, k1, k2, k3, v)
+  t = t[k1]
+
+  if t == nil then
+    return v
+  end
+
+  t = t[k2]
+
+  if t == nil then
+    return v
+  end
+
+  local v2 = t[k3]
+
+  if v2 == nil then
+    return v
+  end
+
+  return v2
+end
+
+local function set2(t, k1, k2, v)
   if v == nil then
-    if t[x] then
-      t[x][y] = nil
+    local t2 = t[k1]
 
-      if next(t[x]) == nil then
-        t[x] = nil
-      end
+    if t2 == nil then
+      return
     end
+
+    local v2 = t2[k2]
+
+    if v2 == nil then
+      return
+    end
+
+    t2[k2] = nil
+
+    if next(t2) ~= nil then
+      return
+    end
+
+    t[k1] = nil
   else
-    if not t[x] then
-      t[x] = {}
+    local t2 = t[k1]
+
+    if t2 == nil then
+      t2 = {}
+      t[k1] = t2
     end
 
-    t[x][y] = v
+    t2[k2] = v
+  end
+end
+
+local function set3(t, k1, k2, k3, v)
+  if v == nil then
+    local t2 = t[k1]
+
+    if t2 == nil then
+      return
+    end
+
+    local t3 = t2[k2]
+
+    if t3 == nil then
+      return
+    end
+
+    local v2 = t3[k3]
+
+    if v2 == nil then
+      return
+    end
+
+    t3[k3] = nil
+
+    if next(t3) ~= nil then
+      return
+    end
+
+    t2[k2] = nil
+
+    if next(t2) ~= nil then
+      return
+    end
+
+    t[k1] = nil
+  else
+    local t2 = t[k1]
+
+    if t2 == nil then
+      t2 = {}
+      t[k1] = t2
+    end
+
+    local t3 = t2[k2]
+
+    if t3 == nil then
+      t3 = {}
+      t2[k2] = t3
+    end
+
+    t3[k3] = v
   end
 end
 
 return {
   clear = clear,
+  get = get,
   get2 = get2,
+  get3 = get3,
   keys = keys,
   removeArrayValues = removeArrayValues,
   set2 = set2,
+  set3 = set3,
   values = values,
 }
