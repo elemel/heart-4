@@ -1,0 +1,18 @@
+return {
+  "resources/images/tiles/brick.png",
+  "resources/images/tiles/brickFloor.png",
+  "resources/images/tiles/ceilingColumn.png",
+  "resources/images/tiles/ceilingSpikes.png",
+  "resources/images/tiles/column.png",
+  "resources/images/tiles/dirt.png",
+  "resources/images/tiles/dirtFloor.png",
+  "resources/images/tiles/floorColumn.png",
+  "resources/images/tiles/floorSpikes.png",
+  "resources/images/tiles/grass.png",
+  "resources/images/tiles/leftSign.png",
+  "resources/images/tiles/rightSign.png",
+  "resources/images/tiles/stone.png",
+  "resources/images/tiles/stoneFloor.png",
+  "resources/images/tiles/wood.png",
+  "resources/images/tiles/woodenFloor.png",
+}

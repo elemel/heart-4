@@ -1,0 +1,18 @@
+return {
+  black = "#000000",
+  blue = "#005784",
+  brightBlue = "#aed9eb",
+  brown = "#a36421",
+  darkBlue = "#1a2532",
+  darkBrown = "#493c2b",
+  darkGreen = "#f7e26b",
+  gray = "#9d9d9d",
+  green = "#45891a",
+  lightGreen = "#a3ce26",
+  lightBlue = "#309fed",
+  orange = "#eb8830",
+  pink = "#e06f8c",
+  red = "#be2634",
+  white = "#ffffff",
+  yellow = "#f7e26b",
+}
