@@ -27,6 +27,10 @@ local function length2(x, y)
   return sqrt(x * x + y * y)
 end
 
+local function squaredDistance2(x1, y1, x2, y2)
+  return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)
+end
+
 local function distance2(x1, y1, x2, y2)
   return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
 end
@@ -432,6 +436,7 @@ return {
   rotate2 = rotate2,
   sign = sign,
   smoothstep = smoothstep,
+  squaredDistance2 = squaredDistance2,
   transformAngle = transformAngle,
   transformPoints2 = transformPoints2,
   transformRadius = transformRadius,
