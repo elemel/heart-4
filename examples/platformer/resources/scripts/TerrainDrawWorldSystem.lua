@@ -15,7 +15,7 @@ function TerrainDrawWorldSystem:drawWorld(viewportId)
     for y, row in pairs(tileGrid) do
       for x, tileType in pairs(row) do
         local layerIndex = layerIndices[tileType]
-        love.graphics.drawLayer(image, layerIndex, x, y, 0, scale)
+        love.graphics.drawLayer(image, layerIndex, x - 1, y - 1, 0, scale)
       end
     end
   end

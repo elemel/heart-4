@@ -12,7 +12,9 @@ function TerrainComponentManager:createComponent(id, config, transform)
   local tileGrid = {}
 
   local legend = {
+    ["#"] = "brick",
     ["W"] = "ceilingSpikes",
+    ["&"] = "cloud",
     ["|"] = "column",
     ["@"] = "dirt",
     ["M"] = "floorSpikes",
@@ -34,6 +36,18 @@ function TerrainComponentManager:createComponent(id, config, transform)
 
   for y, row in pairs(tileGrid) do
     for x, tileType in pairs(row) do
+      if tileType == "cloud" and get2(tileGrid, y - 1, x) ~= "cloud" and get2(tileGrid, y - 1, x) ~= "cloudFloor" then
+        row[x] = "cloudFloor"
+      end
+
+      if tileType == "cloud" and get2(tileGrid, y + 1, x) ~= "cloud" and get2(tileGrid, y + 1, x) ~= "cloudCeiling" then
+        row[x] = "cloudCeiling"
+      end
+
+      if tileType == "brick" and get2(tileGrid, y - 1, x) ~= "brick" and get2(tileGrid, y - 1, x) ~= "brickFloor" then
+        row[x] = "brickFloor"
+      end
+
       if tileType == "column" and get2(tileGrid, y - 1, x) ~= "column" and get2(tileGrid, y - 1, x) ~= "ceilingColumn" then
         row[x] = "ceilingColumn"
       end

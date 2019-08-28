@@ -48,17 +48,17 @@ function CollisionFixedUpdateSystem:fixedUpdate(dt)
       local tileDistances = {}
       local tileIndices = {}
 
-      for tileY = floor(y - 0.5 * height), floor(y + 0.5 * height) do
+      for tileY = floor(y - 0.5 * height) + 1, floor(y + 0.5 * height) + 1 do
         local tileRow = tileGrid[tileY]
 
         if tileRow then
-          for tileX = floor(x - 0.5 * width), floor(x + 0.5 * width) do
+          for tileX = floor(x - 0.5 * width) + 1, floor(x + 0.5 * width) + 1 do
             if tileRow[tileX] and tileRow[tileX] ~= "grass" and tileRow[tileX] ~= "column" and tileRow[tileX] ~= "ceilingColumn" and tileRow[tileX] ~= "floorColumn" and tileRow[tileX] ~= "ceilingSpikes" and tileRow[tileX] ~= "floorSpikes"  and tileRow[tileX] ~= "leftSign" and tileRow[tileX] ~= "rightSign" then
               insert(tilePositions, tileX)
               insert(tilePositions, tileY)
 
               local distance = squaredDistance2(
-                xs[colliderId], ys[colliderId], tileX + 0.5, tileY + 0.5)
+                xs[colliderId], ys[colliderId], tileX - 0.5, tileY - 0.5)
 
               insert(tileDistances, distance)
               insert(tileIndices, #tileIndices + 1)
@@ -77,7 +77,7 @@ function CollisionFixedUpdateSystem:fixedUpdate(dt)
 
         local distance, normalX, normalY, direction = boxDistance(
           x - 0.5 * width, y - 0.5 * height, x + 0.5 * width, y + 0.5 * height,
-          tileX, tileY, tileX + 1, tileY + 1)
+          tileX - 1, tileY - 1, tileX, tileY)
 
         if distance < -0.001 then
           x = x + distance * normalX

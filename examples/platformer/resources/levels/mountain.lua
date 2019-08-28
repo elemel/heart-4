@@ -23,6 +23,11 @@ return {
     },
 
     {
+      componentType = "player",
+      class = "heart.CategoryComponentManager",
+    },
+
+    {
       componentType = "bone",
       class = "heart.animation.BoneComponentManager",
     },
@@ -113,7 +118,7 @@ return {
 
       {
         class = "resources.scripts.GravityFixedUpdateSystem",
-        gravityY = 20,
+        gravityY = 32,
       },
 
       {
@@ -131,6 +136,10 @@ return {
       {
         class = "resources.scripts.CharacterAnimationFixedUpdateSystem",
       },
+
+      {
+        class = "resources.scripts.CameraFixedUpdateSystem",
+      },
     },
 
     resize = {
@@ -147,12 +156,16 @@ return {
       {
         class = "heart.graphics.SpriteUpdateSystem",
       },
+
+      {
+        class = "heart.graphics.CameraUpdateSystem",
+      },
     },
   },
 
   entities = {
     {
-      transform = {0, 0, 0, 16},
+      transform = {13, 8, 0, 16},
 
       components = {
         camera = {},
@@ -164,11 +177,22 @@ return {
       components = {
         terrain = {
           tileGrid = {
-            "   %%%%%",
-            "    | W ",
-            "    |   ",
-            ",>, | M ",
-            "@@@%%%%%",
+            "   &&                                                           ",
+            "  &&&& &&                                                       ",
+            " &&&&&&&&&                                                      ",
+            " &&&&&&&&&&       %%%%%%                                        ",
+            "   &&&&&&&&          %%%%%%       %%%                           ",
+            "                     %%%%%%      %%%%                           ",
+            "               %%%%  %%%%%%      %%%%       %%%%                ",
+            "                |    %%%%%%      %%%%%     %%%%%%               ",
+            "                |    %%%%%%%    %%%%%%     %%%%%%               ",
+            "                | %%%%%%%%%%    %%%%%%%  %%%%%%%%               ",
+            "                |  | %%%%%%%%%%%%%%%%%%%%%%%%%%%%               ",
+            "                |  |  %%%%%%%%%%%%%%%%%%%%%%%%%%%%              ",
+            "         %%%%  %%% |  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        ",
+            "         %%%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      ",
+            " >    %%%%%%%MM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    > ",
+            "@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@",
           },
         },
       },
@@ -178,15 +202,16 @@ return {
       transform = {2, -2, 0, 1 / 16, 1 / 16, 8, 8},
 
       components = {
+        gravity = {},
+        player = {},
         bone = {},
 
         position = {
-          x = 2,
-          y = -2,
+          x = 2.5,
+          y = 14.5,
         },
 
         velocity = {},
-        gravity = {},
 
         box = {
           width = 0.5,
@@ -195,13 +220,15 @@ return {
         collider = {},
 
         sprite = {
-          image = "resources/images/characters/woman/idleWoman.png",
+          image = "resources/images/characters/man/idleMan.png",
         },
 
-        characterState = {},
+        characterState = {
+          state = "standing",
+        },
 
         character = {
-          characterType = "spider",
+          characterType = "man",
         },
       },
     },

@@ -25,6 +25,12 @@ function CharacterFixedUpdateSystem:init(game, config)
     standing = self.updateStanding,
     walking = self.updateWalking,
   }
+
+  self.standingJumpSpeed = 10
+  self.walkingJumpSpeed = 15
+  self.walkSpeed = 4
+  self.walkAcceleration = 16
+  self.standAcceleration = 16
 end
 
 function CharacterFixedUpdateSystem:fixedUpdate(dt)
@@ -117,7 +123,7 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
       local jumpInput = love.keyboard.isDown("space")
 
       if jumpInput then
-        ys[id] = ys[id] - 8 * dt
+        ys[id] = ys[id] - self.standingJumpSpeed * dt
         newStates[id] = "falling"
         break
       end
@@ -161,7 +167,7 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
       local jumpInput = love.keyboard.isDown("space")
 
       if jumpInput then
-        ys[id] = ys[id] - 8 * dt
+        ys[id] = ys[id] - self.walkingJumpSpeed * dt
         newStates[id] = "falling"
         break
       end
@@ -197,8 +203,7 @@ function CharacterFixedUpdateSystem:updateStanding(ids, dt)
   local xs = self.positionComponents.xs
   local previousXs = self.velocityComponents.previousXs
 
-  local maxAccelerationX = 8
-  local maxDdx = maxAccelerationX * dt * dt
+  local maxDdx = self.standAcceleration * dt * dt
 
   for id in pairs(ids) do
     local dx = xs[id] - previousXs[id]
@@ -217,11 +222,9 @@ function CharacterFixedUpdateSystem:updateWalking(ids, dt)
   local rightInput = love.keyboard.isDown("d")
 
   local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-  local maxAccelerationX = 8
-  local maxVelocityX = 2
-  local targetVelocityX = inputX * maxVelocityX
+  local targetVelocityX = inputX * self.walkSpeed
   local targetDx = targetVelocityX * dt
-  local maxDdx = maxAccelerationX * dt * dt
+  local maxDdx = self.walkAcceleration * dt * dt
 
   for id in pairs(ids) do
     local dx = xs[id] - previousXs[id]

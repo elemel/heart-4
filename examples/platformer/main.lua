@@ -22,7 +22,7 @@ function love.load()
     image = heart.graphics.ImageResourceLoader.new(),
   }
 
-  local config = require("resources.levels.start")
+  local config = require("resources.levels.mountain")
   game = heart.Game.new(resourceLoaders, config)
 end
 
