@@ -7,6 +7,7 @@ function CharacterComponentManager:init(game, config)
 
   self.directionXs = {}
   self.characterTypes = {}
+  self.animationTimes = {}
 
   self.skins = {
     demon = {
@@ -93,11 +94,13 @@ end
 function CharacterComponentManager:createComponent(id, config, transform)
   self.characterTypes[id] = assert(config.characterType)
   self.directionXs[id] = config.directionX or 1
+  self.animationTimes[id] = config.animationTime or 0
 end
 
 function CharacterComponentManager:destroyComponent(id)
   self.characterTypes[id] = nil
   self.directionXs[id] = nil
+  self.animationTimes[id] = nil
 end
 
 return CharacterComponentManager

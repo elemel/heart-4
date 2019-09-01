@@ -34,7 +34,11 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
   local characterTypes = self.characterComponents.characterTypes
   local skins = self.characterComponents.skins
 
+  local animationTimes = self.characterComponents.animationTimes
+
   for id in pairs(self.characterEntities) do
+    animationTimes[id] = animationTimes[id] + dt
+
     local characterType = characterTypes[id]
     local skin = skins[characterType]
     local state = states[id]
@@ -45,10 +49,14 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
       images[id] = self.imageResources:loadResource(skin.dead)
     elseif state == "falling" then
       images[id] = self.imageResources:loadResource(skin.jumping)
+    elseif state == "running" then
+      local frame = animationTimes[id] % 0.3 < 0.15 and skin.running or skin.jumping
+      images[id] = self.imageResources:loadResource(frame)
     elseif state == "standing" then
       images[id] = self.imageResources:loadResource(skin.idle)
     elseif state == "walking" then
-      images[id] = self.imageResources:loadResource(skin.running)
+      local frame = animationTimes[id] % 0.5 < 0.25 and skin.running or skin.jumping
+      images[id] = self.imageResources:loadResource(frame)
     end
 
     previousTransforms[id]:reset():setTransformation(

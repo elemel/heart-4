@@ -228,7 +228,7 @@ return {
         },
 
         character = {
-          characterType = "man",
+          characterType = "goblin",
         },
       },
     },
