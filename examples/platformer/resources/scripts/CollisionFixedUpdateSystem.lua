@@ -4,6 +4,7 @@ local boxDistance = utils.boxDistance
 local clear = heart.table.clear
 local floor = math.floor
 local insert = table.insert
+local get2 = heart.table.get2
 local set2 = heart.table.set2
 local sort = table.sort
 local squaredDistance2 = heart.math.squaredDistance2
@@ -16,19 +17,26 @@ function CollisionFixedUpdateSystem:init(game, config)
   self.colliderEntities = assert(self.game.componentEntitySets.collider)
   self.colliderComponents = assert(self.game.componentManagers.collider)
   self.positionComponents = assert(self.game.componentManagers.position)
+  self.velocityComponents = assert(self.game.componentManagers.velocity)
   self.boxComponents = assert(self.game.componentManagers.box)
 
   self.terrainComponents = assert(self.game.componentManagers.terrain)
+
+  self.wallTileTypes = {dirt = true, dirtFloor = true, stone = true, stoneFloor = true}
 end
 
 function CollisionFixedUpdateSystem:fixedUpdate(dt)
   local xs = self.positionComponents.xs
   local ys = self.positionComponents.ys
 
+  local previousXs = self.velocityComponents.previousXs
+  local previousYs = self.velocityComponents.previousYs
+
   local widths = self.boxComponents.widths
   local heights = self.boxComponents.heights
 
   local constraintMaps = self.colliderComponents.constraintMaps
+  local wallTileTypes = self.wallTileTypes
 
   for colliderId, map in pairs(constraintMaps) do
     clear(map)
@@ -38,55 +46,64 @@ function CollisionFixedUpdateSystem:fixedUpdate(dt)
     for colliderId in pairs(self.colliderEntities) do
       local constraintMap = constraintMaps[colliderId]
 
-      local x = xs[colliderId]
-      local y = ys[colliderId]
-
       local width = widths[colliderId]
       local height = heights[colliderId]
 
-      local tilePositions = {}
-      local tileDistances = {}
-      local tileIndices = {}
+      local x = xs[colliderId]
+      local y = previousYs[colliderId]
 
-      for tileY = floor(y - 0.5 * height) + 1, floor(y + 0.5 * height) + 1 do
-        local tileRow = tileGrid[tileY]
+      if x < previousXs[colliderId] then
+        local tileX = floor(x - 0.5 * width + 0.001) + 1
 
-        if tileRow then
-          for tileX = floor(x - 0.5 * width) + 1, floor(x + 0.5 * width) + 1 do
-            if tileRow[tileX] and tileRow[tileX] ~= "grass" and tileRow[tileX] ~= "column" and tileRow[tileX] ~= "ceilingColumn" and tileRow[tileX] ~= "floorColumn" and tileRow[tileX] ~= "ceilingSpikes" and tileRow[tileX] ~= "floorSpikes"  and tileRow[tileX] ~= "leftSign" and tileRow[tileX] ~= "rightSign" then
-              insert(tilePositions, tileX)
-              insert(tilePositions, tileY)
+        for tileY = floor(y - 0.5 * height + 0.001) + 1, floor(y + 0.5 * height - 0.001) + 1 do
+          local tileType = get2(tileGrid, tileY, tileX)
 
-              local distance = squaredDistance2(
-                xs[colliderId], ys[colliderId], tileX - 0.5, tileY - 0.5)
+          if tileType and wallTileTypes[tileType] then
+            constraintMap.left = {"terrain", terrainId, tileX, tileY}
+            xs[colliderId] = tileX + 0.5 * width
+            break
+          end
+        end
+      else
+        local tileX = floor(x + 0.5 * width - 0.001) + 1
 
-              insert(tileDistances, distance)
-              insert(tileIndices, #tileIndices + 1)
-            end
+        for tileY = floor(y - 0.5 * height + 0.001) + 1, floor(y + 0.5 * height - 0.001) + 1 do
+          local tileType = get2(tileGrid, tileY, tileX)
+
+          if tileType and wallTileTypes[tileType] then
+            constraintMap.right = {"terrain", terrainId, tileX, tileY}
+            xs[colliderId] = tileX - 1 - 0.5 * width
+            break
           end
         end
       end
 
-      sort(tileIndices, function(a, b)
-        return tileDistances[a] < tileDistances[b]
-      end)
+      local x = xs[colliderId]
+      local y = ys[colliderId]
 
-      for _, i in pairs(tileIndices) do
-        local tileX = tilePositions[2 * i - 1]
-        local tileY = tilePositions[2 * i]
+      if y < previousYs[colliderId] then
+        local tileY = floor(y - 0.5 * height + 0.001) + 1
 
-        local distance, normalX, normalY, direction = boxDistance(
-          x - 0.5 * width, y - 0.5 * height, x + 0.5 * width, y + 0.5 * height,
-          tileX - 1, tileY - 1, tileX, tileY)
+        for tileX = floor(x - 0.5 * width + 0.001) + 1, floor(x + 0.5 * width - 0.001) + 1 do
+          local tileType = get2(tileGrid, tileY, tileX)
 
-        if distance < -0.001 then
-          x = x + distance * normalX
-          y = y + distance * normalY
+          if tileType and wallTileTypes[tileType] then
+            constraintMap.up = {"terrain", terrainId, tileX, tileY}
+            ys[colliderId] = tileY + 0.5 * height
+            break
+          end
+        end
+      else
+        local tileY = floor(y + 0.5 * height - 0.001) + 1
 
-          xs[colliderId] = x
-          ys[colliderId] = y
+        for tileX = floor(x - 0.5 * width + 0.001) + 1, floor(x + 0.5 * width - 0.001) + 1 do
+          local tileType = get2(tileGrid, tileY, tileX)
 
-          constraintMap[direction] = {"terrain", terrainId, tileX, tileY}
+          if tileType and wallTileTypes[tileType] then
+            constraintMap.down = {"terrain", terrainId, tileX, tileY}
+            ys[colliderId] = tileY - 1 - 0.5 * height
+            break
+          end
         end
       end
     end

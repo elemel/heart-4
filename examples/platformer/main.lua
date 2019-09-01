@@ -8,7 +8,7 @@ function love.load()
   love.window.setMode(800, 600, {
     fullscreentype = "desktop",
     resizable = true,
-    fullscreen = true,
+    -- fullscreen = true,
     highdpi = true,
   })
 
