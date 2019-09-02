@@ -86,14 +86,6 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
-        ys[id] = ys[id] - self.crouchingJumpSpeed * dt
-        newStates[id] = "falling"
-        break
-      end
-
       local upInput = love.keyboard.isDown("w")
       local downInput = love.keyboard.isDown("s")
 
@@ -119,6 +111,14 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
         -- newStates[id] = "sneaking"
         -- animationTimes[id] = 0
         -- break
+      end
+
+      local jumpInput = love.keyboard.isDown("k")
+
+      if jumpInput then
+        ys[id] = ys[id] - self.crouchingJumpSpeed * dt
+        newStates[id] = "falling"
+        break
       end
     until true
   end
@@ -208,14 +208,6 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
-        ys[id] = ys[id] - self.runningJumpSpeed * dt
-        newStates[id] = "falling"
-        break
-      end
-
       local runInput = love.keyboard.isDown("j")
 
       if not runInput then
@@ -233,6 +225,14 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
         newStates[id] = "walking"
         break
       end
+
+      local jumpInput = love.keyboard.isDown("k")
+
+      if jumpInput then
+        ys[id] = ys[id] - self.runningJumpSpeed * dt
+        newStates[id] = "falling"
+        break
+      end
     until true
   end
 end
@@ -247,14 +247,6 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
       local constraintMap = constraintMaps[id]
 
       if not constraintMap.down then
-        newStates[id] = "falling"
-        break
-      end
-
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
-        ys[id] = ys[id] - self.slidingJumpSpeed * dt
         newStates[id] = "falling"
         break
       end
@@ -277,6 +269,14 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
 
       if inputX ~= directionX then
         newStates[id] = "crouching"
+        break
+      end
+
+      local jumpInput = love.keyboard.isDown("k")
+
+      if jumpInput then
+        ys[id] = ys[id] - self.slidingJumpSpeed * dt
+        newStates[id] = "falling"
         break
       end
     until true
@@ -308,14 +308,6 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
-        ys[id] = ys[id] - self.standingJumpSpeed * dt
-        newStates[id] = "falling"
-        break
-      end
-
       local leftInput = love.keyboard.isDown("a")
       local rightInput = love.keyboard.isDown("d")
 
@@ -330,6 +322,14 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
       if inputX == directionX then
         newStates[id] = "walking"
         animationTimes[id] = 0
+        break
+      end
+
+      local jumpInput = love.keyboard.isDown("k")
+
+      if jumpInput then
+        ys[id] = ys[id] - self.standingJumpSpeed * dt
+        newStates[id] = "falling"
         break
       end
     until true
@@ -365,14 +365,6 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
-        ys[id] = ys[id] - self.walkingJumpSpeed * dt
-        newStates[id] = "falling"
-        break
-      end
-
       local leftInput = love.keyboard.isDown("a")
       local rightInput = love.keyboard.isDown("d")
 
@@ -388,6 +380,14 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
 
       if runInput then
         newStates[id] = "running"
+        break
+      end
+
+      local jumpInput = love.keyboard.isDown("k")
+
+      if jumpInput then
+        ys[id] = ys[id] - self.walkingJumpSpeed * dt
+        newStates[id] = "falling"
         break
       end
     until true
@@ -422,7 +422,10 @@ function CharacterFixedUpdateSystem:updateGliding(ids, dt)
   for id in pairs(ids) do
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
-    xs[id] = xs[id] + ddx
+
+    if ddx * inputX > 0 then
+      xs[id] = xs[id] + ddx
+    end
   end
 end
 
