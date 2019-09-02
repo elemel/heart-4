@@ -49,11 +49,16 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
       images[id] = self.imageResources:loadResource(skin.dead)
     elseif state == "falling" then
       images[id] = self.imageResources:loadResource(skin.jumping)
+    elseif state == "gliding" then
+      images[id] = self.imageResources:loadResource(skin.jumping)
     elseif state == "running" then
-      local frame = animationTimes[id] % 0.3 < 0.15 and skin.running or skin.jumping
+      local frame = animationTimes[id] % 0.375 < 0.1875 and skin.running or skin.jumping
       images[id] = self.imageResources:loadResource(frame)
     elseif state == "sliding" then
       images[id] = self.imageResources:loadResource(skin.attacking)
+    elseif state == "sneaking" then
+      local frame = animationTimes[id] % 0.75 < 0.375 and skin.running or skin.attacking
+      images[id] = self.imageResources:loadResource(frame)
     elseif state == "standing" then
       images[id] = self.imageResources:loadResource(skin.idle)
     elseif state == "walking" then
