@@ -3,6 +3,7 @@ return {
     {
       domainType = "time",
       class = "heart.event.TimeDomain",
+      fixedDt = 1 / 60,
     },
 
     {
