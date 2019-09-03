@@ -37,8 +37,6 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
   local animationTimes = self.characterComponents.animationTimes
 
   for id in pairs(self.characterEntities) do
-    animationTimes[id] = animationTimes[id] + dt
-
     local characterType = characterTypes[id]
     local skin = skins[characterType]
     local state = states[id]
@@ -52,17 +50,20 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
     elseif state == "gliding" then
       images[id] = self.imageResources:loadResource(skin.jumping)
     elseif state == "running" then
-      local frame = animationTimes[id] % 0.25 < 0.125 and skin.running or skin.jumping
+      animationTimes[id] = animationTimes[id] + 3 * dt
+      local frame = animationTimes[id] % 1 < 0.5 and skin.running or skin.jumping
       images[id] = self.imageResources:loadResource(frame)
     elseif state == "sliding" then
       images[id] = self.imageResources:loadResource(skin.attacking)
     elseif state == "sneaking" then
-      local frame = animationTimes[id] % 0.75 < 0.375 and skin.running or skin.attacking
+      animationTimes[id] = animationTimes[id] + dt
+      local frame = animationTimes[id] % 1 < 0.5 and skin.running or skin.attacking
       images[id] = self.imageResources:loadResource(frame)
     elseif state == "standing" then
       images[id] = self.imageResources:loadResource(skin.idle)
     elseif state == "walking" then
-      local frame = animationTimes[id] % 0.5 < 0.25 and skin.running or skin.jumping
+      animationTimes[id] = animationTimes[id] + 2 * dt
+      local frame = animationTimes[id] % 1 < 0.5 and skin.running or skin.jumping
       images[id] = self.imageResources:loadResource(frame)
     end
 
