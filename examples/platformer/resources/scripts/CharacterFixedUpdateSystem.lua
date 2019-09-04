@@ -413,7 +413,7 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
       local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
 
       if inputY == 1 then
-        newStates[id] = "crouching"
+        newStates[id] = "sneaking"
         break
       end
 
