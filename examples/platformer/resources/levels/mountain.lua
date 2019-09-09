@@ -123,6 +123,10 @@ return {
       },
 
       {
+        class = "resources.scripts.PlayerInputFixedUpdateSystem",
+      },
+
+      {
         class = "resources.scripts.CharacterFixedUpdateSystem",
       },
 
@@ -229,7 +233,7 @@ return {
         },
 
         character = {
-          characterType = "man",
+          characterType = "woman",
         },
       },
     },

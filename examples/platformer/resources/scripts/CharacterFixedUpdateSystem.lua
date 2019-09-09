@@ -83,6 +83,11 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
 
+  local inputXs = self.characterComponents.inputXs
+  local inputYs = self.characterComponents.inputYs
+
+  local jumpInputs = self.characterComponents.jumpInputs
+
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -92,36 +97,23 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
         break
       end
 
-      local upInput = love.keyboard.isDown("w")
-      local downInput = love.keyboard.isDown("s")
-
-      local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
-
-      if inputY ~= 1 then
+      if inputYs[id] ~= 1 then
         newStates[id] = "standing"
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX == -directionX then
-        directionXs[id] = -directionX
+      if inputXs[id] == -directionXs[id] then
+        directionXs[id] = -directionXs[id]
         break
       end
 
-      if inputX == directionX then
+      if inputXs[id] == directionXs[id] then
         newStates[id] = "sneaking"
         animationTimes[id] = 0
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
+      if jumpInputs[id] then
         ys[id] = ys[id] - self.crouchingJumpSpeed * dt
         newStates[id] = "falling"
         break
@@ -135,24 +127,20 @@ function CharacterFixedUpdateSystem:transitionGliding(ids, dt, newStates)
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
 
+  local inputXs = self.characterComponents.inputXs
+  local runInputs = self.characterComponents.runInputs
+
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
 
       if constraintMap.down then
-        local runInput = love.keyboard.isDown("j")
-        newStates[id] = runInput and "running" or "walking"
+        newStates[id] = runInputs[id] and "running" or "walking"
         animationTimes[id] = 0
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX ~= directionX then
+      if inputXs[id] ~= directionXs[id] then
         newStates[id] = "falling"
         break
       end
@@ -164,6 +152,7 @@ end
 function CharacterFixedUpdateSystem:transitionFalling(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
+  local inputXs = self.characterComponents.inputXs
 
   for id in pairs(ids) do
     repeat
@@ -174,18 +163,12 @@ function CharacterFixedUpdateSystem:transitionFalling(ids, dt, newStates)
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX == -directionX then
-        directionXs[id] = -directionX
+      if inputXs[id] == -directionXs[id] then
+        directionXs[id] = -directionXs[id]
         break
       end
 
-      if inputX == directionX then
+      if inputXs[id] == directionXs[id] then
         newStates[id] = "gliding"
         break
       end
@@ -198,6 +181,12 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
+  local inputXs = self.characterComponents.inputXs
+  local inputYs = self.characterComponents.inputYs
+
+  local runInputs = self.characterComponents.runInputs
+  local jumpInputs = self.characterComponents.jumpInputs
+
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -207,37 +196,22 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
         break
       end
 
-      local upInput = love.keyboard.isDown("w")
-      local downInput = love.keyboard.isDown("s")
-
-      local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
-
-      if inputY == 1 then
+      if inputYs[id] == 1 then
         newStates[id] = "sliding"
         break
       end
 
-      local runInput = love.keyboard.isDown("j")
-
-      if not runInput then
+      if not runInputs[id] then
         newStates[id] = "walking"
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX ~= directionX then
+      if inputXs[id] ~= directionXs[id] then
         newStates[id] = "walking"
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
+      if jumpInputs[id] then
         ys[id] = ys[id] - self.runningJumpSpeed * dt
         newStates[id] = "gliding"
         break
@@ -252,6 +226,11 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
 
+  local inputXs = self.characterComponents.inputXs
+  local inputYs = self.characterComponents.inputYs
+
+  local jumpInputs = self.characterComponents.jumpInputs
+
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -261,31 +240,18 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
         break
       end
 
-      local upInput = love.keyboard.isDown("w")
-      local downInput = love.keyboard.isDown("s")
-
-      local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
-
-      if inputY ~= 1 then
+      if inputYs[id] ~= 1 then
         newStates[id] = "running"
         animationTimes[id] = 0
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX ~= directionX then
+      if inputXs[id] ~= directionXs[id] then
         newStates[id] = "crouching"
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
+      if jumpInputs[id] then
         ys[id] = ys[id] - self.slidingJumpSpeed * dt
         newStates[id] = "gliding"
         break
@@ -299,6 +265,11 @@ function CharacterFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
+  local inputXs = self.characterComponents.inputXs
+  local inputYs = self.characterComponents.inputYs
+
+  local jumpInputs = self.characterComponents.jumpInputs
+
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -308,30 +279,17 @@ function CharacterFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
         break
       end
 
-      local upInput = love.keyboard.isDown("w")
-      local downInput = love.keyboard.isDown("s")
-
-      local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
-
-      if inputY ~= 1 then
+      if inputYs[id] ~= 1 then
         newStates[id] = "walking"
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX ~= directionX then
+      if inputXs[id] ~= directionXs[id] then
         newStates[id] = "crouching"
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
+      if jumpInputs[id] then
         ys[id] = ys[id] - self.sneakingJumpSpeed * dt
         newStates[id] = "gliding"
         break
@@ -346,6 +304,11 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
+  local inputXs = self.characterComponents.inputXs
+  local inputYs = self.characterComponents.inputYs
+
+  local jumpInputs = self.characterComponents.jumpInputs
+
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -355,36 +318,23 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
         break
       end
 
-      local upInput = love.keyboard.isDown("w")
-      local downInput = love.keyboard.isDown("s")
-
-      local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
-
-      if inputY == 1 then
+      if inputYs[id] == 1 then
         newStates[id] = "crouching"
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX == -directionX then
-        directionXs[id] = -directionX
+      if inputXs[id] == -directionXs[id] then
+        directionXs[id] = -directionXs[id]
         break
       end
 
-      if inputX == directionX then
+      if inputXs[id] == directionXs[id] then
         newStates[id] = "walking"
         animationTimes[id] = 0
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
+      if jumpInputs[id] then
         ys[id] = ys[id] - self.standingJumpSpeed * dt
         newStates[id] = "falling"
         break
@@ -398,6 +348,12 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
+  local inputXs = self.characterComponents.inputXs
+  local inputYs = self.characterComponents.inputYs
+
+  local runInputs = self.characterComponents.runInputs
+  local jumpInputs = self.characterComponents.jumpInputs
+
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -407,37 +363,22 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
         break
       end
 
-      local upInput = love.keyboard.isDown("w")
-      local downInput = love.keyboard.isDown("s")
-
-      local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
-
-      if inputY == 1 then
+      if inputYs[id] == 1 then
         newStates[id] = "sneaking"
         break
       end
 
-      local leftInput = love.keyboard.isDown("a")
-      local rightInput = love.keyboard.isDown("d")
-
-      local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-      local directionX = directionXs[id]
-
-      if inputX ~= directionX then
+      if inputXs[id] ~= directionXs[id] then
         newStates[id] = "standing"
         break
       end
 
-      local runInput = love.keyboard.isDown("j")
-
-      if runInput then
+      if runInputs[id] then
         newStates[id] = "running"
         break
       end
 
-      local jumpInput = love.keyboard.isDown("k")
-
-      if jumpInput then
+      if jumpInputs[id] then
         ys[id] = ys[id] - self.walkingJumpSpeed * dt
         newStates[id] = "gliding"
         break
@@ -462,16 +403,15 @@ end
 function CharacterFixedUpdateSystem:updateGliding(ids, dt)
   local xs = self.positionComponents.xs
   local previousXs = self.velocityComponents.previousXs
-
-  local leftInput = love.keyboard.isDown("a")
-  local rightInput = love.keyboard.isDown("d")
-
-  local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-  local targetVelocityX = inputX * self.glidingSpeed
-  local targetDx = targetVelocityX * dt
+  local inputXs = self.characterComponents.inputXs
   local maxDdx = self.glidingAcceleration * dt * dt
 
   for id in pairs(ids) do
+    local inputX = inputXs[id]
+
+    local targetVelocityX = inputX * self.glidingSpeed
+    local targetDx = targetVelocityX * dt
+
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
 
@@ -484,14 +424,12 @@ end
 function CharacterFixedUpdateSystem:updateRunning(ids, dt)
   local xs = self.positionComponents.xs
   local previousXs = self.velocityComponents.previousXs
-
-  local leftInput = love.keyboard.isDown("a")
-  local rightInput = love.keyboard.isDown("d")
-
-  local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
+  local inputXs = self.characterComponents.inputXs
   local maxDdx = self.runningAcceleration * dt * dt
 
   for id in pairs(ids) do
+    local inputX = inputXs[id]
+
     local targetVelocityX = inputX * self.runningSpeed
     local targetDx = targetVelocityX * dt
 
@@ -517,16 +455,15 @@ end
 function CharacterFixedUpdateSystem:updateSneaking(ids, dt)
   local xs = self.positionComponents.xs
   local previousXs = self.velocityComponents.previousXs
-
-  local leftInput = love.keyboard.isDown("a")
-  local rightInput = love.keyboard.isDown("d")
-
-  local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-  local targetVelocityX = inputX * self.sneakingSpeed
-  local targetDx = targetVelocityX * dt
+  local inputXs = self.characterComponents.inputXs
   local maxDdx = self.sneakingAcceleration * dt * dt
 
   for id in pairs(ids) do
+    local inputX = inputXs[id]
+
+    local targetVelocityX = inputX * self.sneakingSpeed
+    local targetDx = targetVelocityX * dt
+
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx
@@ -536,7 +473,6 @@ end
 function CharacterFixedUpdateSystem:updateStanding(ids, dt)
   local xs = self.positionComponents.xs
   local previousXs = self.velocityComponents.previousXs
-
   local maxDdx = self.standingAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -549,16 +485,15 @@ end
 function CharacterFixedUpdateSystem:updateWalking(ids, dt)
   local xs = self.positionComponents.xs
   local previousXs = self.velocityComponents.previousXs
-
-  local leftInput = love.keyboard.isDown("a")
-  local rightInput = love.keyboard.isDown("d")
-
-  local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-  local targetVelocityX = inputX * self.walkingSpeed
-  local targetDx = targetVelocityX * dt
+  local inputXs = self.characterComponents.inputXs
   local maxDdx = self.walkingAcceleration * dt * dt
 
   for id in pairs(ids) do
+    local inputX = inputXs[id]
+
+    local targetVelocityX = inputX * self.walkingSpeed
+    local targetDx = targetVelocityX * dt
+
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx

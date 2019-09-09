@@ -9,6 +9,18 @@ function CharacterComponentManager:init(game, config)
   self.characterTypes = {}
   self.animationTimes = {}
 
+  self.oldInputXs = {}
+  self.oldInputYs = {}
+
+  self.oldRunInputs = {}
+  self.oldJumpInputs = {}
+
+  self.inputXs = {}
+  self.inputYs = {}
+
+  self.runInputs = {}
+  self.jumpInputs = {}
+
   self.skins = {
     demon = {
       attacking = "resources/images/characters/demon/attackingDemon.png",
@@ -95,12 +107,36 @@ function CharacterComponentManager:createComponent(id, config, transform)
   self.characterTypes[id] = assert(config.characterType)
   self.directionXs[id] = config.directionX or 1
   self.animationTimes[id] = config.animationTime or 0
+
+  self.oldInputXs[id] = 0
+  self.oldInputYs[id] = 0
+
+  self.oldRunInputs[id] = false
+  self.oldJumpInputs[id] = false
+
+  self.inputXs[id] = 0
+  self.inputYs[id] = 0
+
+  self.runInputs[id] = false
+  self.jumpInputs[id] = false
 end
 
 function CharacterComponentManager:destroyComponent(id)
   self.characterTypes[id] = nil
   self.directionXs[id] = nil
   self.animationTimes[id] = nil
+
+  self.oldInputXs[id] = nil
+  self.oldInputYs[id] = nil
+
+  self.oldRunInputs[id] = nil
+  self.oldJumpInputs[id] = nil
+
+  self.inputXs[id] = nil
+  self.inputYs[id] = nil
+
+  self.runInputs[id] = nil
+  self.jumpInputs[id] = nil
 end
 
 return CharacterComponentManager
