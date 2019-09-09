@@ -92,6 +92,7 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
   local inputXs = self.characterComponents.inputXs
   local inputYs = self.characterComponents.inputYs
 
+  local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
   for id in pairs(ids) do
@@ -99,6 +100,12 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
       local constraintMap = constraintMaps[id]
 
       if not constraintMap.down then
+        newStates[id] = "falling"
+        break
+      end
+
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        ys[id] = ys[id] - self.crouchingJumpSpeed * dt
         newStates[id] = "falling"
         break
       end
@@ -116,12 +123,6 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
       if inputXs[id] == directionXs[id] then
         newStates[id] = "sneaking"
         animationTimes[id] = 0
-        break
-      end
-
-      if jumpInputs[id] then
-        ys[id] = ys[id] - self.crouchingJumpSpeed * dt
-        newStates[id] = "falling"
         break
       end
     until true
@@ -191,6 +192,8 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
   local inputYs = self.characterComponents.inputYs
 
   local runInputs = self.characterComponents.runInputs
+
+  local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
   for id in pairs(ids) do
@@ -198,6 +201,12 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
       local constraintMap = constraintMaps[id]
 
       if not constraintMap.down then
+        newStates[id] = "gliding"
+        break
+      end
+
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        ys[id] = ys[id] - self.runningJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
@@ -216,12 +225,6 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
         newStates[id] = "walking"
         break
       end
-
-      if jumpInputs[id] then
-        ys[id] = ys[id] - self.runningJumpSpeed * dt
-        newStates[id] = "gliding"
-        break
-      end
     until true
   end
 end
@@ -235,6 +238,7 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
   local inputXs = self.characterComponents.inputXs
   local inputYs = self.characterComponents.inputYs
 
+  local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
   for id in pairs(ids) do
@@ -242,6 +246,12 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
       local constraintMap = constraintMaps[id]
 
       if not constraintMap.down then
+        newStates[id] = "gliding"
+        break
+      end
+
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        ys[id] = ys[id] - self.slidingJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
@@ -256,12 +266,6 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
         newStates[id] = "crouching"
         break
       end
-
-      if jumpInputs[id] then
-        ys[id] = ys[id] - self.slidingJumpSpeed * dt
-        newStates[id] = "gliding"
-        break
-      end
     until true
   end
 end
@@ -274,6 +278,7 @@ function CharacterFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
   local inputXs = self.characterComponents.inputXs
   local inputYs = self.characterComponents.inputYs
 
+  local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
   for id in pairs(ids) do
@@ -285,6 +290,12 @@ function CharacterFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
         break
       end
 
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        ys[id] = ys[id] - self.sneakingJumpSpeed * dt
+        newStates[id] = "gliding"
+        break
+      end
+
       if inputYs[id] ~= 1 then
         newStates[id] = "walking"
         break
@@ -292,12 +303,6 @@ function CharacterFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
 
       if inputXs[id] ~= directionXs[id] then
         newStates[id] = "crouching"
-        break
-      end
-
-      if jumpInputs[id] then
-        ys[id] = ys[id] - self.sneakingJumpSpeed * dt
-        newStates[id] = "gliding"
         break
       end
     until true
@@ -313,6 +318,7 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
   local inputXs = self.characterComponents.inputXs
   local inputYs = self.characterComponents.inputYs
 
+  local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
   for id in pairs(ids) do
@@ -320,6 +326,12 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
       local constraintMap = constraintMaps[id]
 
       if not constraintMap.down then
+        newStates[id] = "falling"
+        break
+      end
+
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        ys[id] = ys[id] - self.standingJumpSpeed * dt
         newStates[id] = "falling"
         break
       end
@@ -339,12 +351,6 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
         animationTimes[id] = 0
         break
       end
-
-      if jumpInputs[id] then
-        ys[id] = ys[id] - self.standingJumpSpeed * dt
-        newStates[id] = "falling"
-        break
-      end
     until true
   end
 end
@@ -358,6 +364,8 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
   local inputYs = self.characterComponents.inputYs
 
   local runInputs = self.characterComponents.runInputs
+
+  local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
   for id in pairs(ids) do
@@ -365,6 +373,12 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
       local constraintMap = constraintMaps[id]
 
       if not constraintMap.down then
+        newStates[id] = "gliding"
+        break
+      end
+
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        ys[id] = ys[id] - self.walkingJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
@@ -381,12 +395,6 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
 
       if runInputs[id] then
         newStates[id] = "running"
-        break
-      end
-
-      if jumpInputs[id] then
-        ys[id] = ys[id] - self.walkingJumpSpeed * dt
-        newStates[id] = "gliding"
         break
       end
     until true
