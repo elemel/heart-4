@@ -34,25 +34,25 @@ function CharacterFixedUpdateSystem:init(game, config)
     walking = self.updateWalking,
   }
 
-  self.crouchingAcceleration = 6
+  self.crouchingAcceleration = 8
   self.crouchingJumpSpeed = 6
 
   self.glidingSpeed = 3
-  self.glidingAcceleration = 8
+  self.glidingAcceleration = 6
 
-  self.slidingAcceleration = 3
+  self.slidingAcceleration = 4
   self.slidingJumpSpeed = 10
 
-  self.sneakingAcceleration = 6
-  self.sneakingSpeed = 1.5
+  self.sneakingAcceleration = 8
+  self.sneakingSpeed = 2
   self.sneakingJumpSpeed = 10
 
   self.standingAcceleration = 12
   self.standingJumpSpeed = 10
 
-  self.runningAcceleration = 18
+  self.runningAcceleration = 20
   self.runningJumpSpeed = 15
-  self.runningSpeed = 4.5
+  self.runningSpeed = 5
 
   self.walkingJumpSpeed = 13
   self.walkingSpeed = 3
