@@ -3,7 +3,7 @@ heart = require("heart")
 local palette = require("resources.scripts.palette")
 
 function love.load()
-  love.window.setTitle("Platformer")
+  love.window.setTitle("Leap Year")
 
   love.window.setMode(800, 600, {
     fullscreentype = "desktop",
