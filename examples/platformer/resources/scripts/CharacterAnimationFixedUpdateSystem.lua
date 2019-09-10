@@ -65,6 +65,8 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
       animationTimes[id] = animationTimes[id] + 3 * dt
       local frame = animationTimes[id] % 1 < 0.5 and skin.running or skin.jumping
       images[id] = self.imageResources:loadResource(frame)
+    elseif state == "wallSliding" then
+      images[id] = self.imageResources:loadResource(skin.attacking)
     end
 
     previousTransforms[id]:reset():setTransformation(

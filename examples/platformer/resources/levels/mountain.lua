@@ -19,11 +19,6 @@ return {
 
   componentManagers = {
     {
-      componentType = "gravity",
-      class = "heart.CategoryComponentManager",
-    },
-
-    {
       componentType = "player",
       class = "heart.CategoryComponentManager",
     },
@@ -56,6 +51,12 @@ return {
     {
       componentType = "velocity",
       class = "resources.scripts.VelocityComponentManager",
+    },
+
+    {
+      componentType = "gravity",
+      class = "resources.scripts.GravityComponentManager",
+      defaultGravityY = 32,
     },
 
     {
@@ -118,16 +119,15 @@ return {
       },
 
       {
-        class = "resources.scripts.GravityFixedUpdateSystem",
-        gravityY = 32,
-      },
-
-      {
         class = "resources.scripts.PlayerInputFixedUpdateSystem",
       },
 
       {
         class = "resources.scripts.CharacterFixedUpdateSystem",
+      },
+
+      {
+        class = "resources.scripts.GravityFixedUpdateSystem",
       },
 
       {
