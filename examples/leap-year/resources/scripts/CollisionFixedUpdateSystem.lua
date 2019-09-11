@@ -22,7 +22,16 @@ function CollisionFixedUpdateSystem:init(game, config)
 
   self.terrainComponents = assert(self.game.componentManagers.terrain)
 
-  self.wallTileTypes = {dirt = true, dirtFloor = true, stone = true, stoneFloor = true}
+  self.wallTileTypes = {
+    brick = true,
+    brickFloor = true,
+    dirt = true,
+    dirtFloor = true,
+    stone = true,
+    stoneFloor = true,
+    wood = true,
+    woodenFloor = true,
+  }
 end
 
 function CollisionFixedUpdateSystem:fixedUpdate(dt)

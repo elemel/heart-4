@@ -22,6 +22,7 @@ function TerrainComponentManager:createComponent(id, config, transform)
     [","] = "grass",
     [">"] = "rightSign",
     ["%"] = "stone",
+    ["="] = "wood",
   }
 
   if config.tileGrid then
@@ -62,6 +63,10 @@ function TerrainComponentManager:createComponent(id, config, transform)
 
       if tileType == "stone" and get2(tileGrid, y - 1, x) ~= "stone" and get2(tileGrid, y - 1, x) ~= "stoneFloor" then
         row[x] = "stoneFloor"
+      end
+
+      if tileType == "wood" and get2(tileGrid, y - 1, x) ~= "wood" and get2(tileGrid, y - 1, x) ~= "woodenFloor" then
+        row[x] = "woodenFloor"
       end
     end
   end
