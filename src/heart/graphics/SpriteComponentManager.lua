@@ -14,9 +14,12 @@ function SpriteComponentManager:init(game, config)
 end
 
 function SpriteComponentManager:createComponent(entityId, config, transform)
-  local imageFilename = assert(config.image)
-  local image = self.imageResources:loadResource(imageFilename)
-  self.images[entityId] = image
+  if config.image then
+    local imageFilename = assert(config.image)
+    local image = self.imageResources:loadResource(imageFilename)
+    self.images[entityId] = image
+  end
+
   self.zs[entityId] = config.z or 0
 
   self.transforms[entityId] = transform:clone()
