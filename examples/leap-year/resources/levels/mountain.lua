@@ -204,38 +204,8 @@ return {
     },
 
     {
-      transform = {2, -2, 0, 1 / 16, 1 / 16, 8, 8},
-
-      components = {
-        gravity = {},
-        player = {},
-        bone = {},
-
-        position = {
-          x = 2.5,
-          y = 14.5,
-        },
-
-        velocity = {},
-
-        box = {
-          width = 0.5,
-        },
-
-        collider = {},
-
-        sprite = {
-          image = "resources/images/characters/man/idleMan.png",
-        },
-
-        characterState = {
-          state = "standing",
-        },
-
-        character = {
-          characterType = "woman",
-        },
-      },
+      prototype = "resources.entities.woman",
+      transform = {2.5, 14.5},
     },
   },
 }

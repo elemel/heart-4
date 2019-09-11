@@ -6,8 +6,13 @@ function PositionComponentManager:init(game, config)
 end
 
 function PositionComponentManager:createComponent(id, config, transform)
-  self.xs[id] = config.x or 0
-  self.ys[id] = config.y or 0
+  local x = config.x or 0
+  local y = config.y or 0
+
+  x, y = transform:transformPoint(x, y)
+
+  self.xs[id] = x
+  self.ys[id] = y
 end
 
 function PositionComponentManager:destroyComponent(id)
