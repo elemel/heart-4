@@ -30,7 +30,9 @@ function love.load()
     image = heart.graphics.ImageResourceLoader.new(),
   }
 
-  local config = require("resources.levels.mountain")
+  local gameConfig = require("resources.game")
+  local levelConfig = require("resources.levels.mountains")
+  local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
   game = heart.Game.new(resourceLoaders, config)
 end
 
