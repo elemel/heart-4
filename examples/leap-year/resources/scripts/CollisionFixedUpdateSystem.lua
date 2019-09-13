@@ -25,6 +25,7 @@ function CollisionFixedUpdateSystem:init(game, config)
   self.wallTileTypes = {
     brick = true,
     brickFloor = true,
+    cloud = true,
     dirt = true,
     dirtFloor = true,
     stone = true,

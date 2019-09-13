@@ -11,7 +11,6 @@ return {
     },
 
     collider = {},
-
     sprite = {},
 
     characterState = {

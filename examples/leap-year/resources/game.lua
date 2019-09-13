@@ -105,11 +105,11 @@ return {
 
     drawWorld = {
       {
-        class = "resources.scripts.TerrainDrawWorldSystem",
+        class = "heart.graphics.SpriteDrawWorldSystem",
       },
 
       {
-        class = "heart.graphics.SpriteDrawWorldSystem",
+        class = "resources.scripts.TerrainDrawWorldSystem",
       },
     },
 

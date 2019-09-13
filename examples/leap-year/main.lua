@@ -31,7 +31,7 @@ function love.load()
   }
 
   local gameConfig = require("resources.game")
-  local levelConfig = require("resources.levels.mountains")
+  local levelConfig = require("resources.levels.forest")
   local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
   game = heart.Game.new(resourceLoaders, config)
 end
