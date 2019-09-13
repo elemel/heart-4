@@ -1,6 +1,5 @@
 return {
   components = {
-    gravity = {},
     player = {},
     bone = {},
     position = {},

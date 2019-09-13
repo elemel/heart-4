@@ -62,58 +62,54 @@ function CollisionFixedUpdateSystem:fixedUpdate(dt)
       local x = xs[colliderId]
       local y = previousYs[colliderId]
 
-      if x < previousXs[colliderId] then
-        local tileX = floor(x - 0.5 * width + 0.001) + 1
+      local tileX = floor(x - 0.5 * width - 0.001) + 1
 
-        for tileY = floor(y - 0.5 * height + 0.001) + 1, floor(y + 0.5 * height - 0.001) + 1 do
-          local tileType = get2(tileGrid, tileY, tileX)
+      for tileY = floor(y - 0.5 * height + 0.001) + 1, floor(y + 0.5 * height - 0.001) + 1 do
+        local tileType = get2(tileGrid, tileY, tileX)
 
-          if tileType and wallTileTypes[tileType] then
-            constraintMap.left = {"terrain", terrainId, tileX, tileY}
-            xs[colliderId] = tileX + 0.5 * width
-            break
-          end
+        if tileType and wallTileTypes[tileType] then
+          constraintMap.left = {"terrain", terrainId, tileX, tileY}
+          xs[colliderId] = tileX + 0.5 * width
+          break
         end
-      else
-        local tileX = floor(x + 0.5 * width - 0.001) + 1
+      end
 
-        for tileY = floor(y - 0.5 * height + 0.001) + 1, floor(y + 0.5 * height - 0.001) + 1 do
-          local tileType = get2(tileGrid, tileY, tileX)
+      local tileX = floor(x + 0.5 * width + 0.001) + 1
 
-          if tileType and wallTileTypes[tileType] then
-            constraintMap.right = {"terrain", terrainId, tileX, tileY}
-            xs[colliderId] = tileX - 1 - 0.5 * width
-            break
-          end
+      for tileY = floor(y - 0.5 * height + 0.001) + 1, floor(y + 0.5 * height - 0.001) + 1 do
+        local tileType = get2(tileGrid, tileY, tileX)
+
+        if tileType and wallTileTypes[tileType] then
+          constraintMap.right = {"terrain", terrainId, tileX, tileY}
+          xs[colliderId] = tileX - 1 - 0.5 * width
+          break
         end
       end
 
       local x = xs[colliderId]
       local y = ys[colliderId]
 
-      if y < previousYs[colliderId] then
-        local tileY = floor(y - 0.5 * height + 0.001) + 1
+      local tileY = floor(y - 0.5 * height - 0.001) + 1
 
-        for tileX = floor(x - 0.5 * width + 0.001) + 1, floor(x + 0.5 * width - 0.001) + 1 do
-          local tileType = get2(tileGrid, tileY, tileX)
+      for tileX = floor(x - 0.5 * width + 0.001) + 1, floor(x + 0.5 * width - 0.001) + 1 do
+        local tileType = get2(tileGrid, tileY, tileX)
 
-          if tileType and wallTileTypes[tileType] then
-            constraintMap.up = {"terrain", terrainId, tileX, tileY}
-            ys[colliderId] = tileY + 0.5 * height
-            break
-          end
+        if tileType and wallTileTypes[tileType] then
+          constraintMap.up = {"terrain", terrainId, tileX, tileY}
+          ys[colliderId] = tileY + 0.5 * height
+          break
         end
-      else
-        local tileY = floor(y + 0.5 * height - 0.001) + 1
+      end
 
-        for tileX = floor(x - 0.5 * width + 0.001) + 1, floor(x + 0.5 * width - 0.001) + 1 do
-          local tileType = get2(tileGrid, tileY, tileX)
+      local tileY = floor(y + 0.5 * height + 0.001) + 1
 
-          if tileType and wallTileTypes[tileType] then
-            constraintMap.down = {"terrain", terrainId, tileX, tileY}
-            ys[colliderId] = tileY - 1 - 0.5 * height
-            break
-          end
+      for tileX = floor(x - 0.5 * width + 0.001) + 1, floor(x + 0.5 * width - 0.001) + 1 do
+        local tileType = get2(tileGrid, tileY, tileX)
+
+        if tileType and wallTileTypes[tileType] then
+          constraintMap.down = {"terrain", terrainId, tileX, tileY}
+          ys[colliderId] = tileY - 1 - 0.5 * height
+          break
         end
       end
     end

@@ -12,7 +12,6 @@ function CharacterFixedUpdateSystem:init(game, config)
   self.velocityComponents = assert(self.game.componentManagers.velocity)
   self.characterStateComponents = assert(self.game.componentManagers.characterState)
   self.colliderComponents = assert(self.game.componentManagers.collider)
-  self.gravityComponents = assert(self.game.componentManagers.gravity)
 
   self.transitionHandlers = {
     crouching = self.transitionCrouching,
@@ -24,10 +23,12 @@ function CharacterFixedUpdateSystem:init(game, config)
     standing = self.transitionStanding,
     walking = self.transitionWalking,
     wallSliding = self.transitionWallSliding,
+    wallTouching = self.transitionWallTouching,
   }
 
   self.updateHandlers = {
     crouching = self.updateCrouching,
+    falling = self.updateFalling,
     gliding = self.updateGliding,
     running = self.updateRunning,
     sliding = self.updateSliding,
@@ -35,12 +36,13 @@ function CharacterFixedUpdateSystem:init(game, config)
     standing = self.updateStanding,
     walking = self.updateWalking,
     wallSliding = self.updateWallSliding,
+    wallTouching = self.updateWallTouching,
   }
 
   self.crouchingAcceleration = 8
   self.crouchingJumpSpeed = 6
 
-  self.fallAcceleration = 32
+  self.fallingAcceleration = 32
 
   self.glidingSpeed = 3
   self.glidingAcceleration = 6
@@ -121,6 +123,16 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
       end
 
       if inputYs[id] ~= 1 then
+        if directionXs[id] == -1 and constraintMap.left then
+          newStates[id] = "wallTouching"
+          break
+        end
+
+        if directionXs[id] == 1 and constraintMap.right then
+          newStates[id] = "wallTouching"
+          break
+        end
+
         newStates[id] = "standing"
         break
       end
@@ -147,9 +159,6 @@ function CharacterFixedUpdateSystem:transitionGliding(ids, dt, newStates)
   local inputXs = self.characterComponents.inputXs
   local runInputs = self.characterComponents.runInputs
 
-  local gravityXs = self.gravityComponents.gravityXs
-  local gravityYs = self.gravityComponents.gravityYs
-
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -162,19 +171,11 @@ function CharacterFixedUpdateSystem:transitionGliding(ids, dt, newStates)
 
       if constraintMap.left and not constraintMap.right and directionXs[id] == -1 then
         newStates[id] = "wallSliding"
-
-        gravityXs[id] = -self.fallAcceleration
-        gravityYs[id] = 0
-
         break
       end
 
       if not constraintMap.left and constraintMap.right and directionXs[id] == 1 then
         newStates[id] = "wallSliding"
-
-        gravityXs[id] = self.fallAcceleration
-        gravityYs[id] = 0
-
         break
       end
 
@@ -192,9 +193,6 @@ function CharacterFixedUpdateSystem:transitionFalling(ids, dt, newStates)
   local directionXs = self.characterComponents.directionXs
   local inputXs = self.characterComponents.inputXs
 
-  local gravityXs = self.gravityComponents.gravityXs
-  local gravityYs = self.gravityComponents.gravityYs
-
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
@@ -211,19 +209,11 @@ function CharacterFixedUpdateSystem:transitionFalling(ids, dt, newStates)
 
       if constraintMap.left and not constraintMap.right and directionXs[id] == -1 then
         newStates[id] = "wallSliding"
-
-        gravityXs[id] = -self.fallAcceleration
-        gravityYs[id] = 0
-
         break
       end
 
       if not constraintMap.left and constraintMap.right and directionXs[id] == 1 then
         newStates[id] = "wallSliding"
-
-        gravityXs[id] = self.fallAcceleration
-        gravityYs[id] = 0
-
         break
       end
 
@@ -403,6 +393,16 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
         animationTimes[id] = 0
         break
       end
+
+      if directionXs[id] == -1 and constraintMap.left then
+        newStates[id] = "wallTouching"
+        break
+      end
+
+      if directionXs[id] == 1 and constraintMap.right then
+        newStates[id] = "wallTouching"
+        break
+      end
     until true
   end
 end
@@ -424,13 +424,13 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
     repeat
       local constraintMap = constraintMaps[id]
 
-      if not constraintMap.down then
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        ys[id] = ys[id] - self.walkingJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
 
-      if jumpInputs[id] and not oldJumpInputs[id] then
-        ys[id] = ys[id] - self.walkingJumpSpeed * dt
+      if not constraintMap.down then
         newStates[id] = "gliding"
         break
       end
@@ -441,6 +441,16 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
       end
 
       if inputXs[id] ~= directionXs[id] then
+        if directionXs[id] == -1 and constraintMap.left then
+          newStates[id] = "wallTouching"
+          break
+        end
+
+        if directionXs[id] == 1 and constraintMap.right then
+          newStates[id] = "wallTouching"
+          break
+        end
+
         newStates[id] = "standing"
         break
       end
@@ -466,28 +476,17 @@ function CharacterFixedUpdateSystem:transitionWallSliding(ids, dt, newStates)
 
   local previousYs = self.velocityComponents.previousYs
 
-  local gravityXs = self.gravityComponents.gravityXs
-  local gravityYs = self.gravityComponents.gravityYs
-
   for id in pairs(ids) do
     repeat
       local constraintMap = constraintMaps[id]
 
       if directionXs[id] == -1 and not constraintMap.left then
         newStates[id] = "falling"
-
-        gravityXs[id] = 0
-        gravityYs[id] = self.fallAcceleration
-
         break
       end
 
       if directionXs[id] == 1 and not constraintMap.right then
         newStates[id] = "falling"
-
-        gravityXs[id] = 0
-        gravityYs[id] = self.fallAcceleration
-
         break
       end
 
@@ -498,29 +497,77 @@ function CharacterFixedUpdateSystem:transitionWallSliding(ids, dt, newStates)
 
         xs[id] = xs[id] + directionXs[id] * self.wallSlidingJumpSpeedX * dt
         ys[id] = previousYs[id] - self.wallSlidingJumpSpeedY * dt
-
-        gravityXs[id] = 0
-        gravityYs[id] = self.fallAcceleration
-
         break
       end
 
       if inputXs[id] == -directionXs[id] then
         newStates[id] = "gliding"
         directionXs[id] = -directionXs[id]
-
-        gravityXs[id] = 0
-        gravityYs[id] = self.fallAcceleration
-
         break
       end
 
       if constraintMap.down then
+        newStates[id] = "wallTouching"
+        break
+      end
+    until true
+  end
+end
+
+function CharacterFixedUpdateSystem:transitionWallTouching(ids, dt, newStates)
+  local constraintMaps = self.colliderComponents.constraintMaps
+  local animationTimes = self.characterComponents.animationTimes
+  local directionXs = self.characterComponents.directionXs
+
+  local inputXs = self.characterComponents.inputXs
+  local inputYs = self.characterComponents.inputYs
+
+  local oldJumpInputs = self.characterComponents.oldJumpInputs
+  local jumpInputs = self.characterComponents.jumpInputs
+
+  local xs = self.positionComponents.xs
+  local ys = self.positionComponents.ys
+
+  local previousYs = self.velocityComponents.previousYs
+
+  for id in pairs(ids) do
+    repeat
+      local constraintMap = constraintMaps[id]
+
+      if jumpInputs[id] and not oldJumpInputs[id] then
+        newStates[id] = "wallSliding"
+        ys[id] = ys[id] - self.standingJumpSpeed * dt
+        break
+      end
+
+      if not constraintMap.down then
+        newStates[id] = "wallSliding"
+        break
+      end
+
+      if directionXs[id] == -1 and not constraintMap.left then
         newStates[id] = "standing"
+        break
+      end
 
-        gravityXs[id] = 0
-        gravityYs[id] = self.fallAcceleration
+      if directionXs[id] == 1 and not constraintMap.right then
+        newStates[id] = "standing"
+        break
+      end
 
+      if inputYs[id] == 1 then
+        newStates[id] = "crouching"
+        break
+      end
+
+      if inputXs[id] == -directionXs[id] then
+        newStates[id] = "standing"
+        break
+      end
+
+      if inputXs[id] == directionXs[id] then
+        newStates[id] = "walking"
+        animationTimes[id] = 0
         break
       end
     until true
@@ -529,19 +576,32 @@ end
 
 function CharacterFixedUpdateSystem:updateCrouching(ids, dt)
   local xs = self.positionComponents.xs
-  local previousXs = self.velocityComponents.previousXs
+  local ys = self.positionComponents.ys
 
+  local previousXs = self.velocityComponents.previousXs
   local maxDdx = self.crouchingAcceleration * dt * dt
 
   for id in pairs(ids) do
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(-dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx
+
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
+  end
+end
+
+function CharacterFixedUpdateSystem:updateFalling(ids, dt)
+  local ys = self.positionComponents.ys
+
+  for id in pairs(ids) do
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 
 function CharacterFixedUpdateSystem:updateGliding(ids, dt)
   local xs = self.positionComponents.xs
+  local ys = self.positionComponents.ys
+
   local previousXs = self.velocityComponents.previousXs
   local inputXs = self.characterComponents.inputXs
   local maxDdx = self.glidingAcceleration * dt * dt
@@ -558,11 +618,15 @@ function CharacterFixedUpdateSystem:updateGliding(ids, dt)
     if ddx * inputX > 0 then
       xs[id] = xs[id] + ddx
     end
+
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 
 function CharacterFixedUpdateSystem:updateRunning(ids, dt)
   local xs = self.positionComponents.xs
+  local ys = self.positionComponents.ys
+
   local previousXs = self.velocityComponents.previousXs
   local inputXs = self.characterComponents.inputXs
   local maxDdx = self.runningAcceleration * dt * dt
@@ -576,11 +640,15 @@ function CharacterFixedUpdateSystem:updateRunning(ids, dt)
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx
+
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 
 function CharacterFixedUpdateSystem:updateSliding(ids, dt)
   local xs = self.positionComponents.xs
+  local ys = self.positionComponents.ys
+
   local previousXs = self.velocityComponents.previousXs
 
   local maxDdx = self.slidingAcceleration * dt * dt
@@ -589,11 +657,15 @@ function CharacterFixedUpdateSystem:updateSliding(ids, dt)
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(-dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx
+
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 
 function CharacterFixedUpdateSystem:updateSneaking(ids, dt)
   local xs = self.positionComponents.xs
+  local ys = self.positionComponents.ys
+
   local previousXs = self.velocityComponents.previousXs
   local inputXs = self.characterComponents.inputXs
   local maxDdx = self.sneakingAcceleration * dt * dt
@@ -607,11 +679,15 @@ function CharacterFixedUpdateSystem:updateSneaking(ids, dt)
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx
+
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 
 function CharacterFixedUpdateSystem:updateStanding(ids, dt)
   local xs = self.positionComponents.xs
+  local ys = self.positionComponents.ys
+
   local previousXs = self.velocityComponents.previousXs
   local maxDdx = self.standingAcceleration * dt * dt
 
@@ -619,11 +695,15 @@ function CharacterFixedUpdateSystem:updateStanding(ids, dt)
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(-dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx
+
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 
 function CharacterFixedUpdateSystem:updateWalking(ids, dt)
   local xs = self.positionComponents.xs
+  local ys = self.positionComponents.ys
+
   local previousXs = self.velocityComponents.previousXs
   local inputXs = self.characterComponents.inputXs
   local maxDdx = self.walkingAcceleration * dt * dt
@@ -637,6 +717,8 @@ function CharacterFixedUpdateSystem:updateWalking(ids, dt)
     local dx = xs[id] - previousXs[id]
     local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
     xs[id] = xs[id] + ddx
+
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 
@@ -652,6 +734,14 @@ function CharacterFixedUpdateSystem:updateWallSliding(ids, dt)
     local dy = ys[id] - previousYs[id]
     local ddy = clamp(targetDy - dy, -maxDdy, maxDdy)
     ys[id] = ys[id] + ddy
+  end
+end
+
+function CharacterFixedUpdateSystem:updateWallTouching(ids, dt)
+  local ys = self.positionComponents.ys
+
+  for id in pairs(ids) do
+    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
   end
 end
 

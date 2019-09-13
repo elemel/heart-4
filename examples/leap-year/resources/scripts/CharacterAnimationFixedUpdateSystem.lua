@@ -67,6 +67,8 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
       images[id] = self.imageResources:loadResource(frame)
     elseif state == "wallSliding" then
       images[id] = self.imageResources:loadResource(skin.attacking)
+    elseif state == "wallTouching" then
+      images[id] = self.imageResources:loadResource(skin.running)
     end
 
     previousTransforms[id]:reset():setTransformation(
