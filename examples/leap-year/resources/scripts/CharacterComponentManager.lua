@@ -101,6 +101,37 @@ function CharacterComponentManager:init(game, config)
       running = "resources/images/characters/zombie/runningZombie.png",
     },
   }
+
+  self.crouchingAcceleration = 8
+  self.crouchingJumpSpeed = 6
+
+  self.fallingAcceleration = 32
+
+  self.glidingSpeed = 3
+  self.glidingAcceleration = 6
+
+  self.slidingAcceleration = 4
+  self.slidingJumpSpeed = 10
+
+  self.sneakingAcceleration = 8
+  self.sneakingSpeed = 2
+  self.sneakingJumpSpeed = 10
+
+  self.standingAcceleration = 12
+  self.standingJumpSpeed = 10
+
+  self.runningAcceleration = 20
+  self.runningJumpSpeed = 15
+  self.runningSpeed = 5
+
+  self.walkingJumpSpeed = 13
+  self.walkingSpeed = 3
+  self.walkingAcceleration = 12
+
+  self.wallSlidingJumpSpeedX = 5
+  self.wallSlidingJumpSpeedY = 13
+  self.wallSlidingAcceleration = 32
+  self.wallSlidingSpeed = 5
 end
 
 function CharacterComponentManager:createComponent(id, config, transform)
