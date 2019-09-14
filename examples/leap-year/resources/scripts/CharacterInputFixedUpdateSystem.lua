@@ -44,7 +44,6 @@ end
 
 function CharacterInputFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
   local crouchingJumpSpeed = self.characterComponents.crouchingJumpSpeed
-  local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
 
@@ -54,10 +53,13 @@ function CharacterInputFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
   local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
+  local ys = self.positionComponents.ys
+  local previousYs = self.velocityComponents.previousYs
+
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
-        ys[id] = ys[id] - crouchingJumpSpeed * dt
+        ys[id] = previousYs[id] - crouchingJumpSpeed * dt
         newStates[id] = "falling"
         break
       end
@@ -117,7 +119,6 @@ end
 
 function CharacterInputFixedUpdateSystem:transitionRunning(ids, dt, newStates)
   local runningJumpSpeed = self.characterComponents.runningJumpSpeed
-  local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
   local inputXs = self.characterComponents.inputXs
@@ -128,10 +129,13 @@ function CharacterInputFixedUpdateSystem:transitionRunning(ids, dt, newStates)
   local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
+  local ys = self.positionComponents.ys
+  local previousYs = self.velocityComponents.previousYs
+
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
-        ys[id] = ys[id] - runningJumpSpeed * dt
+        ys[id] = previousYs[id] - runningJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
@@ -156,7 +160,6 @@ end
 
 function CharacterInputFixedUpdateSystem:transitionSliding(ids, dt, newStates)
   local slidingJumpSpeed = self.characterComponents.slidingJumpSpeed
-  local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
 
@@ -166,10 +169,13 @@ function CharacterInputFixedUpdateSystem:transitionSliding(ids, dt, newStates)
   local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
+  local ys = self.positionComponents.ys
+  local previousYs = self.velocityComponents.previousYs
+
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
-        ys[id] = ys[id] - slidingJumpSpeed * dt
+        ys[id] = previousYs[id] - slidingJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
@@ -190,7 +196,6 @@ end
 
 function CharacterInputFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
   local sneakingJumpSpeed = self.characterComponents.sneakingJumpSpeed
-  local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
   local inputXs = self.characterComponents.inputXs
@@ -199,10 +204,13 @@ function CharacterInputFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
   local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
+  local ys = self.positionComponents.ys
+  local previousYs = self.velocityComponents.previousYs
+
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
-        ys[id] = ys[id] - sneakingJumpSpeed * dt
+        ys[id] = previousYs[id] - sneakingJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
@@ -223,7 +231,6 @@ end
 function CharacterInputFixedUpdateSystem:transitionStanding(ids, dt, newStates)
   local standingJumpSpeed = self.characterComponents.standingJumpSpeed
   local animationTimes = self.characterComponents.animationTimes
-  local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
   local inputXs = self.characterComponents.inputXs
@@ -232,10 +239,13 @@ function CharacterInputFixedUpdateSystem:transitionStanding(ids, dt, newStates)
   local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
+  local ys = self.positionComponents.ys
+  local previousYs = self.velocityComponents.previousYs
+
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
-        ys[id] = ys[id] - standingJumpSpeed * dt
+        ys[id] = previousYs[id] - standingJumpSpeed * dt
         newStates[id] = "falling"
         break
       end
@@ -261,7 +271,6 @@ end
 
 function CharacterInputFixedUpdateSystem:transitionWalking(ids, dt, newStates)
   local walkingJumpSpeed = self.characterComponents.walkingJumpSpeed
-  local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
 
   local inputXs = self.characterComponents.inputXs
@@ -272,10 +281,13 @@ function CharacterInputFixedUpdateSystem:transitionWalking(ids, dt, newStates)
   local oldJumpInputs = self.characterComponents.oldJumpInputs
   local jumpInputs = self.characterComponents.jumpInputs
 
+  local ys = self.positionComponents.ys
+  local previousYs = self.velocityComponents.previousYs
+
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
-        ys[id] = ys[id] - walkingJumpSpeed * dt
+        ys[id] = previousYs[id] - walkingJumpSpeed * dt
         newStates[id] = "gliding"
         break
       end
@@ -311,16 +323,16 @@ function CharacterInputFixedUpdateSystem:transitionWallSliding(ids, dt, newState
   local xs = self.positionComponents.xs
   local ys = self.positionComponents.ys
 
+  local previousXs = self.velocityComponents.previousXs
   local previousYs = self.velocityComponents.previousYs
 
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
         newStates[id] = "falling"
-
         directionXs[id] = -directionXs[id]
 
-        xs[id] = xs[id] + directionXs[id] * wallSlidingJumpSpeedX * dt
+        xs[id] = previousXs[id] + directionXs[id] * wallSlidingJumpSpeedX * dt
         ys[id] = previousYs[id] - wallSlidingJumpSpeedY * dt
         break
       end
@@ -346,12 +358,13 @@ function CharacterInputFixedUpdateSystem:transitionWallTouching(ids, dt, newStat
   local jumpInputs = self.characterComponents.jumpInputs
 
   local ys = self.positionComponents.ys
+  local previousYs = self.velocityComponents.previousYs
 
   for id in pairs(ids) do
     repeat
       if jumpInputs[id] and not oldJumpInputs[id] then
         newStates[id] = "wallSliding"
-        ys[id] = ys[id] - standingJumpSpeed * dt
+        ys[id] = previousYs[id] - standingJumpSpeed * dt
         break
       end
 
