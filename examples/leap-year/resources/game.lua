@@ -143,6 +143,10 @@ return {
       },
 
       {
+        class = "resources.scripts.CharacterCollisionFixedUpdateSystem",
+      },
+
+      {
         class = "resources.scripts.CharacterAnimationFixedUpdateSystem",
       },
 
