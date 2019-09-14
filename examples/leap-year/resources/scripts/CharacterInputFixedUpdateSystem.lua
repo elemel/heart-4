@@ -1,8 +1,8 @@
 local clamp = heart.math.clamp
 
-local CharacterFixedUpdateSystem = heart.class.newClass()
+local CharacterInputFixedUpdateSystem = heart.class.newClass()
 
-function CharacterFixedUpdateSystem:init(game, config)
+function CharacterInputFixedUpdateSystem:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
@@ -24,19 +24,6 @@ function CharacterFixedUpdateSystem:init(game, config)
     walking = self.transitionWalking,
     wallSliding = self.transitionWallSliding,
     wallTouching = self.transitionWallTouching,
-  }
-
-  self.updateHandlers = {
-    crouching = self.updateCrouching,
-    falling = self.updateFalling,
-    gliding = self.updateGliding,
-    running = self.updateRunning,
-    sliding = self.updateSliding,
-    sneaking = self.updateSneaking,
-    standing = self.updateStanding,
-    walking = self.updateWalking,
-    wallSliding = self.updateWallSliding,
-    wallTouching = self.updateWallTouching,
   }
 
   self.crouchingAcceleration = 8
@@ -71,7 +58,7 @@ function CharacterFixedUpdateSystem:init(game, config)
   self.wallSlidingSpeed = 5
 end
 
-function CharacterFixedUpdateSystem:fixedUpdate(dt)
+function CharacterInputFixedUpdateSystem:fixedUpdate(dt)
   local newStates = {}
 
   for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
@@ -85,17 +72,9 @@ function CharacterFixedUpdateSystem:fixedUpdate(dt)
   for id, state in pairs(newStates) do
     self.characterStateComponents:setState(id, state)
   end
-
-  for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
-    local handler = self.updateHandlers[state]
-
-    if handler then
-      handler(self, ids, dt)
-    end
-  end
 end
 
-function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
@@ -151,7 +130,7 @@ function CharacterFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionGliding(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionGliding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
@@ -188,7 +167,7 @@ function CharacterFixedUpdateSystem:transitionGliding(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionFalling(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionFalling(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
   local inputXs = self.characterComponents.inputXs
@@ -225,7 +204,7 @@ function CharacterFixedUpdateSystem:transitionFalling(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionRunning(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
@@ -271,7 +250,7 @@ function CharacterFixedUpdateSystem:transitionRunning(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionSliding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
@@ -312,7 +291,7 @@ function CharacterFixedUpdateSystem:transitionSliding(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
@@ -351,7 +330,7 @@ function CharacterFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionStanding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local animationTimes = self.characterComponents.animationTimes
   local ys = self.positionComponents.ys
@@ -407,7 +386,7 @@ function CharacterFixedUpdateSystem:transitionStanding(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionWalking(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local ys = self.positionComponents.ys
   local directionXs = self.characterComponents.directionXs
@@ -463,7 +442,7 @@ function CharacterFixedUpdateSystem:transitionWalking(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionWallSliding(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionWallSliding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
   local inputXs = self.characterComponents.inputXs
@@ -514,7 +493,7 @@ function CharacterFixedUpdateSystem:transitionWallSliding(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:transitionWallTouching(ids, dt, newStates)
+function CharacterInputFixedUpdateSystem:transitionWallTouching(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local animationTimes = self.characterComponents.animationTimes
   local directionXs = self.characterComponents.directionXs
@@ -574,175 +553,4 @@ function CharacterFixedUpdateSystem:transitionWallTouching(ids, dt, newStates)
   end
 end
 
-function CharacterFixedUpdateSystem:updateCrouching(ids, dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
-
-  local previousXs = self.velocityComponents.previousXs
-  local maxDdx = self.crouchingAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local dx = xs[id] - previousXs[id]
-    local ddx = clamp(-dx, -maxDdx, maxDdx)
-    xs[id] = xs[id] + ddx
-
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateFalling(ids, dt)
-  local ys = self.positionComponents.ys
-
-  for id in pairs(ids) do
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateGliding(ids, dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
-
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
-  local maxDdx = self.glidingAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local inputX = inputXs[id]
-
-    local targetVelocityX = inputX * self.glidingSpeed
-    local targetDx = targetVelocityX * dt
-
-    local dx = xs[id] - previousXs[id]
-    local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
-
-    if ddx * inputX > 0 then
-      xs[id] = xs[id] + ddx
-    end
-
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateRunning(ids, dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
-
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
-  local maxDdx = self.runningAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local inputX = inputXs[id]
-
-    local targetVelocityX = inputX * self.runningSpeed
-    local targetDx = targetVelocityX * dt
-
-    local dx = xs[id] - previousXs[id]
-    local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
-    xs[id] = xs[id] + ddx
-
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateSliding(ids, dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
-
-  local previousXs = self.velocityComponents.previousXs
-
-  local maxDdx = self.slidingAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local dx = xs[id] - previousXs[id]
-    local ddx = clamp(-dx, -maxDdx, maxDdx)
-    xs[id] = xs[id] + ddx
-
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateSneaking(ids, dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
-
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
-  local maxDdx = self.sneakingAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local inputX = inputXs[id]
-
-    local targetVelocityX = inputX * self.sneakingSpeed
-    local targetDx = targetVelocityX * dt
-
-    local dx = xs[id] - previousXs[id]
-    local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
-    xs[id] = xs[id] + ddx
-
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateStanding(ids, dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
-
-  local previousXs = self.velocityComponents.previousXs
-  local maxDdx = self.standingAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local dx = xs[id] - previousXs[id]
-    local ddx = clamp(-dx, -maxDdx, maxDdx)
-    xs[id] = xs[id] + ddx
-
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateWalking(ids, dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
-
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
-  local maxDdx = self.walkingAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local inputX = inputXs[id]
-
-    local targetVelocityX = inputX * self.walkingSpeed
-    local targetDx = targetVelocityX * dt
-
-    local dx = xs[id] - previousXs[id]
-    local ddx = clamp(targetDx - dx, -maxDdx, maxDdx)
-    xs[id] = xs[id] + ddx
-
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-function CharacterFixedUpdateSystem:updateWallSliding(ids, dt)
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
-  local maxDdy = self.wallSlidingAcceleration * dt * dt
-
-  for id in pairs(ids) do
-    local targetVelocityY = self.wallSlidingSpeed
-    local targetDy = targetVelocityY * dt
-
-    local dy = ys[id] - previousYs[id]
-    local ddy = clamp(targetDy - dy, -maxDdy, maxDdy)
-    ys[id] = ys[id] + ddy
-  end
-end
-
-function CharacterFixedUpdateSystem:updateWallTouching(ids, dt)
-  local ys = self.positionComponents.ys
-
-  for id in pairs(ids) do
-    ys[id] = ys[id] + self.fallingAcceleration * dt * dt
-  end
-end
-
-return CharacterFixedUpdateSystem
+return CharacterInputFixedUpdateSystem

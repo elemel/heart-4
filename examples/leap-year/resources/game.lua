@@ -123,7 +123,11 @@ return {
       },
 
       {
-        class = "resources.scripts.CharacterFixedUpdateSystem",
+        class = "resources.scripts.CharacterInputFixedUpdateSystem",
+      },
+
+      {
+        class = "resources.scripts.CharacterStateFixedUpdateSystem",
       },
 
       {
