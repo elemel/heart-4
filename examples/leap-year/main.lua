@@ -3,6 +3,13 @@ heart = require("heart")
 local palette = require("resources.scripts.palette")
 
 function love.load()
+  -- local sfxr = require("heart.external.sfxr")
+  -- local sound = sfxr.newSound()
+  -- sound:randomize(4)
+  -- local sounddata = sound:generateSoundData()
+  -- local source = love.audio.newSource(sounddata)
+  -- source:play()
+
   love.window.setTitle("Leap Year")
 
   love.window.setMode(800, 600, {
