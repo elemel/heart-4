@@ -17,7 +17,7 @@ return {
     },
 
     character = {
-      characterType = "woman",
+      characterType = "man",
     },
   },
 }

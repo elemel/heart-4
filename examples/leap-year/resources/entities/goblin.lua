@@ -6,7 +6,7 @@ return {
     velocity = {},
 
     box = {
-      width = 0.625,
+      width = 0.75,
     },
 
     collider = {},
@@ -17,7 +17,7 @@ return {
     },
 
     character = {
-      characterType = "woman",
+      characterType = "goblin",
     },
   },
 }

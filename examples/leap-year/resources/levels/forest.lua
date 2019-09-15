@@ -38,7 +38,7 @@ return {
   },
 
   {
-    prototype = "resources.entities.woman",
+    prototype = "resources.entities.man",
     transform = {2.5, 11.5},
   },
 }
