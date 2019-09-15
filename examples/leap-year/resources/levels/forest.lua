@@ -10,6 +10,13 @@ return {
 
   {
     components = {
+      sky = {
+        colors = {
+          0x30 / 0xff, 0x9f / 0xff, 0xed / 0xff, 1,
+          0xae / 0xff, 0xd9 / 0xff, 0xeb / 0xff, 1,
+        },
+      },
+
       terrain = {
         tileSymbols = {
           largeOrangeTree = "O",

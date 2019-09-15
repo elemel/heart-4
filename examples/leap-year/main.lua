@@ -16,16 +16,6 @@ function love.load()
   love.physics.setMeter(1)
   love.mouse.setVisible(false)
 
-  local r1, g1, b1 = heart.svg.parseColor(palette.lightBlue)
-  local r2, g2, b2 = heart.svg.parseColor(palette.brightBlue)
-
-  backgroundMesh = love.graphics.newMesh({
-    {0, 0, 0, 0, r1, g1, b1, 1},
-    {1, 0, 0, 0, r1, g1, b1, 1},
-    {1, 1, 0, 0, r2, g2, b2, 1},
-    {0, 1, 0, 0, r2, g2, b2, 1},
-  })
-
   local resourceLoaders = {
     image = heart.graphics.ImageResourceLoader.new(),
   }
@@ -37,9 +27,6 @@ function love.load()
 end
 
 function love.draw()
-  local width, height = love.graphics.getDimensions()
-  love.graphics.draw(backgroundMesh, 0, 0, 0, width, height)
-
   game:handleEvent("draw")
 end
 

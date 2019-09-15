@@ -24,6 +24,11 @@ return {
     },
 
     {
+      componentType = "sky",
+      class = "resources.scripts.SkyComponentManager",
+    },
+
+    {
       componentType = "bone",
       class = "heart.animation.BoneComponentManager",
     },
@@ -98,6 +103,10 @@ return {
     },
 
     draw = {
+      {
+        class = "resources.scripts.SkyDrawSystem",
+      },
+
       {
         class = "heart.graphics.ViewportDrawSystem",
       },
