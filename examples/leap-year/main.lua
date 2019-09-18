@@ -1,7 +1,5 @@
 heart = require("heart")
 
-local palette = require("resources.scripts.palette")
-
 function love.load()
   love.window.setTitle("Leap Year")
 
@@ -9,7 +7,7 @@ function love.load()
     fullscreentype = "desktop",
     resizable = true,
     -- fullscreen = true,
-    highdpi = true,
+    -- highdpi = true,
   })
 
   love.graphics.setDefaultFilter("linear", "nearest")
@@ -21,7 +19,7 @@ function love.load()
   }
 
   local gameConfig = require("resources.game")
-  local levelConfig = require("resources.levels.forest")
+  local levelConfig = require("resources.levels.abandonedMines")
   local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
   game = heart.Game.new(resourceLoaders, config)
 end

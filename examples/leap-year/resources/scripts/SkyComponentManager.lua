@@ -10,8 +10,8 @@ function SkyComponentManager:createComponent(id, config, transform)
   local mesh = love.graphics.newMesh({
     {0, 0, 0, 0, r1, g1, b1, a1},
     {1, 0, 0, 0, r1, g1, b1, a1},
-    {1, 1, 0, 0, r2, g2, b2, b2},
-    {0, 1, 0, 0, r2, g2, b2, b2},
+    {1, 1, 0, 0, r2, g2, b2, a2},
+    {0, 1, 0, 0, r2, g2, b2, a2},
   })
 
   self.meshes[id] = mesh
