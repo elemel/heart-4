@@ -15,20 +15,29 @@ function TerrainComponentManager:init(game, config)
     column = "|",
     dirt = "@",
     floorSpikes = "M",
+    grass = ":",
+    largeTree = "T",
     leftSign = "<",
     rightSign = ">",
+    shortGrass = ".",
     stone = "%",
-    wood = "=",
+    tallGrass = "!",
+    wood = "="
   }
 
   self.rewriteHandlers = {
+    blueBrick = self.rewriteBlueBrick,
     brick = self.rewriteBrick,
     cloud = self.rewriteCloud,
     column = self.rewriteColumn,
     dirt = self.rewriteDirt,
-    largeOrangeTree = self.rewriteLargeOrangeTree,
+    greenBrick = self.rewriteGreenBrick,
+    largeRedTree = self.rewriteLargeRedTree,
+    largeTree = self.rewriteLargeTree,
+    largeYellowTree = self.rewriteLargeYellowTree,
     stone = self.rewriteStone,
     wood = self.rewriteWood,
+    yellowBrick = self.rewriteYellowBrick,
   }
 end
 
@@ -83,6 +92,14 @@ function TerrainComponentManager:destroyComponent(id)
   self.tileGrids[id] = nil
 end
 
+function TerrainComponentManager:rewriteBlueBrick(tileGrid, x, y, width, height)
+  if (get2(tileGrid, y - 1, x) ~= "blueBrick" and
+    get2(tileGrid, y - 1, x) ~= "blueBrickFloor") then
+
+    set2(tileGrid, y, x, "blueBrickFloor")
+  end
+end
+
 function TerrainComponentManager:rewriteBrick(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "brick" and
     get2(tileGrid, y - 1, x) ~= "brickFloor") then
@@ -121,18 +138,56 @@ function TerrainComponentManager:rewriteDirt(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteLargeOrangeTree(
+function TerrainComponentManager:rewriteGreenBrick(tileGrid, x, y, width, height)
+  if (get2(tileGrid, y - 1, x) ~= "greenBrick" and
+    get2(tileGrid, y - 1, x) ~= "greenBrickFloor") then
+
+    set2(tileGrid, y, x, "greenBrickFloor")
+  end
+end
+
+function TerrainComponentManager:rewriteLargeRedTree(
   tileGrid, x, y, width, height)
 
-  if (get2(tileGrid, y, x + 1) == "largeOrangeTree" and
-    get2(tileGrid, y + 1, x) == "largeOrangeTree" and
-    get2(tileGrid, y + 1, x + 1) == "largeOrangeTree") then
+  if (get2(tileGrid, y, x + 1) == "largeRedTree" and
+    get2(tileGrid, y + 1, x) == "largeRedTree" and
+    get2(tileGrid, y + 1, x + 1) == "largeRedTree") then
 
-    set2(tileGrid, y, x, "largeOrangeTree11")
-    set2(tileGrid, y, x + 1, "largeOrangeTree12")
+    set2(tileGrid, y, x, "largeRedTree11")
+    set2(tileGrid, y, x + 1, "largeRedTree12")
 
-    set2(tileGrid, y + 1, x, "largeOrangeTree21")
-    set2(tileGrid, y + 1, x + 1, "largeOrangeTree22")
+    set2(tileGrid, y + 1, x, "largeRedTree21")
+    set2(tileGrid, y + 1, x + 1, "largeRedTree22")
+  end
+end
+
+function TerrainComponentManager:rewriteLargeTree(
+  tileGrid, x, y, width, height)
+
+  if (get2(tileGrid, y, x + 1) == "largeTree" and
+    get2(tileGrid, y + 1, x) == "largeTree" and
+    get2(tileGrid, y + 1, x + 1) == "largeTree") then
+
+    set2(tileGrid, y, x, "largeTree11")
+    set2(tileGrid, y, x + 1, "largeTree12")
+
+    set2(tileGrid, y + 1, x, "largeTree21")
+    set2(tileGrid, y + 1, x + 1, "largeTree22")
+  end
+end
+
+function TerrainComponentManager:rewriteLargeYellowTree(
+  tileGrid, x, y, width, height)
+
+  if (get2(tileGrid, y, x + 1) == "largeYellowTree" and
+    get2(tileGrid, y + 1, x) == "largeYellowTree" and
+    get2(tileGrid, y + 1, x + 1) == "largeYellowTree") then
+
+    set2(tileGrid, y, x, "largeYellowTree11")
+    set2(tileGrid, y, x + 1, "largeYellowTree12")
+
+    set2(tileGrid, y + 1, x, "largeYellowTree21")
+    set2(tileGrid, y + 1, x + 1, "largeYellowTree22")
   end
 end
 
@@ -149,6 +204,14 @@ function TerrainComponentManager:rewriteWood(tileGrid, x, y, width, height)
     get2(tileGrid, y - 1, x) ~= "woodenFloor") then
 
     set2(tileGrid, y, x, "woodenFloor")
+  end
+end
+
+function TerrainComponentManager:rewriteYellowBrick(tileGrid, x, y, width, height)
+  if (get2(tileGrid, y - 1, x) ~= "yellowBrick" and
+    get2(tileGrid, y - 1, x) ~= "yellowBrickFloor") then
+
+    set2(tileGrid, y, x, "yellowBrickFloor")
   end
 end
 

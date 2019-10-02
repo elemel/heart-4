@@ -13,11 +13,15 @@ return {
       sky = {
         colors = {
           palette.darkBlue[1], palette.darkBlue[2], palette.darkBlue[3], 1,
-          0, 0, 0, 0,
+          palette.darkBlue[1], palette.darkBlue[2], palette.darkBlue[3], 0,
         },
       },
 
       terrain = {
+        tileSymbols = {
+          blueBrick = "#",
+        },
+
         tileGrid = {
           "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#                             #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
           "                               #                             #                             ",

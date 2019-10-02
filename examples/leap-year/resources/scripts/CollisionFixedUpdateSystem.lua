@@ -23,15 +23,21 @@ function CollisionFixedUpdateSystem:init(game, config)
   self.terrainComponents = assert(self.game.componentManagers.terrain)
 
   self.wallTileTypes = {
+    blueBrick = true,
+    blueBrickFloor = true,
     brick = true,
     brickFloor = true,
     cloud = true,
     dirt = true,
     dirtFloor = true,
+    greenBrick = true,
+    greenBrickFloor = true,
     stone = true,
     stoneFloor = true,
     wood = true,
     woodenFloor = true,
+    yellowBrick = true,
+    yellowBrickFloor = true,
   }
 end
 

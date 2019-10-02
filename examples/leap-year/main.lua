@@ -1,5 +1,7 @@
 heart = require("heart")
 
+local levelGrid = require("resources.scripts.levelGrid")
+
 function love.load()
   love.window.setTitle("Leap Year")
 
@@ -19,9 +21,13 @@ function love.load()
   }
 
   local gameConfig = require("resources.game")
-  local levelConfig = require("resources.levels.abandonedMines")
+  local levelConfig = require("resources.levels.forest")
   local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
   game = heart.Game.new(resourceLoaders, config)
+
+  love.handlers.warp = love.warp
+
+  love.event.push("warp", {a = "b"})
 end
 
 function love.draw()
@@ -34,4 +40,8 @@ end
 
 function love.update(dt)
   game:handleEvent("update", dt)
+end
+
+function love.warp(levelX, levelY, entityConfigs)
+  print("test", arg.a)
 end

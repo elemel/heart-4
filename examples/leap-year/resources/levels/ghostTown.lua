@@ -13,14 +13,13 @@ return {
       sky = {
         colors = {
           palette.blue[1], palette.blue[2], palette.blue[3], 1,
-          palette.pink[1], palette.pink[2], palette.pink[3], 1,
+          palette.yellow[1], palette.yellow[2], palette.yellow[3], 1,
         },
       },
 
       terrain = {
         tileSymbols = {
-          largeRedTree = "R",
-          largeYellowTree = "Y",
+          greenBrick = "#",
         },
 
         tileGrid = {
@@ -34,8 +33,8 @@ return {
           "                                                                                           ",
           "               #                                                                           ",
           "              ====                                                                         ",
-          "        YY    ####          RR                                                             ",
-          "        YY    ####          RR                                                             ",
+          "        TT    ####                                                                         ",
+          "   .:.  TT    ####                                                                         ",
           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
           "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",

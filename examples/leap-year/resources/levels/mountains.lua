@@ -1,3 +1,5 @@
+local palette = require("resources.scripts.palette")
+
 return {
   {
     components = {
@@ -10,12 +12,16 @@ return {
     components = {
       sky = {
         colors = {
-          0x30 / 0xff, 0x9f / 0xff, 0xed / 0xff, 1,
-          0xae / 0xff, 0xd9 / 0xff, 0xeb / 0xff, 1,
+          palette.black[1], palette.black[2], palette.black[3], 1,
+          palette.blue[1], palette.blue[2], palette.blue[3], 1,
         },
       },
 
       terrain = {
+        tileSymbols = {
+          blueBrick = "#",
+        },
+
         tileGrid = {
           "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#                             #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",
           "                               #                             #                             ",
