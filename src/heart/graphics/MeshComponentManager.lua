@@ -5,6 +5,7 @@ local MeshComponentManager = class.newClass()
 function MeshComponentManager:init(game, config)
   self.game = assert(game)
   self.meshResources = assert(game.resourceLoaders.mesh)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 
   self.meshes = {}
 
@@ -13,7 +14,9 @@ function MeshComponentManager:init(game, config)
   self.interpolatedTransforms = {}
 end
 
-function MeshComponentManager:createComponent(id, config, transform)
+function MeshComponentManager:createComponent(id, config)
+  local transform = self.transformComponents.transforms[id]
+
   if config.mesh then
     self.meshes[id] = self.meshResources:loadResource(config.mesh)
   else

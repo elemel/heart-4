@@ -9,7 +9,7 @@ function ViewportComponentManager:init(game, config)
   self.heights = {}
 end
 
-function ViewportComponentManager:createComponent(entityId, config, transform)
+function ViewportComponentManager:createComponent(entityId, config)
   self.xs[entityId] = config.x or 0
   self.ys[entityId] = config.y or 0
   self.widths[entityId] = config.width or 800

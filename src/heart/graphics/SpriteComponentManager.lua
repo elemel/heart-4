@@ -4,6 +4,7 @@ local SpriteComponentManager = class.newClass()
 
 function SpriteComponentManager:init(game, config)
   self.game = assert(game)
+  self.transformComponents = assert(self.game.componentManagers.transform)
   self.imageResources = assert(game.resourceLoaders.image)
   self.images = {}
   self.zs = {}
@@ -13,7 +14,9 @@ function SpriteComponentManager:init(game, config)
   self.interpolatedTransforms = {}
 end
 
-function SpriteComponentManager:createComponent(entityId, config, transform)
+function SpriteComponentManager:createComponent(entityId, config)
+  local transform = self.transformComponents.transforms[entityId]
+
   if config.image then
     local imageFilename = assert(config.image)
     local image = self.imageResources:loadResource(imageFilename)

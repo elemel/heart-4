@@ -10,9 +10,7 @@ function ParticleSystemComponentManager:init(game, config)
   self.blendModes = {}
 end
 
-function ParticleSystemComponentManager:createComponent(
-  entityId, config, transform)
-
+function ParticleSystemComponentManager:createComponent(entityId, config)
   local imageFilename = assert(config.image)
   local image = self.imageLoader:load(imageFilename)
   local bufferSize = config.bufferSize or 1000

@@ -6,7 +6,6 @@ local Game = class.newClass()
 
 function Game:init(resourceLoaders, config)
   self.emptyConfig = {}
-  self.identityTransform = love.math.newTransform()
   self.resourceLoaders = assert(resourceLoaders)
   self.domains = {}
 
@@ -111,9 +110,8 @@ function Game:generateEntityId()
   return entityId
 end
 
-function Game:createEntity(parentId, config, transform)
+function Game:createEntity(parentId, config)
   config = self:expandEntityConfig(config)
-  transform = transform or self.identityTransform
   local entityId = config.id
 
   if entityId then
@@ -129,25 +127,6 @@ function Game:createEntity(parentId, config, transform)
   parentId = parentId or config.parent
   self:setEntityParent(entityId, parentId)
   local componentConfigs = config.components
-
-  if config.transform then
-    local localTransform = love.math.newTransform()
-
-    if config.transform.z then
-      localTransform:setMatrix(
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, config.transform.z,
-        0, 0, 0, 1)
-
-      transform = transform * localTransform
-    end
-
-    localTransform:setTransformation(unpack(config.transform))
-    transform = transform * localTransform
-  elseif config.transform3 then
-    transform = transform * heartMath.newTransform3(unpack(config.transform3))
-  end
 
   if componentConfigs then
     local componentTypes = heartTable.keys(componentConfigs)
@@ -165,13 +144,13 @@ function Game:createEntity(parentId, config, transform)
 
     for i, componentType in ipairs(componentTypes) do
       local componentConfig = componentConfigs[componentType]
-      self:createComponent(entityId, componentType, componentConfig, transform)
+      self:createComponent(entityId, componentType, componentConfig)
     end
   end
 
   if config.children then
     for i, childConfig in ipairs(config.children) do
-      self:createEntity(entityId, childConfig, transform)
+      self:createEntity(entityId, childConfig)
     end
   end
 
@@ -211,9 +190,8 @@ function Game:destroyEntity(entityId)
   return true
 end
 
-function Game:createComponent(entityId, componentType, config, transform)
+function Game:createComponent(entityId, componentType, config)
   config = config or self.emptyConfig
-  transform = transform or self.identityTransform
   local componentManager = self.componentManagers[componentType]
 
   if not componentManager then
@@ -226,8 +204,7 @@ function Game:createComponent(entityId, componentType, config, transform)
     error("Component already exists: " .. componentType)
   end
 
-  local component =
-    componentManager:createComponent(entityId, config, transform)
+  local component = componentManager:createComponent(entityId, config)
 
   if not components then
     components = {}
@@ -278,8 +255,6 @@ function Game:expandEntityConfig(config)
   local expandedConfig = {
     id = config.id,
     parent = config.parent,
-    transform = config.transform,
-    transform3 = config.transform3,
   }
 
   if config.components or prototype.components then

@@ -14,7 +14,7 @@ function Mesh3ComponentManager:init(game, config)
   }
 end
 
-function Mesh3ComponentManager:createComponent(entityId, config, transform)
+function Mesh3ComponentManager:createComponent(entityId, config)
   local vertices = {
     -- left
 

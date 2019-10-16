@@ -3,6 +3,7 @@ local palette = require("resources.scripts.palette")
 return {
   {
     components = {
+      transform = {},
       camera = {},
       viewport = {},
     },

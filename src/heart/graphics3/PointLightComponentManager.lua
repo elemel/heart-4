@@ -9,7 +9,7 @@ function PointLightComponentManager:init(game, config)
   self.shadowMaps = {}
 end
 
-function PointLightComponentManager:createComponent(entityId, config, transform)
+function PointLightComponentManager:createComponent(entityId, config)
   self.positions[entityId] = config.position or {0, 0, 0}
   self.colors[entityId] = config.color or {1, 1, 1}
   self.attenuations[entityId] = config.attenuation or {0, 0, 4 * math.pi}
