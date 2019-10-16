@@ -15,6 +15,11 @@ return {
 
   componentManagers = {
     {
+      componentType = "transform",
+      class = "heart.animation.TransformComponentManager",
+    },
+
+    {
       componentType = "bone",
       class = "heart.animation.BoneComponentManager",
     },
@@ -177,6 +182,10 @@ return {
       transform = {0, 0, 0, 5},
 
       components = {
+        transform = {
+          transform = {0, 0, 0, 5},
+        },
+
         bone = {},
         camera = {},
         viewport = {},
@@ -187,6 +196,10 @@ return {
       transform = {0, 0, 0, 0.001, 0.001, 8000, 8000, z = -1},
 
       components = {
+        transform = {
+          transform = {0, 0, 0, 0.001, 0.001, 8000, 8000, z = -1},
+        },
+
         mesh = {
           mesh = "resources/meshes/background.svg",
         },
@@ -197,6 +210,10 @@ return {
       transform = {0, 2},
 
       components = {
+        transform = {
+          transform = {0, 2},
+        },
+
         body = {},
 
         chainFixture = {
@@ -229,11 +246,23 @@ return {
     {
       prototype = "resources.entities.minecart",
       transform = {-4, 0},
+
+      components = {
+        transform = {
+          transform = {-4, 0},
+        },
+      },
     },
 
     {
       prototype = "resources.entities.rider",
       transform = {-4, -2},
+
+      components = {
+        transform = {
+          transform = {-4, -2},
+        },
+      },
     },
   },
 }

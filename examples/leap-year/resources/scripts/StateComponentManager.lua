@@ -8,7 +8,7 @@ function StateComponentManager:init(game, config)
   self.stateEntitySets = {}
 end
 
-function StateComponentManager:createComponent(id, config, transform)
+function StateComponentManager:createComponent(id, config)
   local state = config.state or self.defaultState
   self.states[id] = state
   set2(self.stateEntitySets, state, id, true)

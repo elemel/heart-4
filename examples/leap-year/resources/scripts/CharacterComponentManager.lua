@@ -134,7 +134,7 @@ function CharacterComponentManager:init(game, config)
   self.wallSlidingSpeed = 5
 end
 
-function CharacterComponentManager:createComponent(id, config, transform)
+function CharacterComponentManager:createComponent(id, config)
   self.characterTypes[id] = assert(config.characterType)
   self.directionXs[id] = config.directionX or 1
   self.animationTimes[id] = config.animationTime or 0

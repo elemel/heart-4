@@ -10,7 +10,7 @@ function GravityComponentManager:init(game, config)
   self.gravityYs = {}
 end
 
-function GravityComponentManager:createComponent(id, config, transform)
+function GravityComponentManager:createComponent(id, config)
   self.gravityXs[id] = config.gravityX or self.defaultGravityX
   self.gravityYs[id] = config.gravityY or self.defaultGravityY
 end

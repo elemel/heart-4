@@ -1,5 +1,7 @@
 return {
   components = {
+    transform = {},
+
     bone = {
       flat = true,
     },
@@ -27,6 +29,10 @@ return {
       transform = {0, 0, 0, 0.001, 0.001, 500, 500},
 
       components = {
+        transform = {
+          transform = {0, 0, 0, 0.001, 0.001, 500, 500},
+        },
+
         bone = {},
         parentConstraint = {},
 
@@ -40,6 +46,10 @@ return {
       transform = {0, 0.35},
 
       components = {
+        transform = {
+          transform = {0, 0.35},
+        },
+
         bone = {
           flat = true,
         },
@@ -67,6 +77,10 @@ return {
           transform = {0, 0, 0, 0.001, 0.001, 500, 500},
 
           components = {
+            transform = {
+              transform = {0, 0, 0, 0.001, 0.001, 500, 500},
+            },
+
             bone = {},
             parentConstraint = {},
 
@@ -80,6 +94,10 @@ return {
           transform = {0, 0.35},
 
           components = {
+            transform = {
+              transform = {0, 0.35},
+            },
+
             bone = {
               flat = true,
             },
@@ -108,6 +126,10 @@ return {
               transform = {0, 0, 0, 0.001, 0.001, 500, 500},
 
               components = {
+                transform = {
+                  transform = {0, 0, 0, 0.001, 0.001, 500, 500},
+                },
+
                 bone = {},
                 parentConstraint = {},
 

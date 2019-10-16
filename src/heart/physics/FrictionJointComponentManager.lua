@@ -5,9 +5,12 @@ local FrictionJointComponentManager = class.newClass()
 function FrictionJointComponentManager:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function FrictionJointComponentManager:createComponent(id, config, transform)
+function FrictionJointComponentManager:createComponent(id, config)
+  local transform = self.transformComponents.transforms[entityId]
+
   local bodyId2 = self.game:findAncestorComponent(id, "body")
   local bodyId1 = self.game:findAncestorComponent(bodyId2, "body", 1)
 

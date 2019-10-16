@@ -5,10 +5,12 @@ local BoneComponentManager = class.newClass()
 
 function BoneComponentManager:init(game, config)
   self.game = assert(game)
+  self.transformComponents = assert(self.game.componentManagers.transform)
   self.transforms = {}
 end
 
-function BoneComponentManager:createComponent(entityId, config, transform)
+function BoneComponentManager:createComponent(entityId, config)
+  local transform = self.transformComponents.transforms[entityId]
   self.transforms[entityId] = transform:clone()
 end
 

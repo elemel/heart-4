@@ -41,7 +41,7 @@ function TerrainComponentManager:init(game, config)
   }
 end
 
-function TerrainComponentManager:createComponent(id, config, transform)
+function TerrainComponentManager:createComponent(id, config)
   local legend = {}
 
   for tileType, symbol in pairs(self.defaultTileSymbols) do

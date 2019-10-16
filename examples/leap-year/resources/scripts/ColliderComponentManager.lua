@@ -19,7 +19,7 @@ function ColliderComponentManager:init(game, config)
   self.constraintMaps = {}
 end
 
-function ColliderComponentManager:createComponent(id, config, transform)
+function ColliderComponentManager:createComponent(id, config)
   local x = self.positionComponents.xs[id]
   local y = self.positionComponents.ys[id]
 

@@ -6,10 +6,11 @@ local RectangleFixtureComponentManager = class.newClass()
 function RectangleFixtureComponentManager:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function RectangleFixtureComponentManager:createComponent(
-  entityId, config, transform)
+function RectangleFixtureComponentManager:createComponent(entityId, config)
+  local transform = self.transformComponents.transforms[entityId]
 
   local bodyId = assert(self.game:findAncestorComponent(entityId, "body"))
   local body = self.physicsDomain.bodies[bodyId]

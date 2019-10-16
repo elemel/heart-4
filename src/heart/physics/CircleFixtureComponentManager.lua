@@ -6,11 +6,11 @@ local CircleFixtureComponentManager = class.newClass()
 function CircleFixtureComponentManager:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function CircleFixtureComponentManager:createComponent(
-  entityId, config, transform)
-
+function CircleFixtureComponentManager:createComponent(entityId, config)
+  local transform = self.transformComponents.transforms[entityId]
   local bodyId = assert(self.game:findAncestorComponent(entityId, "body"))
   local body = self.physicsDomain.bodies[bodyId]
   local x = config.x or 0

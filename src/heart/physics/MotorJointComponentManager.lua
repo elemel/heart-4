@@ -5,9 +5,11 @@ local MotorJointComponentManager = class.newClass()
 function MotorJointComponentManager:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function MotorJointComponentManager:createComponent(entityId, config, transform)
+function MotorJointComponentManager:createComponent(entityId, config)
+  local transform = self.transformComponents.transforms[entityId]
   local bodyId2 = config.body2 or "body"
 
   if type(bodyId2) == "string" then

@@ -8,9 +8,7 @@ function ParentConstraintComponentManager:init(game, config)
   self.localTransforms = {}
 end
 
-function ParentConstraintComponentManager:createComponent(
-  entityId, config, transform)
-
+function ParentConstraintComponentManager:createComponent(entityId, config)
   local parentId = self.game.entityParents[entityId]
   local parentTransform = self.bones.transforms[parentId]
   local transform = self.bones.transforms[entityId]

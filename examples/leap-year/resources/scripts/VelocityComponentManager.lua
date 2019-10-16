@@ -8,7 +8,7 @@ function VelocityComponentManager:init(game, config)
   self.previousYs = {}
 end
 
-function VelocityComponentManager:createComponent(id, config, transform)
+function VelocityComponentManager:createComponent(id, config)
   self.previousXs[id] = config.previousX or self.positionComponents.xs[id]
   self.previousYs[id] = config.previousY or self.positionComponents.ys[id]
 end

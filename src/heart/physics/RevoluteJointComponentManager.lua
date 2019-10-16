@@ -5,9 +5,12 @@ local RevoluteJointComponentManager = class.newClass()
 function RevoluteJointComponentManager:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function RevoluteJointComponentManager:createComponent(entityId, config, transform)
+function RevoluteJointComponentManager:createComponent(entityId, config)
+  local transform = self.transformComponents.transforms[entityId]
+
   local bodyId2 = self.game:findAncestorComponent(entityId, "body")
   local bodyId1 = self.game:findAncestorComponent(bodyId2, "body", 1)
   local body1 = self.physicsDomain.bodies[bodyId1]

@@ -6,9 +6,11 @@ local BodyComponentManager = class.newClass()
 function BodyComponentManager:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function BodyComponentManager:createComponent(entityId, config, transform)
+function BodyComponentManager:createComponent(entityId, config)
+  local transform = self.transformComponents.transforms[entityId]
   local x = config.x or 0
   local y = config.y or 0
   x, y = transform:transformPoint(x, y)

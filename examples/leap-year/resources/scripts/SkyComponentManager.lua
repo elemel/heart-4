@@ -4,7 +4,7 @@ function SkyComponentManager:init(game, config)
   self.meshes = {}
 end
 
-function SkyComponentManager:createComponent(id, config, transform)
+function SkyComponentManager:createComponent(id, config)
   local r1, g1, b1, a1, r2, g2, b2, a2 = unpack(config.colors)
 
   local mesh = love.graphics.newMesh({
