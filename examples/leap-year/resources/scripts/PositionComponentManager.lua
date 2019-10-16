@@ -1,15 +1,21 @@
 local PositionComponentManager = heart.class.newClass()
 
 function PositionComponentManager:init(game, config)
+  self.game = assert(game)
+  self.transformComponents = assert(self.game.componentManagers.transform)
   self.xs = {}
   self.ys = {}
 end
 
-function PositionComponentManager:createComponent(id, config, transform)
+function PositionComponentManager:createComponent(id, config)
   local x = config.x or 0
   local y = config.y or 0
 
-  x, y = transform:transformPoint(x, y)
+  local transform = self.transformComponents.transforms[id]
+
+  if transform then
+    x, y = transform:transformPoint(x, y)
+  end
 
   self.xs[id] = x
   self.ys[id] = y

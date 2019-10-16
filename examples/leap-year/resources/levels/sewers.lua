@@ -46,6 +46,11 @@ return {
 
   {
     prototype = "resources.entities.man",
-    transform = {2.5, 14.5},
+
+    components = {
+      transform = {
+        transform = {2.5, 14.5},
+      },
+    },
   },
 }

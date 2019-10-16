@@ -5,7 +5,7 @@ function BoxComponentManager:init(game, config)
   self.heights = {}
 end
 
-function BoxComponentManager:createComponent(id, config, transform)
+function BoxComponentManager:createComponent(id, config)
   self.widths[id] = config.width or 1
   self.heights[id] = config.height or 1
 end

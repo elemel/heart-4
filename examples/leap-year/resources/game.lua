@@ -23,6 +23,11 @@ return {
     },
 
     {
+      componentType = "transform",
+      class = "heart.animation.TransformComponentManager",
+    },
+
+    {
       componentType = "sky",
       class = "resources.scripts.SkyComponentManager",
     },

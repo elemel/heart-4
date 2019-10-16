@@ -42,6 +42,11 @@ return {
 
   {
     prototype = "resources.entities.woman",
-    transform = {2.5, 14.5},
+
+    components = {
+      transform = {
+        transform = {2.5, 14.5},
+      },
+    },
   },
 }
