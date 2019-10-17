@@ -6,6 +6,8 @@ function CharacterAnimationFixedUpdateSystem:init(game, config)
   self.characterEntities = assert(self.game.componentEntitySets.character)
   self.characterComponents = assert(self.game.componentManagers.character)
 
+  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.boneComponents = assert(self.game.componentManagers.bone)
   self.positionComponents = assert(self.game.componentManagers.position)
   self.velocityComponents = assert(self.game.componentManagers.velocity)
   self.spriteComponents = assert(self.game.componentManagers.sprite)
@@ -25,8 +27,8 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
 
   local images = self.spriteComponents.images
 
-  local previousTransforms = self.spriteComponents.previousTransforms
-  local transforms = self.spriteComponents.transforms
+  local previousTransforms = self.boneComponents.previousTransforms
+  local transforms = self.transformComponents.transforms
 
   local states = self.characterStateComponents.states
   local images = self.spriteComponents.images

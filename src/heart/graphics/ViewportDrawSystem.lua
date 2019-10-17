@@ -9,13 +9,14 @@ function ViewportDrawSystem:init(game, config)
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
   self.viewportComponents = assert(self.game.componentManagers.viewport)
   self.cameraComponents = assert(self.game.componentManagers.camera)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
 function ViewportDrawSystem:draw()
   local widths = self.viewportComponents.widths
   local heights = self.viewportComponents.heights
-  local transforms = self.cameraComponents.interpolatedTransforms
-  local debugTransforms = self.cameraComponents.transforms
+  local transforms = self.cameraComponents.transforms
+  local debugTransforms = self.transformComponents.transforms
 
   for id in pairs(self.viewportEntities) do
     if self.cameraEntities[id] then

@@ -1,21 +1,20 @@
 local class = require("heart.class")
-local heartMath = require("heart.math")
 
 local BoneComponentManager = class.newClass()
 
 function BoneComponentManager:init(game, config)
   self.game = assert(game)
   self.transformComponents = assert(self.game.componentManagers.transform)
-  self.transforms = {}
+  self.previousTransforms = {}
 end
 
 function BoneComponentManager:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
-  self.transforms[entityId] = transform:clone()
+  self.previousTransforms[entityId] = transform:clone()
 end
 
 function BoneComponentManager:destroyComponent(entityId)
-  self.transforms[entityId] = nil
+  self.previousTransforms[entityId] = nil
 end
 
 return BoneComponentManager

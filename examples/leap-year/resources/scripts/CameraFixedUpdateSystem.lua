@@ -10,6 +10,7 @@ function CameraFixedUpdateSystem:init(game, config)
 
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
   self.cameraComponents = assert(self.game.componentManagers.camera)
+  self.transformComponents = assert(self.game.componentManagers.transform)
   self.viewportComponents = assert(self.game.componentManagers.viewport)
 end
 
@@ -27,8 +28,7 @@ function CameraFixedUpdateSystem:fixedUpdate(dt)
   if playerCount >= 1 then
     local x = totalX / playerCount
 
-    local previousTransforms = self.cameraComponents.previousTransforms
-    local transforms = self.cameraComponents.transforms
+    local transforms = self.transformComponents.transforms
 
     local widths = self.viewportComponents.widths
     local heights = self.viewportComponents.heights
@@ -40,7 +40,6 @@ function CameraFixedUpdateSystem:fixedUpdate(dt)
       local minX = 0.5 * 16 * width / height
       local clampedX = clamp(x, minX, 64 - minX)
 
-      transforms[cameraId], previousTransforms[cameraId] = previousTransforms[cameraId], transforms[cameraId]
       transforms[cameraId]:setTransformation(clampedX, 8, 0, 16)
     end
   end

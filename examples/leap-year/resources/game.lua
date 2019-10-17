@@ -128,6 +128,10 @@ return {
 
     fixedUpdate = {
       {
+        class = "heart.animation.BoneFixedUpdateSystem",
+      },
+
+      {
         class = "resources.scripts.VelocityFixedUpdateSystem",
       },
 
@@ -180,11 +184,11 @@ return {
       },
 
       {
-        class = "heart.graphics.SpriteUpdateSystem",
+        class = "heart.graphics.BoneToSpriteUpdateSystem",
       },
 
       {
-        class = "heart.graphics.CameraUpdateSystem",
+        class = "heart.graphics.BoneToCameraUpdateSystem",
       },
     },
   },

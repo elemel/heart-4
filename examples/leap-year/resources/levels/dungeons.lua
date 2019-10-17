@@ -4,6 +4,7 @@ return {
   {
     components = {
       transform = {},
+      bone = {},
       camera = {},
       viewport = {},
     },

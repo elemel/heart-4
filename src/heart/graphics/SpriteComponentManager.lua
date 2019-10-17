@@ -10,8 +10,6 @@ function SpriteComponentManager:init(game, config)
   self.zs = {}
 
   self.transforms = {}
-  self.previousTransforms = {}
-  self.interpolatedTransforms = {}
 end
 
 function SpriteComponentManager:createComponent(entityId, config)
@@ -24,19 +22,13 @@ function SpriteComponentManager:createComponent(entityId, config)
   end
 
   self.zs[entityId] = config.z or 0
-
   self.transforms[entityId] = transform:clone()
-  self.previousTransforms[entityId] = transform:clone()
-  self.interpolatedTransforms[entityId] = transform:clone()
 end
 
 function SpriteComponentManager:destroyComponent(entityId)
   self.images[entityId] = nil
   self.zs[entityId] = nil
-
   self.transforms[entityId] = nil
-  self.previousTransforms[entityId] = nil
-  self.interpolatedTransforms[entityId] = nil
 end
 
 return SpriteComponentManager

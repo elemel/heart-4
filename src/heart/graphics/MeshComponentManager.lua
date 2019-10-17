@@ -8,10 +8,7 @@ function MeshComponentManager:init(game, config)
   self.transformComponents = assert(self.game.componentManagers.transform)
 
   self.meshes = {}
-
   self.transforms = {}
-  self.previousTransforms = {}
-  self.interpolatedTransforms = {}
 end
 
 function MeshComponentManager:createComponent(id, config)
@@ -27,16 +24,11 @@ function MeshComponentManager:createComponent(id, config)
   end
 
   self.transforms[id] = transform:clone()
-  self.previousTransforms[id] = transform:clone()
-  self.interpolatedTransforms[id] = transform:clone()
 end
 
 function MeshComponentManager:destroyComponent(id)
   self.meshes[id] = nil
-
   self.transforms[id] = nil
-  self.previousTransforms[id] = nil
-  self.interpolatedTransforms[id] = nil
 end
 
 return MeshComponentManager

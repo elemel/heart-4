@@ -7,11 +7,11 @@ function RiderToCameraFixedUpdateSystem:init(game, config)
   self.physicsDomain = assert(self.game.domains.physics)
   self.riderEntities = assert(self.game.componentEntitySets.rider)
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
-  self.boneComponents = assert(self.game.componentManagers.bone)
+  self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
 function RiderToCameraFixedUpdateSystem:fixedUpdate(dt)
-  local transforms = self.boneComponents.transforms
+  local transforms = self.transformComponents.transforms
 
   for riderId in pairs(self.riderEntities) do
     for cameraId in pairs(self.cameraEntities) do

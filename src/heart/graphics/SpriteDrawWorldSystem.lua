@@ -10,7 +10,7 @@ function SpriteDrawWorldSystem:init(game, config)
 end
 
 function SpriteDrawWorldSystem:drawWorld(viewportId)
-  local transforms = self.spriteComponents.interpolatedTransforms
+  local transforms = self.spriteComponents.transforms
   local ids = heartTable.keys(self.spriteEntities)
   local zs = self.spriteComponents.zs
   table.sort(ids, function(a, b) return zs[a] < zs[b] end)

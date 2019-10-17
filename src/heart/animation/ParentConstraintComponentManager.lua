@@ -4,14 +4,14 @@ local ParentConstraintComponentManager = class.newClass()
 
 function ParentConstraintComponentManager:init(game, config)
   self.game = assert(game)
-  self.bones = assert(self.game.componentManagers.bone)
+  self.transformComponents = assert(self.game.componentManagers.transform)
   self.localTransforms = {}
 end
 
 function ParentConstraintComponentManager:createComponent(entityId, config)
   local parentId = self.game.entityParents[entityId]
-  local parentTransform = self.bones.transforms[parentId]
-  local transform = self.bones.transforms[entityId]
+  local parentTransform = self.transformComponents.transforms[parentId]
+  local transform = self.transformComponents.transforms[entityId]
   local localTransform = parentTransform:inverse():apply(transform)
   self.localTransforms[entityId] = localTransform
   return localTransform

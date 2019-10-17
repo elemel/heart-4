@@ -120,6 +120,10 @@ return {
 
     fixedUpdate = {
       {
+        class = "heart.animation.BoneFixedUpdateSystem",
+      },
+
+      {
         class = "resources.scripts.RiderFixedUpdateSystem",
       },
 
@@ -138,18 +142,6 @@ return {
       {
         class = "heart.animation.ParentConstraintFixedUpdateSystem",
       },
-
-      {
-        class = "heart.graphics.BoneToSpriteFixedUpdateSystem",
-      },
-
-      {
-        class = "heart.graphics.BoneToMeshFixedUpdateSystem",
-      },
-
-      {
-        class = "heart.graphics.BoneToCameraFixedUpdateSystem",
-      },
     },
 
     resize = {
@@ -164,15 +156,15 @@ return {
       },
 
       {
-        class = "heart.graphics.SpriteUpdateSystem",
+        class = "heart.graphics.BoneToSpriteUpdateSystem",
       },
 
       {
-        class = "heart.graphics.MeshUpdateSystem",
+        class = "heart.graphics.BoneToMeshUpdateSystem",
       },
 
       {
-        class = "heart.graphics.CameraUpdateSystem",
+        class = "heart.graphics.BoneToCameraUpdateSystem",
       },
     },
   },
