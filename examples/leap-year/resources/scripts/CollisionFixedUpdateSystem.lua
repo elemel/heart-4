@@ -9,9 +9,9 @@ local set2 = heart.table.set2
 local sort = table.sort
 local squaredDistance2 = heart.math.squaredDistance2
 
-local CollisionFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function CollisionFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.colliderEntities = assert(self.game.componentEntitySets.collider)
@@ -41,7 +41,7 @@ function CollisionFixedUpdateSystem:init(game, config)
   }
 end
 
-function CollisionFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local xs = self.positionComponents.xs
   local ys = self.positionComponents.ys
 
@@ -122,4 +122,4 @@ function CollisionFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return CollisionFixedUpdateSystem
+return M

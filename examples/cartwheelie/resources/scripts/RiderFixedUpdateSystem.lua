@@ -1,19 +1,19 @@
 local class = require("heart.class")
 
-local RiderFixedUpdateSystem = class.newClass()
+local M = class.newClass()
 
 local function getOtherBody(joint, body)
   local body1, body2 = joint:getBodies()
   return body == body1 and body2 or body1
 end
 
-function RiderFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.riderEntities = assert(self.game.componentEntitySets.rider)
 end
 
-function RiderFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local world = self.physicsDomain.world
   local bodies = self.physicsDomain.bodies
   local motorJoints = self.physicsDomain.motorJoints
@@ -91,4 +91,4 @@ function RiderFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return RiderFixedUpdateSystem
+return M

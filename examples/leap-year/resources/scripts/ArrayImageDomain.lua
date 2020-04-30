@@ -1,8 +1,8 @@
 local filenames = require("resources.scripts.arrayImage")
 
-local ArrayImageDomain = heart.class.newClass()
+local M = heart.class.newClass()
 
-function ArrayImageDomain:init(game, config)
+function M:init(game, config)
   self.image = love.graphics.newArrayImage(filenames)
 
   self.layerNames = {}
@@ -15,4 +15,4 @@ function ArrayImageDomain:init(game, config)
   end
 end
 
-return ArrayImageDomain
+return M

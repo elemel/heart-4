@@ -1,6 +1,6 @@
-local GravityComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function GravityComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.defaultGravityX = config.defaultGravityX or 0
@@ -10,14 +10,14 @@ function GravityComponentManager:init(game, config)
   self.gravityYs = {}
 end
 
-function GravityComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   self.gravityXs[id] = config.gravityX or self.defaultGravityX
   self.gravityYs[id] = config.gravityY or self.defaultGravityY
 end
 
-function GravityComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.gravityXs[id] = nil
   self.gravityYs[id] = nil
 end
 
-return GravityComponentManager
+return M

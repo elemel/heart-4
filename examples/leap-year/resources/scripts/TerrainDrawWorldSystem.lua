@@ -1,12 +1,12 @@
-local TerrainDrawWorldSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function TerrainDrawWorldSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.arrayImageDomain = assert(self.game.domains.arrayImage)
   self.terrainComponents = assert(self.game.componentManagers.terrain)
 end
 
-function TerrainDrawWorldSystem:drawWorld(viewportId)
+function M:drawWorld(viewportId)
   local image = self.arrayImageDomain.image
   local layerIndices = self.arrayImageDomain.layerIndices
   local scale = 1 / 16
@@ -21,4 +21,4 @@ function TerrainDrawWorldSystem:drawWorld(viewportId)
   end
 end
 
-return TerrainDrawWorldSystem
+return M

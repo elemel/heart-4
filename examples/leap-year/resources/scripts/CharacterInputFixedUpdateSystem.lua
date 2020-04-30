@@ -1,8 +1,8 @@
 local clamp = heart.math.clamp
 
-local CharacterInputFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function CharacterInputFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
@@ -26,7 +26,7 @@ function CharacterInputFixedUpdateSystem:init(game, config)
   }
 end
 
-function CharacterInputFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local newStates = {}
 
   for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
@@ -42,7 +42,7 @@ function CharacterInputFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
+function M:transitionCrouching(ids, dt, newStates)
   local crouchingJumpSpeed = self.characterComponents.crouchingJumpSpeed
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
@@ -83,7 +83,7 @@ function CharacterInputFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionGliding(ids, dt, newStates)
+function M:transitionGliding(ids, dt, newStates)
   local directionXs = self.characterComponents.directionXs
   local inputXs = self.characterComponents.inputXs
 
@@ -98,7 +98,7 @@ function CharacterInputFixedUpdateSystem:transitionGliding(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionFalling(ids, dt, newStates)
+function M:transitionFalling(ids, dt, newStates)
   local directionXs = self.characterComponents.directionXs
   local inputXs = self.characterComponents.inputXs
 
@@ -117,7 +117,7 @@ function CharacterInputFixedUpdateSystem:transitionFalling(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionRunning(ids, dt, newStates)
+function M:transitionRunning(ids, dt, newStates)
   local runningJumpSpeed = self.characterComponents.runningJumpSpeed
   local directionXs = self.characterComponents.directionXs
 
@@ -158,7 +158,7 @@ function CharacterInputFixedUpdateSystem:transitionRunning(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionSliding(ids, dt, newStates)
+function M:transitionSliding(ids, dt, newStates)
   local slidingJumpSpeed = self.characterComponents.slidingJumpSpeed
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
@@ -194,7 +194,7 @@ function CharacterInputFixedUpdateSystem:transitionSliding(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
+function M:transitionSneaking(ids, dt, newStates)
   local sneakingJumpSpeed = self.characterComponents.sneakingJumpSpeed
   local directionXs = self.characterComponents.directionXs
 
@@ -228,7 +228,7 @@ function CharacterInputFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionStanding(ids, dt, newStates)
+function M:transitionStanding(ids, dt, newStates)
   local standingJumpSpeed = self.characterComponents.standingJumpSpeed
   local animationTimes = self.characterComponents.animationTimes
   local directionXs = self.characterComponents.directionXs
@@ -269,7 +269,7 @@ function CharacterInputFixedUpdateSystem:transitionStanding(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionWalking(ids, dt, newStates)
+function M:transitionWalking(ids, dt, newStates)
   local walkingJumpSpeed = self.characterComponents.walkingJumpSpeed
   local directionXs = self.characterComponents.directionXs
 
@@ -310,7 +310,7 @@ function CharacterInputFixedUpdateSystem:transitionWalking(ids, dt, newStates)
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionWallSliding(ids, dt, newStates)
+function M:transitionWallSliding(ids, dt, newStates)
   local wallSlidingJumpSpeedX = self.characterComponents.wallSlidingJumpSpeedX
   local wallSlidingJumpSpeedY = self.characterComponents.wallSlidingJumpSpeedY
 
@@ -346,7 +346,7 @@ function CharacterInputFixedUpdateSystem:transitionWallSliding(ids, dt, newState
   end
 end
 
-function CharacterInputFixedUpdateSystem:transitionWallTouching(ids, dt, newStates)
+function M:transitionWallTouching(ids, dt, newStates)
   local standingJumpSpeed = self.characterComponents.standingJumpSpeed
   local animationTimes = self.characterComponents.animationTimes
   local directionXs = self.characterComponents.directionXs
@@ -388,4 +388,4 @@ function CharacterInputFixedUpdateSystem:transitionWallTouching(ids, dt, newStat
   end
 end
 
-return CharacterInputFixedUpdateSystem
+return M

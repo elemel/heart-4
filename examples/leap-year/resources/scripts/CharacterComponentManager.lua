@@ -1,8 +1,8 @@
 local set2 = heart.table.set2
 
-local CharacterComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function CharacterComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.directionXs = {}
@@ -134,7 +134,7 @@ function CharacterComponentManager:init(game, config)
   self.wallSlidingSpeed = 5
 end
 
-function CharacterComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   self.characterTypes[id] = assert(config.characterType)
   self.directionXs[id] = config.directionX or 1
   self.animationTimes[id] = config.animationTime or 0
@@ -152,7 +152,7 @@ function CharacterComponentManager:createComponent(id, config)
   self.jumpInputs[id] = false
 end
 
-function CharacterComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.characterTypes[id] = nil
   self.directionXs[id] = nil
   self.animationTimes[id] = nil
@@ -170,4 +170,4 @@ function CharacterComponentManager:destroyComponent(id)
   self.jumpInputs[id] = nil
 end
 
-return CharacterComponentManager
+return M

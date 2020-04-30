@@ -1,11 +1,11 @@
-local TerrainDebugDrawSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function TerrainDebugDrawSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.terrainComponents = assert(self.game.componentManagers.terrain)
 end
 
-function TerrainDebugDrawSystem:debugDraw(viewportId)
+function M:debugDraw(viewportId)
   for id, tileGrid in pairs(self.terrainComponents.tileGrids) do
     for y, row in pairs(tileGrid) do
       for x in pairs(row) do
@@ -15,4 +15,4 @@ function TerrainDebugDrawSystem:debugDraw(viewportId)
   end
 end
 
-return TerrainDebugDrawSystem
+return M

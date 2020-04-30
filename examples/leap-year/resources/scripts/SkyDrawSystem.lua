@@ -1,15 +1,15 @@
 local class = require("heart.class")
 
-local SkyDrawSystem = class.newClass()
+local M = class.newClass()
 
-function SkyDrawSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.skyEntities = assert(self.game.componentEntitySets.sky)
   self.skyComponents = assert(self.game.componentManagers.sky)
 end
 
-function SkyDrawSystem:draw()
+function M:draw()
   local width, height = love.graphics.getDimensions()
   local meshes = self.skyComponents.meshes
 
@@ -18,4 +18,4 @@ function SkyDrawSystem:draw()
   end
 end
 
-return SkyDrawSystem
+return M

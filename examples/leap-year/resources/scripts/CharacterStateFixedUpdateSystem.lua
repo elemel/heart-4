@@ -1,8 +1,8 @@
 local clamp = heart.math.clamp
 
-local CharacterStateFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function CharacterStateFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
@@ -27,7 +27,7 @@ function CharacterStateFixedUpdateSystem:init(game, config)
   }
 end
 
-function CharacterStateFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
     local handler = self.updateHandlers[state]
 
@@ -37,7 +37,7 @@ function CharacterStateFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateCrouching(ids, dt)
+function M:updateCrouching(ids, dt)
   local crouchingAcceleration = self.characterComponents.crouchingAcceleration
   local fallingAcceleration = self.characterComponents.fallingAcceleration
 
@@ -56,7 +56,7 @@ function CharacterStateFixedUpdateSystem:updateCrouching(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateFalling(ids, dt)
+function M:updateFalling(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local ys = self.positionComponents.ys
 
@@ -65,7 +65,7 @@ function CharacterStateFixedUpdateSystem:updateFalling(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateGliding(ids, dt)
+function M:updateGliding(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local glidingAcceleration = self.characterComponents.glidingAcceleration
   local glidingSpeed = self.characterComponents.glidingSpeed
@@ -94,7 +94,7 @@ function CharacterStateFixedUpdateSystem:updateGliding(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateRunning(ids, dt)
+function M:updateRunning(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local runningAcceleration = self.characterComponents.runningAcceleration
   local runningSpeed = self.characterComponents.runningSpeed
@@ -120,7 +120,7 @@ function CharacterStateFixedUpdateSystem:updateRunning(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateSliding(ids, dt)
+function M:updateSliding(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local slidingAcceleration = self.characterComponents.slidingAcceleration
 
@@ -140,7 +140,7 @@ function CharacterStateFixedUpdateSystem:updateSliding(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateSneaking(ids, dt)
+function M:updateSneaking(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local sneakingAcceleration = self.characterComponents.sneakingAcceleration
   local sneakingSpeed = self.characterComponents.sneakingSpeed
@@ -166,7 +166,7 @@ function CharacterStateFixedUpdateSystem:updateSneaking(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateStanding(ids, dt)
+function M:updateStanding(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local standingAcceleration = self.characterComponents.standingAcceleration
 
@@ -185,7 +185,7 @@ function CharacterStateFixedUpdateSystem:updateStanding(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateWalking(ids, dt)
+function M:updateWalking(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local walkingAcceleration = self.characterComponents.walkingAcceleration
   local walkingSpeed = self.characterComponents.walkingSpeed
@@ -211,7 +211,7 @@ function CharacterStateFixedUpdateSystem:updateWalking(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateWallSliding(ids, dt)
+function M:updateWallSliding(ids, dt)
   local wallSlidingAcceleration = self.characterComponents.fallingAcceleration
   local wallSlidingSpeed = self.characterComponents.wallSlidingSpeed
 
@@ -229,7 +229,7 @@ function CharacterStateFixedUpdateSystem:updateWallSliding(ids, dt)
   end
 end
 
-function CharacterStateFixedUpdateSystem:updateWallTouching(ids, dt)
+function M:updateWallTouching(ids, dt)
   local fallingAcceleration = self.characterComponents.fallingAcceleration
   local ys = self.positionComponents.ys
 
@@ -238,4 +238,4 @@ function CharacterStateFixedUpdateSystem:updateWallTouching(ids, dt)
   end
 end
 
-return CharacterStateFixedUpdateSystem
+return M

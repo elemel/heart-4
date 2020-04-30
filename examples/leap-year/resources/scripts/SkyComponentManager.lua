@@ -1,10 +1,10 @@
-local SkyComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function SkyComponentManager:init(game, config)
+function M:init(game, config)
   self.meshes = {}
 end
 
-function SkyComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local r1, g1, b1, a1, r2, g2, b2, a2 = unpack(config.colors)
 
   local mesh = love.graphics.newMesh({
@@ -17,9 +17,9 @@ function SkyComponentManager:createComponent(id, config)
   self.meshes[id] = mesh
 end
 
-function SkyComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.meshes[id]:release()
   self.meshes[id] = nil
 end
 
-return SkyComponentManager
+return M

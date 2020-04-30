@@ -1,6 +1,6 @@
-local VelocityFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function VelocityFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.velocityEntities = assert(self.game.componentEntitySets.velocity)
 
@@ -8,7 +8,7 @@ function VelocityFixedUpdateSystem:init(game, config)
   self.velocityComponents = assert(self.game.componentManagers.velocity)
 end
 
-function VelocityFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local xs = self.positionComponents.xs
   local ys = self.positionComponents.ys
 
@@ -27,4 +27,4 @@ function VelocityFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return VelocityFixedUpdateSystem
+return M

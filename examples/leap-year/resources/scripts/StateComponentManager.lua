@@ -1,26 +1,26 @@
 local set2 = heart.table.set2
 
-local StateComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function StateComponentManager:init(game, config)
+function M:init(game, config)
   self.defaultState = config.defaultState
   self.states = {}
   self.stateEntitySets = {}
 end
 
-function StateComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local state = config.state or self.defaultState
   self.states[id] = state
   set2(self.stateEntitySets, state, id, true)
 end
 
-function StateComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   local state = self.states[id]
   set2(self.stateEntitySets, state, id, nil)
   self.states[id] = nil
 end
 
-function StateComponentManager:setState(id, state)
+function M:setState(id, state)
   local oldState = self.states[id]
 
   if state ~= oldState then
@@ -30,4 +30,4 @@ function StateComponentManager:setState(id, state)
   end
 end
 
-return StateComponentManager
+return M

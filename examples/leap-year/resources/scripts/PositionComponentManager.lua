@@ -1,13 +1,13 @@
-local PositionComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function PositionComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.transformComponents = assert(self.game.componentManagers.transform)
   self.xs = {}
   self.ys = {}
 end
 
-function PositionComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local x = config.x or 0
   local y = config.y or 0
 
@@ -21,9 +21,9 @@ function PositionComponentManager:createComponent(id, config)
   self.ys[id] = y
 end
 
-function PositionComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.xs[id] = nil
   self.ys[id] = nil
 end
 
-return PositionComponentManager
+return M

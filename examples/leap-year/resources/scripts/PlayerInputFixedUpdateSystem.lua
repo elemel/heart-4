@@ -1,12 +1,12 @@
-local PlayerInputFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function PlayerInputFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.playerEntities = assert(self.game.componentEntitySets.player)
   self.characterComponents = assert(self.game.componentManagers.character)
 end
 
-function PlayerInputFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local oldInputXs = self.characterComponents.oldInputXs
   local oldInputYs = self.characterComponents.oldInputYs
 
@@ -40,4 +40,4 @@ function PlayerInputFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return PlayerInputFixedUpdateSystem
+return M

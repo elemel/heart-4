@@ -2,9 +2,9 @@ local get2 = heart.table.get2
 local max = math.max
 local set2 = heart.table.set2
 
-local TerrainComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function TerrainComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.tileGrids = {}
 
@@ -41,7 +41,7 @@ function TerrainComponentManager:init(game, config)
   }
 end
 
-function TerrainComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local legend = {}
 
   for tileType, symbol in pairs(self.defaultTileSymbols) do
@@ -88,11 +88,11 @@ function TerrainComponentManager:createComponent(id, config)
   self.tileGrids[id] = tileGrid
 end
 
-function TerrainComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.tileGrids[id] = nil
 end
 
-function TerrainComponentManager:rewriteBlueBrick(tileGrid, x, y, width, height)
+function M:rewriteBlueBrick(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "blueBrick" and
     get2(tileGrid, y - 1, x) ~= "blueBrickFloor") then
 
@@ -100,7 +100,7 @@ function TerrainComponentManager:rewriteBlueBrick(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteBrick(tileGrid, x, y, width, height)
+function M:rewriteBrick(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "brick" and
     get2(tileGrid, y - 1, x) ~= "brickFloor") then
 
@@ -108,7 +108,7 @@ function TerrainComponentManager:rewriteBrick(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteCloud(tileGrid, x, y, width, height)
+function M:rewriteCloud(tileGrid, x, y, width, height)
   if y > 1 and not get2(tileGrid, y - 1, x) then
     set2(tileGrid, y - 1, x, "cloudFloor")
   end
@@ -118,7 +118,7 @@ function TerrainComponentManager:rewriteCloud(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteColumn(tileGrid, x, y, width, height)
+function M:rewriteColumn(tileGrid, x, y, width, height)
   local ceilingColumn = (get2(tileGrid, y - 1, x) ~= "column" and
     get2(tileGrid, y - 1, x) ~= "ceilingColumn")
 
@@ -130,7 +130,7 @@ function TerrainComponentManager:rewriteColumn(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteDirt(tileGrid, x, y, width, height)
+function M:rewriteDirt(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "dirt" and
     get2(tileGrid, y - 1, x) ~= "dirtFloor") then
 
@@ -138,7 +138,7 @@ function TerrainComponentManager:rewriteDirt(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteGreenBrick(tileGrid, x, y, width, height)
+function M:rewriteGreenBrick(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "greenBrick" and
     get2(tileGrid, y - 1, x) ~= "greenBrickFloor") then
 
@@ -146,7 +146,7 @@ function TerrainComponentManager:rewriteGreenBrick(tileGrid, x, y, width, height
   end
 end
 
-function TerrainComponentManager:rewriteLargeRedTree(
+function M:rewriteLargeRedTree(
   tileGrid, x, y, width, height)
 
   if (get2(tileGrid, y, x + 1) == "largeRedTree" and
@@ -161,7 +161,7 @@ function TerrainComponentManager:rewriteLargeRedTree(
   end
 end
 
-function TerrainComponentManager:rewriteLargeTree(
+function M:rewriteLargeTree(
   tileGrid, x, y, width, height)
 
   if (get2(tileGrid, y, x + 1) == "largeTree" and
@@ -176,7 +176,7 @@ function TerrainComponentManager:rewriteLargeTree(
   end
 end
 
-function TerrainComponentManager:rewriteLargeYellowTree(
+function M:rewriteLargeYellowTree(
   tileGrid, x, y, width, height)
 
   if (get2(tileGrid, y, x + 1) == "largeYellowTree" and
@@ -191,7 +191,7 @@ function TerrainComponentManager:rewriteLargeYellowTree(
   end
 end
 
-function TerrainComponentManager:rewriteStone(tileGrid, x, y, width, height)
+function M:rewriteStone(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "stone" and
     get2(tileGrid, y - 1, x) ~= "stoneFloor") then
 
@@ -199,7 +199,7 @@ function TerrainComponentManager:rewriteStone(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteWood(tileGrid, x, y, width, height)
+function M:rewriteWood(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "wood" and
     get2(tileGrid, y - 1, x) ~= "woodenFloor") then
 
@@ -207,7 +207,7 @@ function TerrainComponentManager:rewriteWood(tileGrid, x, y, width, height)
   end
 end
 
-function TerrainComponentManager:rewriteYellowBrick(tileGrid, x, y, width, height)
+function M:rewriteYellowBrick(tileGrid, x, y, width, height)
   if (get2(tileGrid, y - 1, x) ~= "yellowBrick" and
     get2(tileGrid, y - 1, x) ~= "yellowBrickFloor") then
 
@@ -215,4 +215,4 @@ function TerrainComponentManager:rewriteYellowBrick(tileGrid, x, y, width, heigh
   end
 end
 
-return TerrainComponentManager
+return M

@@ -1,6 +1,6 @@
-local CharacterAnimationFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function CharacterAnimationFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
@@ -16,7 +16,7 @@ function CharacterAnimationFixedUpdateSystem:init(game, config)
   self.imageResources = assert(self.game.resourceLoaders.image)
 end
 
-function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local directionXs = self.characterComponents.directionXs
 
   local previousXs = self.velocityComponents.previousXs
@@ -81,4 +81,4 @@ function CharacterAnimationFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return CharacterAnimationFixedUpdateSystem
+return M

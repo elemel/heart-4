@@ -1,6 +1,6 @@
-local BoxDebugDrawSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function BoxDebugDrawSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.boxEntities = assert(self.game.componentEntitySets.box)
 
@@ -8,7 +8,7 @@ function BoxDebugDrawSystem:init(game, config)
   self.boxComponents = assert(self.game.componentManagers.box)
 end
 
-function BoxDebugDrawSystem:debugDraw(viewportId)
+function M:debugDraw(viewportId)
   local xs = self.positionComponents.xs
   local ys = self.positionComponents.ys
 
@@ -26,4 +26,4 @@ function BoxDebugDrawSystem:debugDraw(viewportId)
   end
 end
 
-return BoxDebugDrawSystem
+return M

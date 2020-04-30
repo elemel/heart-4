@@ -1,18 +1,18 @@
-local BoxComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function BoxComponentManager:init(game, config)
+function M:init(game, config)
   self.widths = {}
   self.heights = {}
 end
 
-function BoxComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   self.widths[id] = config.width or 1
   self.heights[id] = config.height or 1
 end
 
-function BoxComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.heights[id] = nil
   self.widths[id] = nil
 end
 
-return BoxComponentManager
+return M

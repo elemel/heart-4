@@ -1,8 +1,8 @@
 local clamp = heart.math.clamp
 
-local CharacterCollisionFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function CharacterCollisionFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
@@ -25,7 +25,7 @@ function CharacterCollisionFixedUpdateSystem:init(game, config)
   }
 end
 
-function CharacterCollisionFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local newStates = {}
 
   for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
@@ -41,7 +41,7 @@ function CharacterCollisionFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionCrouching(ids, dt, newStates)
+function M:transitionCrouching(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
 
   for id in pairs(ids) do
@@ -56,7 +56,7 @@ function CharacterCollisionFixedUpdateSystem:transitionCrouching(ids, dt, newSta
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionGliding(ids, dt, newStates)
+function M:transitionGliding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
   local animationTimes = self.characterComponents.animationTimes
@@ -86,7 +86,7 @@ function CharacterCollisionFixedUpdateSystem:transitionGliding(ids, dt, newState
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionFalling(ids, dt, newStates)
+function M:transitionFalling(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
 
@@ -112,7 +112,7 @@ function CharacterCollisionFixedUpdateSystem:transitionFalling(ids, dt, newState
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionRunning(ids, dt, newStates)
+function M:transitionRunning(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
 
   for id in pairs(ids) do
@@ -127,7 +127,7 @@ function CharacterCollisionFixedUpdateSystem:transitionRunning(ids, dt, newState
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionSliding(ids, dt, newStates)
+function M:transitionSliding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
 
   for id in pairs(ids) do
@@ -142,7 +142,7 @@ function CharacterCollisionFixedUpdateSystem:transitionSliding(ids, dt, newState
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionSneaking(ids, dt, newStates)
+function M:transitionSneaking(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
 
   for id in pairs(ids) do
@@ -157,7 +157,7 @@ function CharacterCollisionFixedUpdateSystem:transitionSneaking(ids, dt, newStat
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionStanding(ids, dt, newStates)
+function M:transitionStanding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
 
@@ -183,7 +183,7 @@ function CharacterCollisionFixedUpdateSystem:transitionStanding(ids, dt, newStat
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionWalking(ids, dt, newStates)
+function M:transitionWalking(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
 
   for id in pairs(ids) do
@@ -198,7 +198,7 @@ function CharacterCollisionFixedUpdateSystem:transitionWalking(ids, dt, newState
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionWallSliding(ids, dt, newStates)
+function M:transitionWallSliding(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
 
@@ -224,7 +224,7 @@ function CharacterCollisionFixedUpdateSystem:transitionWallSliding(ids, dt, newS
   end
 end
 
-function CharacterCollisionFixedUpdateSystem:transitionWallTouching(ids, dt, newStates)
+function M:transitionWallTouching(ids, dt, newStates)
   local constraintMaps = self.colliderComponents.constraintMaps
   local directionXs = self.characterComponents.directionXs
 
@@ -250,4 +250,4 @@ function CharacterCollisionFixedUpdateSystem:transitionWallTouching(ids, dt, new
   end
 end
 
-return CharacterCollisionFixedUpdateSystem
+return M

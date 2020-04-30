@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local MinecartFixedUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function MinecartFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.minecartEntities = assert(self.game.componentEntitySets.minecart)
 end
 
-function MinecartFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local leftInput = love.keyboard.isDown("a")
   local rightInput = love.keyboard.isDown("d")
   local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
@@ -22,4 +22,4 @@ function MinecartFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return MinecartFixedUpdateSystem
+return M

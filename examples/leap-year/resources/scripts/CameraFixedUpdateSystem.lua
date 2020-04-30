@@ -1,8 +1,8 @@
 local clamp = heart.math.clamp
 
-local CameraFixedUpdateSystem = heart.class.newClass()
+local M = heart.class.newClass()
 
-function CameraFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.playerEntities = assert(self.game.componentEntitySets.player)
@@ -14,7 +14,7 @@ function CameraFixedUpdateSystem:init(game, config)
   self.viewportComponents = assert(self.game.componentManagers.viewport)
 end
 
-function CameraFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local playerCount = 0
   local totalX = 0
   local xs = self.positionComponents.xs
@@ -45,4 +45,4 @@ function CameraFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return CameraFixedUpdateSystem
+return M

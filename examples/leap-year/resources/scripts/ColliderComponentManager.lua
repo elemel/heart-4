@@ -1,9 +1,9 @@
 local floor = math.floor
 local set3 = heart.table.set3
 
-local ColliderComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function ColliderComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.positionComponents = assert(self.game.componentManagers.position)
@@ -19,7 +19,7 @@ function ColliderComponentManager:init(game, config)
   self.constraintMaps = {}
 end
 
-function ColliderComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local x = self.positionComponents.xs[id]
   local y = self.positionComponents.ys[id]
 
@@ -49,7 +49,7 @@ function ColliderComponentManager:createComponent(id, config)
   self.constraintMaps[id] = {}
 end
 
-function ColliderComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.constraintMaps[id] = nil
 
   local grid = self.grid
@@ -73,7 +73,7 @@ function ColliderComponentManager:destroyComponent(id)
   self.maxYs[id] = nil
 end
 
-function ColliderComponentManager:updateCells(id)
+function M:updateCells(id)
   local grid = self.grid
 
   local x = self.positionComponents.xs[id]
@@ -119,4 +119,4 @@ function ColliderComponentManager:updateCells(id)
   end
 end
 
-return ColliderComponentManager
+return M

@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local RiderToCameraFixedUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function RiderToCameraFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.riderEntities = assert(self.game.componentEntitySets.rider)
@@ -10,7 +10,7 @@ function RiderToCameraFixedUpdateSystem:init(game, config)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function RiderToCameraFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local transforms = self.transformComponents.transforms
 
   for riderId in pairs(self.riderEntities) do
@@ -21,4 +21,4 @@ function RiderToCameraFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return RiderToCameraFixedUpdateSystem
+return M

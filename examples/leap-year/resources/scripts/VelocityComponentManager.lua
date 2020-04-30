@@ -1,6 +1,6 @@
-local VelocityComponentManager = heart.class.newClass()
+local M = heart.class.newClass()
 
-function VelocityComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.positionComponents = assert(self.game.componentManagers.position)
 
@@ -8,14 +8,14 @@ function VelocityComponentManager:init(game, config)
   self.previousYs = {}
 end
 
-function VelocityComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   self.previousXs[id] = config.previousX or self.positionComponents.xs[id]
   self.previousYs[id] = config.previousY or self.positionComponents.ys[id]
 end
 
-function VelocityComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.previousYs[id] = nil
   self.previousXs[id] = nil
 end
 
-return VelocityComponentManager
+return M
