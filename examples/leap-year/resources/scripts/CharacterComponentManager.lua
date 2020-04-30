@@ -105,28 +105,28 @@ function CharacterComponentManager:init(game, config)
   self.crouchingAcceleration = 8
   self.crouchingJumpSpeed = 6
 
-  self.fallingAcceleration = 32
+  self.fallingAcceleration = 34
 
   self.glidingSpeed = 3
-  self.glidingAcceleration = 6
+  self.glidingAcceleration = 8
 
   self.slidingAcceleration = 4
   self.slidingJumpSpeed = 10
 
   self.sneakingAcceleration = 8
-  self.sneakingSpeed = 2
+  self.sneakingSpeed = 3
   self.sneakingJumpSpeed = 10
 
   self.standingAcceleration = 12
   self.standingJumpSpeed = 10
 
-  self.runningAcceleration = 20
-  self.runningJumpSpeed = 15
-  self.runningSpeed = 5
+  self.runningAcceleration = 34
+  self.runningJumpSpeed = 16
+  self.runningSpeed = 8
 
   self.walkingJumpSpeed = 13
-  self.walkingSpeed = 3
-  self.walkingAcceleration = 12
+  self.walkingSpeed = 5
+  self.walkingAcceleration = 21
 
   self.wallSlidingJumpSpeedX = 5
   self.wallSlidingJumpSpeedY = 13
