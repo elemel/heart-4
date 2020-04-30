@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local ParticleSystemComponentManager = class.newClass()
+local M = class.newClass()
 
-function ParticleSystemComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.imageLoader = assert(game.resourceLoaders.image)
   self.particleSystems = {}
@@ -10,7 +10,7 @@ function ParticleSystemComponentManager:init(game, config)
   self.blendModes = {}
 end
 
-function ParticleSystemComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local imageFilename = assert(config.image)
   local image = self.imageLoader:load(imageFilename)
   local bufferSize = config.bufferSize or 1000
@@ -67,10 +67,10 @@ function ParticleSystemComponentManager:createComponent(entityId, config)
   self.zs[entityId] = config.z or 0
 end
 
-function ParticleSystemComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.particleSystems[entityId] = nil
   self.blendModes[entityId] = nil
   self.zs[entityId] = nil
 end
 
-return ParticleSystemComponentManager
+return M

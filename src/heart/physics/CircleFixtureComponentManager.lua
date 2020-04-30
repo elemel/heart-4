@@ -1,15 +1,15 @@
 local class = require("heart.class")
 local heartMath = require("heart.math")
 
-local CircleFixtureComponentManager = class.newClass()
+local M = class.newClass()
 
-function CircleFixtureComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function CircleFixtureComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
   local bodyId = assert(self.game:findAncestorComponent(entityId, "body"))
   local body = self.physicsDomain.bodies[bodyId]
@@ -31,9 +31,9 @@ function CircleFixtureComponentManager:createComponent(entityId, config)
   return fixture
 end
 
-function CircleFixtureComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.circleFixtures[entityId]:destroy()
   self.physicsDomain.circleFixtures[entityId] = nil
 end
 
-return CircleFixtureComponentManager
+return M

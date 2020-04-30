@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local PhysicsDebugDrawSystem = class.newClass()
+local M = class.newClass()
 
-function PhysicsDebugDrawSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
 
@@ -11,7 +11,7 @@ function PhysicsDebugDrawSystem:init(game, config)
   }
 end
 
-function PhysicsDebugDrawSystem:debugDraw(viewportId)
+function M:debugDraw(viewportId)
   local r, g, b, a = love.graphics.getColor()
 
   for i, body in ipairs(self.physicsDomain.world:getBodies()) do
@@ -58,4 +58,4 @@ function PhysicsDebugDrawSystem:debugDraw(viewportId)
   love.graphics.setColor(r, g, b, a)
 end
 
-return PhysicsDebugDrawSystem
+return M

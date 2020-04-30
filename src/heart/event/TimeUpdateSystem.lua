@@ -1,13 +1,13 @@
 local class = require("heart.class")
 
-local TimeUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function TimeUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.timeDomain = assert(self.game.domains.time)
 end
 
-function TimeUpdateSystem:update(dt)
+function M:update(dt)
   local fixedDt = self.timeDomain.fixedDt
   self.timeDomain.accumulatedDt = self.timeDomain.accumulatedDt + dt
 
@@ -17,4 +17,4 @@ function TimeUpdateSystem:update(dt)
   end
 end
 
-return TimeUpdateSystem
+return M

@@ -1,16 +1,16 @@
 local class = require("heart.class")
 local heartMath = require("heart.math")
 
-local CameraUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function CameraUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.timeDomain = assert(game.domains.time)
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
   self.cameraComponents = assert(self.game.componentManagers.camera)
 end
 
-function CameraUpdateSystem:update(dt)
+function M:update(dt)
   local previousTransforms = self.cameraComponents.previousTransforms
   local transforms = self.cameraComponents.transforms
   local t = self.timeDomain.accumulatedDt / self.timeDomain.fixedDt
@@ -22,4 +22,4 @@ function CameraUpdateSystem:update(dt)
   end
 end
 
-return CameraUpdateSystem
+return M

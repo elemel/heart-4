@@ -2,9 +2,9 @@ local class = require("heart.class")
 local heartMath = require("heart.math")
 local heartTable = require("heart.table")
 
-local Game = class.newClass()
+local M = class.newClass()
 
-function Game:init(resourceLoaders, config)
+function M:init(resourceLoaders, config)
   self.emptyConfig = {}
   self.resourceLoaders = assert(resourceLoaders)
   self.domains = {}
@@ -70,7 +70,7 @@ function Game:init(resourceLoaders, config)
   end
 end
 
-function Game:handleEvent(eventType, ...)
+function M:handleEvent(eventType, ...)
   local systems = self.eventSystemSets[eventType]
 
   if systems then
@@ -104,13 +104,13 @@ function Game:handleEvent(eventType, ...)
   end
 end
 
-function Game:generateEntityId()
+function M:generateEntityId()
   local entityId = self.nextEntityId
   self.nextEntityId = self.nextEntityId + 1
   return entityId
 end
 
-function Game:createEntity(parentId, config)
+function M:createEntity(parentId, config)
   config = self:expandEntityConfig(config)
   local entityId = config.id
 
@@ -157,7 +157,7 @@ function Game:createEntity(parentId, config)
   return entityId
 end
 
-function Game:destroyEntity(entityId)
+function M:destroyEntity(entityId)
   local children = self.entityChildSets[entityId]
 
   if children then
@@ -190,7 +190,7 @@ function Game:destroyEntity(entityId)
   return true
 end
 
-function Game:createComponent(entityId, componentType, config)
+function M:createComponent(entityId, componentType, config)
   config = config or self.emptyConfig
   local componentManager = self.componentManagers[componentType]
 
@@ -217,7 +217,7 @@ function Game:createComponent(entityId, componentType, config)
   return component
 end
 
-function Game:destroyComponent(entityId, componentType)
+function M:destroyComponent(entityId, componentType)
   local componentManager = self.componentManagers[componentType]
 
   if not componentManager then
@@ -242,7 +242,7 @@ function Game:destroyComponent(entityId, componentType)
   return true
 end
 
-function Game:expandEntityConfig(config)
+function M:expandEntityConfig(config)
   local prototypeFilename = config.prototype
 
   if not prototypeFilename then
@@ -310,7 +310,7 @@ function Game:expandEntityConfig(config)
   return expandedConfig
 end
 
-function Game:setEntityParent(entityId, parentId)
+function M:setEntityParent(entityId, parentId)
   local currentParentId = self.entityParents[entityId]
 
   if parentId ~= currentParentId then
@@ -338,7 +338,7 @@ function Game:setEntityParent(entityId, parentId)
   end
 end
 
-function Game:findAncestorComponent(
+function M:findAncestorComponent(
     entityId, componentType, minDistance, maxDistance)
 
   minDistance = minDistance or 0
@@ -366,7 +366,7 @@ function Game:findAncestorComponent(
   return nil
 end
 
-function Game:findDescendantComponents(
+function M:findDescendantComponents(
     entityId, componentType, minDistance, maxDistance, descendants)
 
   minDistance = minDistance or 0
@@ -395,4 +395,4 @@ function Game:findDescendantComponents(
   return descendants
 end
 
-return Game
+return M

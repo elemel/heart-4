@@ -1,12 +1,12 @@
 local class = require("heart.class")
 
-local ImageResourceLoader = class.newClass()
+local M = class.newClass()
 
-function ImageResourceLoader:init()
+function M:init()
   self.images = {}
 end
 
-function ImageResourceLoader:loadResource(filename)
+function M:loadResource(filename)
   local image = self.images[filename]
 
   if not image then
@@ -18,4 +18,4 @@ function ImageResourceLoader:loadResource(filename)
   return image
 end
 
-return ImageResourceLoader
+return M

@@ -1,15 +1,15 @@
 local class = require("heart.class")
 
-local BodyToBoneFixedUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function BodyToBoneFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
   self.boneEntities = assert(self.game.componentEntitySets.bone)
 end
 
-function BodyToBoneFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local bodies = self.physicsDomain.bodies
   local transforms = self.transformComponents.transforms
 
@@ -24,4 +24,4 @@ function BodyToBoneFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return BodyToBoneFixedUpdateSystem
+return M

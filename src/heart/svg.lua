@@ -1,8 +1,8 @@
 local heartString = require("heart.string")
 
-local svg = {}
+local M = {}
 
-function svg.parseStyle(s)
+function M.parseStyle(s)
   local style = {}
   local attrs = heartString.split(s, ";")
 
@@ -20,7 +20,7 @@ function svg.parseStyle(s)
   return style
 end
 
-function svg.parseColor(s)
+function M.parseColor(s)
   if s:sub(1, 4) == "rgb(" and s:sub(-1) == ")" then
     local rgbStrings = heartString.split(s:sub(5, -2), ",")
 
@@ -36,7 +36,7 @@ function svg.parseColor(s)
     tonumber("0x" .. s:sub(5,6)) / 255
 end
 
-function svg.parsePath(s)
+function M.parsePath(s)
   local path = {}
 
   string.gsub(s, "([A-Za-z])([^A-Za-z]*)", function (command, params)
@@ -52,7 +52,7 @@ function svg.parsePath(s)
   return path
 end
 
-function svg.renderPath(path, depth)
+function M.renderPath(path, depth)
   depth = depth or 5
   local polygon = {}
 
@@ -66,7 +66,7 @@ function svg.renderPath(path, depth)
         local n = 2 ^ depth
 
         for i = 1, n - 1 do
-          local x, y = svg.evaluateCubic(x1, y1, x2, y2, x3, y3, x4, y4, i / n)
+          local x, y = M.evaluateCubic(x1, y1, x2, y2, x3, y3, x4, y4, i / n)
           table.insert(polygon, x)
           table.insert(polygon, y)
         end
@@ -83,7 +83,7 @@ function svg.renderPath(path, depth)
   return polygon
 end
 
-function svg.evaluateCubic(x1, y1, x2, y2, x3, y3, x4, y4, t)
+function M.evaluateCubic(x1, y1, x2, y2, x3, y3, x4, y4, t)
   local t1 = (1 - t) * (1 - t) * (1 - t)
   local t2 = 3 * (1 - t) * (1 - t) * t
   local t3 = 3 * (1 - t) * t * t
@@ -95,14 +95,14 @@ function svg.evaluateCubic(x1, y1, x2, y2, x3, y3, x4, y4, t)
   return x, y
 end
 
-function svg.findElement(t, k, v)
+function M.findElement(t, k, v)
   if t.attributes and t.attributes[k] == v then
     return t
   end
 
   for i, child in ipairs(t) do
     if type(child) == "table" then
-      local element = svg.findElement(child, k, v)
+      local element = M.findElement(child, k, v)
 
       if element then
         return element
@@ -113,4 +113,4 @@ function svg.findElement(t, k, v)
   return nil
 end
 
-return svg
+return M

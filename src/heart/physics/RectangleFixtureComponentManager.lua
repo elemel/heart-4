@@ -1,15 +1,15 @@
 local class = require("heart.class")
 local heartMath = require("heart.math")
 
-local RectangleFixtureComponentManager = class.newClass()
+local M = class.newClass()
 
-function RectangleFixtureComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function RectangleFixtureComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
 
   local bodyId = assert(self.game:findAncestorComponent(entityId, "body"))
@@ -39,9 +39,9 @@ function RectangleFixtureComponentManager:createComponent(entityId, config)
   return fixture
 end
 
-function RectangleFixtureComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.rectangleFixtures[entityId]:destroy()
   self.physicsDomain.rectangleFixtures[entityId] = nil
 end
 
-return RectangleFixtureComponentManager
+return M

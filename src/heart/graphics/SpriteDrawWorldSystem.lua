@@ -1,15 +1,15 @@
 local class = require("heart.class")
 local heartTable = require("heart.table")
 
-local SpriteDrawWorldSystem = class.newClass()
+local M = class.newClass()
 
-function SpriteDrawWorldSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.spriteEntities = assert(self.game.componentEntitySets.sprite)
   self.spriteComponents = assert(self.game.componentManagers.sprite)
 end
 
-function SpriteDrawWorldSystem:drawWorld(viewportId)
+function M:drawWorld(viewportId)
   local transforms = self.spriteComponents.transforms
   local ids = heartTable.keys(self.spriteEntities)
   local zs = self.spriteComponents.zs
@@ -21,4 +21,4 @@ function SpriteDrawWorldSystem:drawWorld(viewportId)
   end
 end
 
-return SpriteDrawWorldSystem
+return M

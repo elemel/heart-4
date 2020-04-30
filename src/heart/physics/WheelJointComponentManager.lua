@@ -1,15 +1,15 @@
 local class = require("heart.class")
 local heartMath = require("heart.math")
 
-local WheelJointComponentManager = class.newClass()
+local M = class.newClass()
 
-function WheelJointComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function WheelJointComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
 
   local bodyId2 = self.game:findAncestorComponent(entityId, "body")
@@ -48,9 +48,9 @@ function WheelJointComponentManager:createComponent(entityId, config)
   return joint
 end
 
-function WheelJointComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.wheelJoints[entityId]:destroy()
   self.physicsDomain.wheelJoints[entityId] = nil
 end
 
-return WheelJointComponentManager
+return M

@@ -1,3 +1,3 @@
-local event = {}
+local M = {}
 
-return event
+return M

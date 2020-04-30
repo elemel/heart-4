@@ -1,3 +1,3 @@
-local animation = {}
+local M = {}
 
-return animation
+return M

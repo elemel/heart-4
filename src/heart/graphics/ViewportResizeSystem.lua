@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local ViewportResizeSystem = class.newClass()
+local M = class.newClass()
 
-function ViewportResizeSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.viewportEntities = assert(self.game.componentEntitySets.viewport)
   self.viewportComponents = assert(self.game.componentManagers.viewport)
 end
 
-function ViewportResizeSystem:resize(width, height)
+function M:resize(width, height)
   local widths = self.viewportComponents.widths
   local heights = self.viewportComponents.heights
 
@@ -18,4 +18,4 @@ function ViewportResizeSystem:resize(width, height)
   end
 end
 
-return ViewportResizeSystem
+return M

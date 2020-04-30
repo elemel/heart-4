@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local MeshComponentManager = class.newClass()
+local M = class.newClass()
 
-function MeshComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.meshResources = assert(game.resourceLoaders.mesh)
   self.transformComponents = assert(self.game.componentManagers.transform)
@@ -11,7 +11,7 @@ function MeshComponentManager:init(game, config)
   self.transforms = {}
 end
 
-function MeshComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local transform = self.transformComponents.transforms[id]
 
   if config.mesh then
@@ -26,9 +26,9 @@ function MeshComponentManager:createComponent(id, config)
   self.transforms[id] = transform:clone()
 end
 
-function MeshComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.meshes[id] = nil
   self.transforms[id] = nil
 end
 
-return MeshComponentManager
+return M

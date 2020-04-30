@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local ParentConstraintFixedUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function ParentConstraintFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.transformComponents = assert(self.game.componentManagers.transform)
 
@@ -13,7 +13,7 @@ function ParentConstraintFixedUpdateSystem:init(game, config)
     assert(self.game.componentEntitySets.parentConstraint)
 end
 
-function ParentConstraintFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local parents = self.game.entityParents
   local transforms = self.transformComponents.transforms
   local localTransforms = self.parentConstraintComponents.localTransforms
@@ -28,4 +28,4 @@ function ParentConstraintFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return ParentConstraintFixedUpdateSystem
+return M

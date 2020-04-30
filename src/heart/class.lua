@@ -1,4 +1,6 @@
-local function newClass()
+local M = {}
+
+function M.newClass()
   local class = {}
   class.__index = class
 
@@ -11,6 +13,4 @@ local function newClass()
   return class
 end
 
-return {
-  newClass = newClass,
-}
+return M

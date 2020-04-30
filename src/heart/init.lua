@@ -1,13 +1,13 @@
-local heart = {}
+local M = {}
 
-heart.class = require("heart.class")
-heart.color = require("heart.color")
-heart.event = require("heart.event")
-heart.Game = require("heart.Game")
-heart.graphics = require("heart.graphics")
-heart.math = require("heart.math")
-heart.physics = require("heart.physics")
-heart.svg = require("heart.svg")
-heart.table = require("heart.table")
+M.class = require("heart.class")
+M.color = require("heart.color")
+M.event = require("heart.event")
+M.Game = require("heart.Game")
+M.graphics = require("heart.graphics")
+M.math = require("heart.math")
+M.physics = require("heart.physics")
+M.svg = require("heart.svg")
+M.table = require("heart.table")
 
-return heart
+return M

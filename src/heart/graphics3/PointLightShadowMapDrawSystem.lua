@@ -2,9 +2,9 @@
 local class = require("heart.class")
 local heartTable = require("heart.table")
 
-local PointLightShadowMapDrawSystem = class.newClass()
+local M = class.newClass()
 
-function PointLightShadowMapDrawSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.fixedTimeStepDomain = assert(self.game.domains.fixedTimeStep)
   self.bones = assert(self.game.componentManagers.bone)
@@ -33,7 +33,7 @@ function PointLightShadowMapDrawSystem:init(game, config)
   self.shader = love.graphics.newShader(vertexShaderCode)
 end
 
-function PointLightShadowMapDrawSystem:draw()
+function M:draw()
   local timeStepFraction =
     self.fixedTimeStepDomain.accumulatedTimeStep /
     self.fixedTimeStepDomain.fixedTimeStep
@@ -55,4 +55,4 @@ function PointLightShadowMapDrawSystem:draw()
   love.graphics.setDepthMode()
 end
 
-return PointLightShadowMapDrawSystem
+return M

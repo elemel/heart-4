@@ -1,9 +1,9 @@
 local class = require("heart.class")
 local heartMath = require("heart.math")
 
-local ViewportDrawSystem = class.newClass()
+local M = class.newClass()
 
-function ViewportDrawSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.viewportEntities = assert(self.game.componentEntitySets.viewport)
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
@@ -12,7 +12,7 @@ function ViewportDrawSystem:init(game, config)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function ViewportDrawSystem:draw()
+function M:draw()
   local widths = self.viewportComponents.widths
   local heights = self.viewportComponents.heights
   local transforms = self.cameraComponents.transforms
@@ -52,4 +52,4 @@ function ViewportDrawSystem:draw()
   end
 end
 
-return ViewportDrawSystem
+return M

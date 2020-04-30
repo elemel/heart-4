@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local SpriteComponentManager = class.newClass()
+local M = class.newClass()
 
-function SpriteComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.transformComponents = assert(self.game.componentManagers.transform)
   self.imageResources = assert(game.resourceLoaders.image)
@@ -12,7 +12,7 @@ function SpriteComponentManager:init(game, config)
   self.transforms = {}
 end
 
-function SpriteComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
 
   if config.image then
@@ -25,10 +25,10 @@ function SpriteComponentManager:createComponent(entityId, config)
   self.transforms[entityId] = transform:clone()
 end
 
-function SpriteComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.images[entityId] = nil
   self.zs[entityId] = nil
   self.transforms[entityId] = nil
 end
 
-return SpriteComponentManager
+return M

@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local WorldFixedUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function WorldFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
 end
 
-function WorldFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   self.physicsDomain.world:update(dt)
 end
 
-return WorldFixedUpdateSystem
+return M

@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local MotorJointComponentManager = class.newClass()
+local M = class.newClass()
 
-function MotorJointComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function MotorJointComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
   local bodyId2 = config.body2 or "body"
 
@@ -42,9 +42,9 @@ function MotorJointComponentManager:createComponent(entityId, config)
   return joint
 end
 
-function MotorJointComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.motorJoints[entityId]:destroy()
   self.physicsDomain.motorJoints[entityId] = nil
 end
 
-return MotorJointComponentManager
+return M

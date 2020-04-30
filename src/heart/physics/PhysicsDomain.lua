@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local PhysicsDomain = class.newClass()
+local M = class.newClass()
 
-function PhysicsDomain:init(game, config)
+function M:init(game, config)
   local gravityX = config.gravityX or 0
   local gravityY = config.gravityY or 0
   local sleepingAllowed = config.sleepingAllowed ~= false
@@ -22,4 +22,4 @@ function PhysicsDomain:init(game, config)
   self.wheelJoints = {}
 end
 
-return PhysicsDomain
+return M

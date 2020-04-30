@@ -1,9 +1,9 @@
 local class = require("heart.class")
 local heartMath = require("heart.math")
 
-local BoneToCameraUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function BoneToCameraUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.timeDomain = assert(game.domains.time)
 
@@ -15,7 +15,7 @@ function BoneToCameraUpdateSystem:init(game, config)
   self.cameraComponents = assert(self.game.componentManagers.camera)
 end
 
-function BoneToCameraUpdateSystem:update(dt)
+function M:update(dt)
   local previousTransforms = self.boneComponents.previousTransforms
   local transforms = self.transformComponents.transforms
   local t = self.timeDomain.accumulatedDt / self.timeDomain.fixedDt
@@ -29,4 +29,4 @@ function BoneToCameraUpdateSystem:update(dt)
   end
 end
 
-return BoneToCameraUpdateSystem
+return M

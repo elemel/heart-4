@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local FrictionJointComponentManager = class.newClass()
+local M = class.newClass()
 
-function FrictionJointComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function FrictionJointComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local transform = self.transformComponents.transforms[entityId]
 
   local bodyId2 = self.game:findAncestorComponent(id, "body")
@@ -39,9 +39,9 @@ function FrictionJointComponentManager:createComponent(id, config)
   return joint
 end
 
-function FrictionJointComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.physicsDomain.frictionJoints[id]:destroy()
   self.physicsDomain.frictionJoints[id] = nil
 end
 
-return FrictionJointComponentManager
+return M

@@ -2,13 +2,13 @@ local class = require("heart.class")
 local svg = require("heart.svg")
 local xml = require("heart.external.xml")
 
-local MeshResourceLoader = class.newClass()
+local M = class.newClass()
 
-function MeshResourceLoader:init()
+function M:init()
   self.meshes = {}
 end
 
-function MeshResourceLoader:loadResource(filename)
+function M:loadResource(filename)
   local mesh = self.meshes[filename]
 
   if not mesh then
@@ -24,7 +24,7 @@ function MeshResourceLoader:loadResource(filename)
   return mesh
 end
 
-function MeshResourceLoader:loadElement(element, vertices)
+function M:loadElement(element, vertices)
   if element.name == "path" then
     local pathString = assert(element.attributes.d)
     local path = svg.parsePath(pathString)
@@ -54,4 +54,4 @@ function MeshResourceLoader:loadElement(element, vertices)
   end
 end
 
-return MeshResourceLoader
+return M

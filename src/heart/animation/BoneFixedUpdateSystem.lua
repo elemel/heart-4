@@ -1,15 +1,15 @@
 local class = require("heart.class")
 
-local BoneFixedUpdateSystem = class.newClass()
+local M = class.newClass()
 
-function BoneFixedUpdateSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.boneEntities = assert(self.game.componentEntitySets.bone)
   self.boneComponents = assert(self.game.componentManagers.bone)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function BoneFixedUpdateSystem:fixedUpdate(dt)
+function M:fixedUpdate(dt)
   local previousTransforms = self.boneComponents.previousTransforms
   local transforms = self.transformComponents.transforms
 
@@ -18,4 +18,4 @@ function BoneFixedUpdateSystem:fixedUpdate(dt)
   end
 end
 
-return BoneFixedUpdateSystem
+return M

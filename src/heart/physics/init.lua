@@ -1,9 +1,9 @@
 local physicsUtils = require("heart.physics.utils")
 
-local physics = {}
+local M = {}
 
 for k, v in pairs(physicsUtils) do
-  physics[k] = v
+  M[k] = v
 end
 
-return physics
+return M

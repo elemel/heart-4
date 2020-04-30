@@ -3,15 +3,15 @@ local getLocalPoints = heart.physics.getLocalPoints
 local heartMath = require("heart.math")
 local transformPoints2 = heart.math.transformPoints2
 
-local PolygonFixtureComponentManager = class.newClass()
+local M = class.newClass()
 
-function PolygonFixtureComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function PolygonFixtureComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local transform = self.transformComponents.transforms[entityId]
 
   local bodyId = assert(self.game:findAncestorComponent(id, "body"))
@@ -37,9 +37,9 @@ function PolygonFixtureComponentManager:createComponent(id, config)
   return fixture
 end
 
-function PolygonFixtureComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.physicsDomain.polygonFixtures[id]:destroy()
   self.physicsDomain.polygonFixtures[id] = nil
 end
 
-return PolygonFixtureComponentManager
+return M

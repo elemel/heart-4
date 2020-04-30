@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local CategoryComponentManager = class.newClass()
+local M = class.newClass()
 
-function CategoryComponentManager:init(game, config)
+function M:init(game, config)
 end
 
-function CategoryComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
 end
 
-function CategoryComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
 end
 
-return CategoryComponentManager
+return M

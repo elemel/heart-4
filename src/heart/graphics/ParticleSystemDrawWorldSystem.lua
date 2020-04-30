@@ -1,15 +1,15 @@
 local class = require("heart.class")
 
-local ParticleSystemDrawWorldSystem = class.newClass()
+local M = class.newClass()
 
-function ParticleSystemDrawWorldSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
 
   self.particleSystemComponents =
     assert(self.game.componentManagers.particleSystem)
 end
 
-function ParticleSystemDrawWorldSystem:drawWorld(viewportId)
+function M:drawWorld(viewportId)
   love.graphics.setDepthMode("less", false)
   local particleSystems = self.particleSystemComponents.particleSystems
   local blendModes = self.particleSystemComponents.blendModes
@@ -33,4 +33,4 @@ function ParticleSystemDrawWorldSystem:drawWorld(viewportId)
   love.graphics.setDepthMode()
 end
 
-return ParticleSystemDrawWorldSystem
+return M

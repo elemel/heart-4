@@ -1,13 +1,13 @@
 local class = require("heart.class")
 
-local TransformComponentManager = class.newClass()
+local M = class.newClass()
 
-function TransformComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.transforms = {}
 end
 
-function TransformComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local transform = love.math.newTransform()
 
   if config.transform then
@@ -24,8 +24,8 @@ function TransformComponentManager:createComponent(id, config)
   self.transforms[id] = transform
 end
 
-function TransformComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.transforms[id] = nil
 end
 
-return TransformComponentManager
+return M

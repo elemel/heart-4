@@ -1,15 +1,15 @@
 local class = require("heart.class")
 local heartMath = require("heart.math")
 
-local BodyComponentManager = class.newClass()
+local M = class.newClass()
 
-function BodyComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function BodyComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
   local x = config.x or 0
   local y = config.y or 0
@@ -31,9 +31,9 @@ function BodyComponentManager:createComponent(entityId, config)
   return body
 end
 
-function BodyComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.bodies[entityId]:destroy()
   self.physicsDomain.bodies[entityId] = nil
 end
 
-return BodyComponentManager
+return M

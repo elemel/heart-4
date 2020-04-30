@@ -1,15 +1,15 @@
 local class = require("heart.class")
 local mathUtils = require("heart.math.utils")
 
-local RopeJointComponentManager = class.newClass()
+local M = class.newClass()
 
-function RopeJointComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function RopeJointComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
   local bodyId2 = config.body2 or "body"
 
@@ -43,9 +43,9 @@ function RopeJointComponentManager:createComponent(entityId, config)
   return joint
 end
 
-function RopeJointComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.ropeJoints[entityId]:destroy()
   self.physicsDomain.ropeJoints[entityId] = nil
 end
 
-return RopeJointComponentManager
+return M

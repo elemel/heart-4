@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local Mesh3ComponentManager = class.newClass()
+local M = class.newClass()
 
-function Mesh3ComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.meshes = {}
 
@@ -14,7 +14,7 @@ function Mesh3ComponentManager:init(game, config)
   }
 end
 
-function Mesh3ComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local vertices = {
     -- left
 
@@ -81,8 +81,8 @@ function Mesh3ComponentManager:createComponent(entityId, config)
   self.meshes[entityId] = mesh
 end
 
-function Mesh3ComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.meshes[entityId] = nil
 end
 
-return Mesh3ComponentManager
+return M

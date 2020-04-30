@@ -1,20 +1,20 @@
 local class = require("heart.class")
 
-local CameraComponentManager = class.newClass()
+local M = class.newClass()
 
-function CameraComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.transformComponents = assert(self.game.componentManagers.transform)
   self.transforms = {}
 end
 
-function CameraComponentManager:createComponent(id, config)
+function M:createComponent(id, config)
   local transform = self.transformComponents.transforms[id]
   self.transforms[id] = transform:clone()
 end
 
-function CameraComponentManager:destroyComponent(id)
+function M:destroyComponent(id)
   self.transforms[id] = nil
 end
 
-return CameraComponentManager
+return M

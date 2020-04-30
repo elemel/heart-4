@@ -1,7 +1,9 @@
 local abs = math.abs
 
+local M = {}
+
 -- See: http://love2d.org/wiki/HSL_color
-local function toRgbFromHsl(h, s, l)
+function M.toRgbFromHsl(h, s, l)
   if s <= 0 then
     return l, l, l
   end
@@ -28,6 +30,4 @@ local function toRgbFromHsl(h, s, l)
   return r + m, g + m, b + m
 end
 
-return {
-  toRgbFromHsl = toRgbFromHsl,
-}
+return M

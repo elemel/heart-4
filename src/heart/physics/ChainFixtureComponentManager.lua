@@ -2,15 +2,15 @@ local class = require("heart.class")
 local heartMath = require("heart.math")
 local physicsUtils = require("heart.physics.utils")
 
-local ChainFixtureComponentManager = class.newClass()
+local M = class.newClass()
 
-function ChainFixtureComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function ChainFixtureComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
 
   local bodyId = assert(self.game:findAncestorComponent(entityId, "body"))
@@ -32,9 +32,9 @@ function ChainFixtureComponentManager:createComponent(entityId, config)
   return fixture
 end
 
-function ChainFixtureComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.chainFixtures[entityId]:destroy()
   self.physicsDomain.chainFixtures[entityId] = nil
 end
 
-return ChainFixtureComponentManager
+return M

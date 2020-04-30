@@ -1,15 +1,15 @@
 local class = require("heart.class")
 
-local PointLightComponentManager = class.newClass()
+local M = class.newClass()
 
-function PointLightComponentManager:init(game, config)
+function M:init(game, config)
   self.positions = {}
   self.colors = {}
   self.attenuations = {}
   self.shadowMaps = {}
 end
 
-function PointLightComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   self.positions[entityId] = config.position or {0, 0, 0}
   self.colors[entityId] = config.color or {1, 1, 1}
   self.attenuations[entityId] = config.attenuation or {0, 0, 4 * math.pi}
@@ -21,7 +21,7 @@ function PointLightComponentManager:createComponent(entityId, config)
   })
 end
 
-function PointLightComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.positions[entityId] = nil
   self.colors[entityId] = nil
   self.attenuations[entityId] = nil
@@ -29,4 +29,4 @@ function PointLightComponentManager:destroyComponent(entityId)
   self.shadowMaps[entityId] = nil
 end
 
-return PointLightComponentManager
+return M

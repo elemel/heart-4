@@ -1,14 +1,14 @@
 local class = require("heart.class")
 local heartTable = require("heart.table")
 
-local MeshDrawWorldSystem = class.newClass()
+local M = class.newClass()
 
-function MeshDrawWorldSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.meshComponents = assert(self.game.componentManagers.mesh)
 end
 
-function MeshDrawWorldSystem:drawWorld(viewportId)
+function M:drawWorld(viewportId)
   love.graphics.setDepthMode("lequal", true)
   local transforms = self.meshComponents.transforms
 
@@ -19,4 +19,4 @@ function MeshDrawWorldSystem:drawWorld(viewportId)
   love.graphics.setDepthMode()
 end
 
-return MeshDrawWorldSystem
+return M

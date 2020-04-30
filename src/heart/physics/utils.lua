@@ -1,4 +1,6 @@
-function getLocalPoints(body, worldPoints, localPoints)
+local M = {}
+
+function M.getLocalPoints(body, worldPoints, localPoints)
   localPoints = localPoints or {}
   local getLocalPoint = body.getLocalPoint
 
@@ -10,6 +12,4 @@ function getLocalPoints(body, worldPoints, localPoints)
   return localPoints
 end
 
-return {
-  getLocalPoints = getLocalPoints,
-}
+return M

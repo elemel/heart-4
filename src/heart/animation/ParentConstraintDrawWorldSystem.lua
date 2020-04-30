@@ -1,8 +1,8 @@
 local class = require("heart.class")
 
-local ParentConstraintDrawWorldSystem = class.newClass()
+local M = class.newClass()
 
-function ParentConstraintDrawWorldSystem:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.color = config.color or {0, 1, 0, 1}
   self.boneComponents = assert(self.game.componentManagers.bone)
@@ -11,7 +11,7 @@ function ParentConstraintDrawWorldSystem:init(game, config)
     assert(self.game.componentEntitySets.parentConstraint)
 end
 
-function ParentConstraintDrawWorldSystem:drawWorld(viewportId)
+function M:drawWorld(viewportId)
   local r, g, b, a = love.graphics.getColor()
   love.graphics.setColor(self.color)
 
@@ -30,4 +30,4 @@ function ParentConstraintDrawWorldSystem:drawWorld(viewportId)
   love.graphics.setColor(r, g, b, a)
 end
 
-return ParentConstraintDrawWorldSystem
+return M

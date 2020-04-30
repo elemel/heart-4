@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local ParentConstraintComponentManager = class.newClass()
+local M = class.newClass()
 
-function ParentConstraintComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.transformComponents = assert(self.game.componentManagers.transform)
   self.localTransforms = {}
 end
 
-function ParentConstraintComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local parentId = self.game.entityParents[entityId]
   local parentTransform = self.transformComponents.transforms[parentId]
   local transform = self.transformComponents.transforms[entityId]
@@ -17,8 +17,8 @@ function ParentConstraintComponentManager:createComponent(entityId, config)
   return localTransform
 end
 
-function ParentConstraintComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.localTransforms[entityId] = nil
 end
 
-return ParentConstraintComponentManager
+return M

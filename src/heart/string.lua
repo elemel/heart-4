@@ -1,6 +1,6 @@
-local heartString = {}
+local M = {}
 
-function heartString.split(s, sep, t)
+function M.split(s, sep, t)
   t = t or {}
   local i = 1
 
@@ -20,8 +20,8 @@ function heartString.split(s, sep, t)
 end
 
 -- http://lua-users.org/wiki/StringTrim
-function heartString.strip(s)
+function M.strip(s)
    return s:gsub("^%s*(.-)%s*$", "%1")
 end
 
-return heartString
+return M

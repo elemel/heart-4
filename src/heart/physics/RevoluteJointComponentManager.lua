@@ -1,14 +1,14 @@
 local class = require("heart.class")
 
-local RevoluteJointComponentManager = class.newClass()
+local M = class.newClass()
 
-function RevoluteJointComponentManager:init(game, config)
+function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function RevoluteJointComponentManager:createComponent(entityId, config)
+function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
 
   local bodyId2 = self.game:findAncestorComponent(entityId, "body")
@@ -39,9 +39,9 @@ function RevoluteJointComponentManager:createComponent(entityId, config)
   return joint
 end
 
-function RevoluteJointComponentManager:destroyComponent(entityId)
+function M:destroyComponent(entityId)
   self.physicsDomain.revoluteJoints[entityId]:destroy()
   self.physicsDomain.revoluteJoints[entityId] = nil
 end
 
-return RevoluteJointComponentManager
+return M
