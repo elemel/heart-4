@@ -1,1 +1,1 @@
-LUA_PATH='../../src/?.lua;../../src/?/init.lua' love .
+LUA_PATH='../../?.lua;../../?/init.lua' love .
