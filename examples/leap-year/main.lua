@@ -1,6 +1,6 @@
 heart = require("heart")
 
-local levelGrid = require("resources.scripts.levelGrid")
+local levelGrid = require("assets.scripts.levelGrid")
 
 function love.load()
   love.window.setTitle("Leap Year")
@@ -20,8 +20,8 @@ function love.load()
     image = heart.graphics.ImageResourceLoader.new(),
   }
 
-  local gameConfig = require("resources.game")
-  local levelConfig = require("resources.levels.forest")
+  local gameConfig = require("assets.game")
+  local levelConfig = require("assets.levels.forest")
   local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
   game = heart.Game.new(resourceLoaders, config)
 

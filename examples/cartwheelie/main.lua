@@ -17,7 +17,7 @@ function love.load()
     mesh = heart.graphics.MeshResourceLoader.new(),
   }
 
-  local config = require("resources.levels.level")
+  local config = require("assets.levels.level")
   game = heart.Game.new(resourceLoaders, config)
 end
 
