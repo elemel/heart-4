@@ -2,13 +2,13 @@ return {
   domains = {
     {
       domainType = "time",
-      class = "heart.event.TimeDomain",
+      class = "heart.event.domains.Time",
       fixedTimeStep = 1 / 60,
     },
 
     {
       domainType = "physics",
-      class = "heart.physics.PhysicsDomain",
+      class = "heart.physics.domains.Physics",
       gravityY = 15,
     },
   },
@@ -16,155 +16,155 @@ return {
   componentManagers = {
     {
       componentType = "transform",
-      class = "heart.animation.TransformComponentManager",
+      class = "heart.animation.components.TransformManager",
     },
 
     {
       componentType = "bone",
-      class = "heart.animation.BoneComponentManager",
+      class = "heart.animation.components.BoneManager",
     },
 
     {
       componentType = "parentConstraint",
-      class = "heart.animation.ParentConstraintComponentManager",
+      class = "heart.animation.components.ParentConstraintManager",
     },
 
     {
       componentType = "camera",
-      class = "heart.graphics.CameraComponentManager",
+      class = "heart.graphics.components.CameraManager",
     },
 
     {
       componentType = "viewport",
-      class = "heart.graphics.ViewportComponentManager",
+      class = "heart.graphics.components.ViewportManager",
     },
 
     {
       componentType = "body",
-      class = "heart.physics.BodyComponentManager",
+      class = "heart.physics.components.BodyManager",
     },
 
     {
       componentType = "chainFixture",
-      class = "heart.physics.ChainFixtureComponentManager",
+      class = "heart.physics.components.ChainFixtureManager",
     },
 
     {
       componentType = "circleFixture",
-      class = "heart.physics.CircleFixtureComponentManager",
+      class = "heart.physics.components.CircleFixtureManager",
     },
 
     {
       componentType = "rectangleFixture",
-      class = "heart.physics.RectangleFixtureComponentManager",
+      class = "heart.physics.components.RectangleFixtureManager",
     },
 
     {
       componentType = "motorJoint",
-      class = "heart.physics.MotorJointComponentManager",
+      class = "heart.physics.components.MotorJointManager",
     },
 
     {
       componentType = "revoluteJoint",
-      class = "heart.physics.RevoluteJointComponentManager",
+      class = "heart.physics.components.RevoluteJointManager",
     },
 
     {
       componentType = "wheelJoint",
-      class = "heart.physics.WheelJointComponentManager",
+      class = "heart.physics.components.WheelJointManager",
     },
 
     {
       componentType = "sprite",
-      class = "heart.graphics.SpriteComponentManager",
+      class = "heart.graphics.components.SpriteManager",
     },
 
     {
       componentType = "mesh",
-      class = "heart.graphics.MeshComponentManager",
+      class = "heart.graphics.components.MeshManager",
     },
 
     {
       componentType = "minecart",
-      class = "heart.CategoryComponentManager",
+      class = "heart.components.CategoryManager",
     },
 
     {
       componentType = "rider",
-      class = "heart.CategoryComponentManager",
+      class = "heart.components.CategoryManager",
     },
   },
 
   systems = {
     draw = {
       {
-        class = "heart.graphics.ViewportDrawSystem",
+        class = "heart.graphics.systems.draw.DrawViewports",
       },
     },
 
     drawWorld = {
       {
-        class = "heart.graphics.SpriteDrawWorldSystem",
+        class = "heart.graphics.systems.drawWorld.DrawWorldSprites",
       },
 
       {
-        class = "heart.graphics.MeshDrawWorldSystem",
+        class = "heart.graphics.systems.drawWorld.DrawWorldMeshes",
       },
     },
 
     debugDraw = {
       {
-        class = "heart.physics.PhysicsDebugDrawSystem",
+        class = "heart.physics.systems.debugDraw.DebugDrawPhysics",
       },
     },
 
     fixedUpdate = {
       {
-        class = "heart.animation.BoneFixedUpdateSystem",
+        class = "heart.animation.systems.fixedUpdate.FixedUpdateBones",
       },
 
       {
-        class = "resources.scripts.RiderFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateRiders",
       },
 
       {
-        class = "heart.physics.WorldFixedUpdateSystem",
+        class = "heart.physics.systems.fixedUpdate.FixedUpdateWorld",
       },
 
       {
-        class = "heart.physics.BodyToBoneFixedUpdateSystem",
+        class = "heart.physics.systems.fixedUpdate.FixedUpdateBonesFromBodies",
       },
 
       {
-        class = "resources.scripts.RiderToCameraFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateCamerasFromRiders",
       },
 
       {
-        class = "heart.animation.ParentConstraintFixedUpdateSystem",
+        class = "heart.animation.systems.fixedUpdate.FixedUpdateParentConstraints",
       },
     },
 
     resize = {
       {
-        class = "heart.graphics.ViewportResizeSystem",
+        class = "heart.graphics.systems.resize.ResizeViewports",
       },
     },
 
     update = {
       {
-        class = "heart.event.TimeUpdateSystem",
+        class = "heart.event.systems.update.UpdateTime",
       },
 
       {
-        class = "heart.graphics.BoneToSpriteUpdateSystem",
+        class = "heart.graphics.systems.update.UpdateSpritesFromBones",
       },
 
       {
-        class = "heart.graphics.BoneToMeshUpdateSystem",
+        class = "heart.graphics.systems.update.UpdateMeshesFromBones",
       },
 
       {
-        class = "heart.graphics.BoneToCameraUpdateSystem",
+        class = "heart.graphics.systems.update.UpdateCamerasFromBones",
       },
     },
   },

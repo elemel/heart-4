@@ -2,12 +2,12 @@ return {
   domains = {
     {
       domainType = "time",
-      class = "heart.event.TimeDomain",
+      class = "heart.event.domains.Time",
     },
 
     {
       domainType = "arrayImage",
-      class = "resources.scripts.ArrayImageDomain",
+      class = "resources.scripts.domains.ArrayImage",
 
       filenames = {
         "resources/images/tiles/stoneWall.png",
@@ -19,176 +19,176 @@ return {
   componentManagers = {
     {
       componentType = "player",
-      class = "heart.CategoryComponentManager",
+      class = "heart.components.CategoryManager",
     },
 
     {
       componentType = "transform",
-      class = "heart.animation.TransformComponentManager",
+      class = "heart.animation.components.TransformManager",
     },
 
     {
       componentType = "sky",
-      class = "resources.scripts.SkyComponentManager",
+      class = "resources.scripts.components.SkyManager",
     },
 
     {
       componentType = "bone",
-      class = "heart.animation.BoneComponentManager",
+      class = "heart.animation.components.BoneManager",
     },
 
     {
       componentType = "camera",
-      class = "heart.graphics.CameraComponentManager",
+      class = "heart.graphics.components.CameraManager",
     },
 
     {
       componentType = "viewport",
-      class = "heart.graphics.ViewportComponentManager",
+      class = "heart.graphics.components.ViewportManager",
     },
 
     {
       componentType = "terrain",
-      class = "resources.scripts.TerrainComponentManager",
+      class = "resources.scripts.components.TerrainManager",
     },
 
     {
       componentType = "position",
-      class = "resources.scripts.PositionComponentManager",
+      class = "resources.scripts.components.PositionManager",
     },
 
     {
       componentType = "velocity",
-      class = "resources.scripts.VelocityComponentManager",
+      class = "resources.scripts.components.VelocityManager",
     },
 
     {
       componentType = "gravity",
-      class = "resources.scripts.GravityComponentManager",
+      class = "resources.scripts.components.GravityManager",
       defaultGravityY = 32,
     },
 
     {
       componentType = "box",
-      class = "resources.scripts.BoxComponentManager",
+      class = "resources.scripts.components.BoxManager",
     },
 
     {
       componentType = "collider",
-      class = "resources.scripts.ColliderComponentManager",
+      class = "resources.scripts.components.ColliderManager",
     },
 
     {
       componentType = "sprite",
-      class = "heart.graphics.SpriteComponentManager",
+      class = "heart.graphics.components.SpriteManager",
     },
 
     {
       componentType = "characterState",
-      class = "resources.scripts.StateComponentManager",
+      class = "resources.scripts.components.StateManager",
       defaultState = "standing",
     },
 
     {
       componentType = "character",
-      class = "resources.scripts.CharacterComponentManager",
+      class = "resources.scripts.components.CharacterManager",
     },
   },
 
   systems = {
     debugDraw = {
       -- {
-      --   class = "resources.scripts.TerrainDebugDrawSystem",
+      --   class = "resources.scripts.systems.debugDraw.DebugDrawTerrains",
       -- },
 
       -- {
-      --   class = "resources.scripts.BoxDebugDrawSystem",
+      --   class = "resources.scripts.systems.debugDraw.DebugDrawBoxes",
       -- },
     },
 
     draw = {
       {
-        class = "resources.scripts.SkyDrawSystem",
+        class = "resources.scripts.systems.draw.DrawSkies",
       },
 
       {
-        class = "heart.graphics.ViewportDrawSystem",
+        class = "heart.graphics.systems.draw.DrawViewports",
       },
     },
 
     drawWorld = {
       {
-        class = "heart.graphics.SpriteDrawWorldSystem",
+        class = "heart.graphics.systems.drawWorld.DrawWorldSprites",
       },
 
       {
-        class = "resources.scripts.TerrainDrawWorldSystem",
+        class = "resources.scripts.systems.drawWorld.DrawWorldTerrains",
       },
     },
 
     fixedUpdate = {
       {
-        class = "heart.animation.BoneFixedUpdateSystem",
+        class = "heart.animation.systems.fixedUpdate.FixedUpdateBones",
       },
 
       {
-        class = "resources.scripts.VelocityFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateVelocities",
       },
 
       {
-        class = "resources.scripts.PlayerInputFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdatePlayerInputs",
       },
 
       {
-        class = "resources.scripts.CharacterInputFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateCharacterInputs",
       },
 
       {
-        class = "resources.scripts.CharacterStateFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateCharacterStates",
       },
 
       {
-        class = "resources.scripts.GravityFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateGravities",
       },
 
       {
-        class = "resources.scripts.ColliderFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateColliders",
       },
 
       {
-        class = "resources.scripts.CollisionFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateCollisions",
       },
 
       {
-        class = "resources.scripts.CharacterCollisionFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateCharacterCollisions",
       },
 
       {
-        class = "resources.scripts.CharacterAnimationFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateCharacterAnimations",
       },
 
       {
-        class = "resources.scripts.CameraFixedUpdateSystem",
+        class = "resources.scripts.systems.fixedUpdate.FixedUpdateCameras",
       },
     },
 
     resize = {
       {
-        class = "heart.graphics.ViewportResizeSystem",
+        class = "heart.graphics.systems.resize.ResizeViewports",
       },
     },
 
     update = {
       {
-        class = "heart.event.TimeUpdateSystem",
+        class = "heart.event.systems.update.UpdateTime",
       },
 
       {
-        class = "heart.graphics.BoneToSpriteUpdateSystem",
+        class = "heart.graphics.systems.update.UpdateSpritesFromBones",
       },
 
       {
-        class = "heart.graphics.BoneToCameraUpdateSystem",
+        class = "heart.graphics.systems.update.UpdateCamerasFromBones",
       },
     },
   },

@@ -11,7 +11,7 @@ function M:init(game, config)
     assert(self.game.componentEntitySets.parentConstraint)
 end
 
-function M:drawWorld(viewportId)
+function M:debugDraw(viewportId)
   local r, g, b, a = love.graphics.getColor()
   love.graphics.setColor(self.color)
 
