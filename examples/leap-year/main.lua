@@ -16,14 +16,14 @@ function love.load()
   love.physics.setMeter(1)
   love.mouse.setVisible(false)
 
-  local resourceLoaders = {
-    image = heart.graphics.ImageResourceLoader.new(),
+  local assetLoaders = {
+    image = heart.graphics.ImageLoader.new(),
   }
 
   local gameConfig = require("assets.game")
   local levelConfig = require("assets.levels.forest")
   local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
-  game = heart.Game.new(resourceLoaders, config)
+  game = heart.Game.new(assetLoaders, config)
 
   love.handlers.warp = love.warp
 

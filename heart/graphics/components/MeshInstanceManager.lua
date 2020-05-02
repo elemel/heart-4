@@ -4,7 +4,7 @@ local M = class.newClass()
 
 function M:init(game, config)
   self.game = assert(game)
-  self.meshResources = assert(game.resourceLoaders.mesh)
+  self.meshLoader = assert(game.assetLoaders.mesh)
   self.transformManager = assert(self.game.componentManagers.transform)
 
   self.meshes = {}
@@ -15,7 +15,7 @@ function M:createComponent(id, config)
   local transform = self.transformManager.transforms[id]
 
   if config.mesh then
-    self.meshes[id] = self.meshResources:loadResource(config.mesh)
+    self.meshes[id] = self.meshLoader:loadAsset(config.mesh)
   else
     local vertexCount = assert(config.vertexCount)
     local drawMode = config.drawMode or "fan"

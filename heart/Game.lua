@@ -4,9 +4,9 @@ local heartTable = require("heart.table")
 
 local M = class.newClass()
 
-function M:init(resourceLoaders, config)
+function M:init(assetLoaders, config)
   self.emptyConfig = {}
-  self.resourceLoaders = assert(resourceLoaders)
+  self.assetLoaders = assert(assetLoaders)
   self.domains = {}
 
   self.componentManagers = {}

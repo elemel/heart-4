@@ -6,7 +6,7 @@ function M:init()
   self.images = {}
 end
 
-function M:loadResource(filename)
+function M:loadAsset(filename)
   local image = self.images[filename]
 
   if not image then

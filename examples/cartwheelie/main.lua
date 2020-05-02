@@ -12,13 +12,13 @@ function love.load()
   love.graphics.setDefaultFilter("linear", "nearest")
   love.physics.setMeter(1)
 
-  local resourceLoaders = {
-    image = heart.graphics.ImageResourceLoader.new(),
-    mesh = heart.graphics.MeshResourceLoader.new(),
+  local assetLoaders = {
+    image = heart.graphics.ImageLoader.new(),
+    mesh = heart.graphics.MeshLoader.new(),
   }
 
   local config = require("assets.levels.level")
-  game = heart.Game.new(resourceLoaders, config)
+  game = heart.Game.new(assetLoaders, config)
 end
 
 function love.draw()

@@ -13,7 +13,7 @@ function M:init(game, config)
   self.spriteManager = assert(self.game.componentManagers.sprite)
   self.characterStateManager = assert(self.game.componentManagers.characterState)
 
-  self.imageResources = assert(self.game.resourceLoaders.image)
+  self.imageLoader = assert(self.game.assetLoaders.image)
 end
 
 function M:fixedUpdate(dt)
@@ -44,33 +44,33 @@ function M:fixedUpdate(dt)
     local state = states[id]
 
     if state == "crouching" then
-      images[id] = self.imageResources:loadResource(skin.attacking)
+      images[id] = self.imageLoader:loadAsset(skin.attacking)
     elseif state == "dead" then
-      images[id] = self.imageResources:loadResource(skin.dead)
+      images[id] = self.imageLoader:loadAsset(skin.dead)
     elseif state == "falling" then
-      images[id] = self.imageResources:loadResource(skin.jumping)
+      images[id] = self.imageLoader:loadAsset(skin.jumping)
     elseif state == "gliding" then
-      images[id] = self.imageResources:loadResource(skin.jumping)
+      images[id] = self.imageLoader:loadAsset(skin.jumping)
     elseif state == "running" then
       animationTimes[id] = animationTimes[id] + 5 * dt
       local frame = animationTimes[id] % 1 < 0.5 and skin.running or skin.jumping
-      images[id] = self.imageResources:loadResource(frame)
+      images[id] = self.imageLoader:loadAsset(frame)
     elseif state == "sliding" then
-      images[id] = self.imageResources:loadResource(skin.attacking)
+      images[id] = self.imageLoader:loadAsset(skin.attacking)
     elseif state == "sneaking" then
       animationTimes[id] = animationTimes[id] + 2 * dt
       local frame = animationTimes[id] % 1 < 0.5 and skin.running or skin.jumping
-      images[id] = self.imageResources:loadResource(frame)
+      images[id] = self.imageLoader:loadAsset(frame)
     elseif state == "standing" then
-      images[id] = self.imageResources:loadResource(skin.idle)
+      images[id] = self.imageLoader:loadAsset(skin.idle)
     elseif state == "walking" then
       animationTimes[id] = animationTimes[id] + 3 * dt
       local frame = animationTimes[id] % 1 < 0.5 and skin.running or skin.jumping
-      images[id] = self.imageResources:loadResource(frame)
+      images[id] = self.imageLoader:loadAsset(frame)
     elseif state == "wallSliding" then
-      images[id] = self.imageResources:loadResource(skin.attacking)
+      images[id] = self.imageLoader:loadAsset(skin.attacking)
     elseif state == "wallTouching" then
-      images[id] = self.imageResources:loadResource(skin.running)
+      images[id] = self.imageLoader:loadAsset(skin.running)
     end
 
     previousTransforms[id]:reset():setTransformation(

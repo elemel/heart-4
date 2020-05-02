@@ -4,7 +4,7 @@ local M = class.newClass()
 
 function M:init(game, config)
   self.game = assert(game)
-  self.imageLoader = assert(game.resourceLoaders.image)
+  self.imageLoader = assert(game.assetLoaders.image)
   self.particleSystems = {}
   self.zs = {}
   self.blendModes = {}

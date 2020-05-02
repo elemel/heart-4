@@ -5,7 +5,7 @@ local M = class.newClass()
 function M:init(game, config)
   self.game = assert(game)
   self.transformManager = assert(self.game.componentManagers.transform)
-  self.imageResources = assert(game.resourceLoaders.image)
+  self.imageLoader = assert(game.assetLoaders.image)
   self.images = {}
   self.zs = {}
 
@@ -17,7 +17,7 @@ function M:createComponent(entityId, config)
 
   if config.image then
     local imageFilename = assert(config.image)
-    local image = self.imageResources:loadResource(imageFilename)
+    local image = self.imageLoader:loadAsset(imageFilename)
     self.images[entityId] = image
   end
 

@@ -8,7 +8,7 @@ function M:init()
   self.meshes = {}
 end
 
-function M:loadResource(filename)
+function M:loadAsset(filename)
   local mesh = self.meshes[filename]
 
   if not mesh then
