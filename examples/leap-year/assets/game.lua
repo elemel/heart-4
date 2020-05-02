@@ -19,7 +19,7 @@ return {
   componentManagers = {
     {
       componentType = "player",
-      class = "heart.components.CategoryManager",
+      class = "heart.taxonomy.components.CategoryManager",
     },
 
     {

@@ -86,12 +86,12 @@ return {
 
     {
       componentType = "minecart",
-      class = "heart.components.CategoryManager",
+      class = "heart.taxonomy.components.CategoryManager",
     },
 
     {
       componentType = "rider",
-      class = "heart.components.CategoryManager",
+      class = "heart.taxonomy.components.CategoryManager",
     },
   },
 

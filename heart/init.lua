@@ -9,5 +9,6 @@ M.math = require("heart.math")
 M.physics = require("heart.physics")
 M.svg = require("heart.svg")
 M.table = require("heart.table")
+M.taxonomy = require("heart.taxonomy")
 
 return M
