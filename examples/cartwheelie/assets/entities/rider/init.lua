@@ -28,7 +28,7 @@ return {
         bone = {},
         parentConstraint = {},
 
-        mesh = {
+        meshInstance = {
           mesh = "assets/meshes/rider/torso.svg",
         },
       },

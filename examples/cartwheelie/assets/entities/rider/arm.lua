@@ -32,7 +32,7 @@ return {
         bone = {},
         parentConstraint = {},
 
-        mesh = {
+        meshInstance = {
           mesh = "assets/meshes/rider/upper-arm.svg",
         },
       },
@@ -80,7 +80,7 @@ return {
             bone = {},
             parentConstraint = {},
 
-            mesh = {
+            meshInstance = {
               mesh = "assets/meshes/rider/lower-arm.svg",
             },
           },
@@ -128,7 +128,7 @@ return {
                 bone = {},
                 parentConstraint = {},
 
-                mesh = {
+                meshInstance = {
                   mesh = "assets/meshes/rider/hand.svg",
                 },
               },

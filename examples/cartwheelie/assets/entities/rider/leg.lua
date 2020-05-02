@@ -36,7 +36,7 @@ return {
         bone = {},
         parentConstraint = {},
 
-        mesh = {
+        meshInstance = {
           mesh = "assets/meshes/rider/upper-leg.svg",
         },
       },
@@ -84,7 +84,7 @@ return {
             bone = {},
             parentConstraint = {},
 
-            mesh = {
+            meshInstance = {
               mesh = "assets/meshes/rider/lower-leg.svg",
             },
           },
@@ -133,7 +133,7 @@ return {
                 bone = {},
                 parentConstraint = {},
 
-                mesh = {
+                meshInstance = {
                   mesh = "assets/meshes/rider/foot.svg",
                 },
               },

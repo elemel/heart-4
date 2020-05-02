@@ -5,14 +5,14 @@ local M = class.newClass()
 
 function M:init(game, config)
   self.game = assert(game)
-  self.meshManager = assert(self.game.componentManagers.mesh)
+  self.meshInstanceManager = assert(self.game.componentManagers.meshInstance)
 end
 
 function M:drawWorld(viewportId)
   love.graphics.setDepthMode("lequal", true)
-  local transforms = self.meshManager.transforms
+  local transforms = self.meshInstanceManager.transforms
 
-  for id, mesh in pairs(self.meshManager.meshes) do
+  for id, mesh in pairs(self.meshInstanceManager.meshes) do
     love.graphics.draw(mesh, transforms[id])
   end
 

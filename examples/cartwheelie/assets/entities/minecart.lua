@@ -64,7 +64,7 @@ return {
         bone = {},
         parentConstraint = {},
 
-        mesh = {
+        meshInstance = {
           mesh = "assets/meshes/minecart.svg",
         },
       },

@@ -80,8 +80,8 @@ return {
     },
 
     {
-      componentType = "mesh",
-      class = "heart.graphics.components.MeshManager",
+      componentType = "meshInstance",
+      class = "heart.graphics.components.MeshInstanceManager",
     },
 
     {
@@ -108,7 +108,7 @@ return {
       },
 
       {
-        class = "heart.graphics.systems.drawWorld.DrawWorldMeshes",
+        class = "heart.graphics.systems.drawWorld.DrawWorldMeshInstances",
       },
     },
 
@@ -160,7 +160,7 @@ return {
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateMeshesFromBones",
+        class = "heart.graphics.systems.update.UpdateMeshInstancesFromBones",
       },
 
       {
@@ -192,7 +192,7 @@ return {
           transform = {0, 0, 0, 0.001, 0.001, 8000, 8000, z = -1},
         },
 
-        mesh = {
+        meshInstance = {
           mesh = "assets/meshes/background.svg",
         },
       },
