@@ -1,8 +1,8 @@
 return {
   domains = {
     {
-      domainType = "time",
-      class = "heart.event.domains.Time",
+      domainType = "timer",
+      class = "heart.timer.domains.Timer",
       fixedTimeStep = 1 / 60,
     },
 
@@ -152,7 +152,7 @@ return {
 
     update = {
       {
-        class = "heart.event.systems.update.UpdateTime",
+        class = "heart.timer.systems.update.UpdateTimer",
       },
 
       {

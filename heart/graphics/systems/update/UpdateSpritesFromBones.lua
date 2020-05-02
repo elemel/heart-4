@@ -5,7 +5,7 @@ local M = class.newClass()
 
 function M:init(game, config)
   self.game = assert(game)
-  self.timeDomain = assert(game.domains.time)
+  self.timerDomain = assert(game.domains.timer)
 
   self.boneEntities = assert(self.game.componentEntitySets.bone)
   self.spriteEntities = assert(self.game.componentEntitySets.sprite)
@@ -18,7 +18,7 @@ end
 function M:update(dt)
   local previousTransforms = self.boneComponents.previousTransforms
   local transforms = self.transformComponents.transforms
-  local t = self.timeDomain.accumulatedDt / self.timeDomain.fixedDt
+  local t = self.timerDomain.accumulatedDt / self.timerDomain.fixedDt
   local spriteTransforms = self.spriteComponents.transforms
 
   for id in pairs(self.boneEntities) do
