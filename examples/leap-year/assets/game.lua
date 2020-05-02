@@ -85,7 +85,7 @@ return {
 
     {
       componentType = "characterState",
-      class = "assets.scripts.components.StateManager",
+      class = "heart.taxonomy.components.StateManager",
       defaultState = "standing",
     },
 
