@@ -1,6 +1,6 @@
 local class = require("heart.class")
 local svg = require("heart.svg")
-local xml = require("heart.external.xml")
+local xml = require("heart.xml")
 
 local M = class.newClass()
 
