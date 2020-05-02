@@ -5,13 +5,13 @@ local M = class.newClass()
 function M:init(game, config)
   self.game = assert(game)
   self.physicsDomain = assert(self.game.domains.physics)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.transformManager = assert(self.game.componentManagers.transform)
   self.boneEntities = assert(self.game.componentEntitySets.bone)
 end
 
 function M:fixedUpdate(dt)
   local bodies = self.physicsDomain.bodies
-  local transforms = self.transformComponents.transforms
+  local transforms = self.transformManager.transforms
 
   for entityId in pairs(self.boneEntities) do
     local body = bodies[entityId]

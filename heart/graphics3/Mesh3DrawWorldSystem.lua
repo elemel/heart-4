@@ -10,7 +10,7 @@ function M:init(game, config)
   self.bones = assert(self.game.componentManagers.bone)
   self.pointLights = assert(self.game.componentManagers.pointLight)
   self.pointLightEntities = assert(self.game.componentEntitySets.pointLight)
-  self.meshComponents = assert(self.game.componentManagers.mesh)
+  self.meshManager = assert(self.game.componentManagers.mesh)
   self.meshEntities = assert(self.game.componentEntitySets.mesh)
 
   self.lightCount = 0
@@ -119,7 +119,7 @@ function M:drawWorld()
   for entityId in pairs(self.meshEntities) do
     self.shader:send("PreviousTransform", self.bones.previousTransforms[entityId])
     self.shader:send("Transform", self.bones.transforms[entityId])
-    local mesh = self.meshComponents.meshes[entityId]
+    local mesh = self.meshManager.meshes[entityId]
     love.graphics.draw(mesh)
   end
 

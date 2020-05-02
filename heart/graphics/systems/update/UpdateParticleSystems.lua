@@ -5,12 +5,12 @@ local M = class.newClass()
 function M:init(game, config)
   self.game = assert(game)
 
-  self.particleSystemComponents =
+  self.particleSystemManager =
     assert(self.game.componentManagers.particleSystem)
 end
 
 function M:update(dt)
-  local particleSystems = self.particleSystemComponents.particleSystems
+  local particleSystems = self.particleSystemManager.particleSystems
 
   for entityId, particleSystem in pairs(particleSystems) do
     particleSystem:update(dt)

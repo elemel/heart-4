@@ -10,16 +10,16 @@ function M:init(game, config)
   self.boneEntities = assert(self.game.componentEntitySets.bone)
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
 
-  self.boneComponents = assert(self.game.componentManagers.bone)
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.cameraComponents = assert(self.game.componentManagers.camera)
+  self.boneManager = assert(self.game.componentManagers.bone)
+  self.transformManager = assert(self.game.componentManagers.transform)
+  self.cameraManager = assert(self.game.componentManagers.camera)
 end
 
 function M:update(dt)
-  local previousTransforms = self.boneComponents.previousTransforms
-  local transforms = self.transformComponents.transforms
+  local previousTransforms = self.boneManager.previousTransforms
+  local transforms = self.transformManager.transforms
   local t = self.timerDomain.accumulatedDt / self.timerDomain.fixedDt
-  local cameraTransforms = self.cameraComponents.transforms
+  local cameraTransforms = self.cameraManager.transforms
 
   for id in pairs(self.cameraEntities) do
     if self.boneEntities[id] then

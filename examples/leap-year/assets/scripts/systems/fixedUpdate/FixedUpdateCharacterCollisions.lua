@@ -6,10 +6,10 @@ function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
-  self.characterComponents = assert(self.game.componentManagers.character)
+  self.characterManager = assert(self.game.componentManagers.character)
 
-  self.characterStateComponents = assert(self.game.componentManagers.characterState)
-  self.colliderComponents = assert(self.game.componentManagers.collider)
+  self.characterStateManager = assert(self.game.componentManagers.characterState)
+  self.colliderManager = assert(self.game.componentManagers.collider)
 
   self.transitionHandlers = {
     crouching = self.transitionCrouching,
@@ -28,7 +28,7 @@ end
 function M:fixedUpdate(dt)
   local newStates = {}
 
-  for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
+  for state, ids in pairs(self.characterStateManager.stateEntitySets) do
     local handler = self.transitionHandlers[state]
 
     if handler then
@@ -37,12 +37,12 @@ function M:fixedUpdate(dt)
   end
 
   for id, state in pairs(newStates) do
-    self.characterStateComponents:setState(id, state)
+    self.characterStateManager:setState(id, state)
   end
 end
 
 function M:transitionCrouching(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
+  local constraintMaps = self.colliderManager.constraintMaps
 
   for id in pairs(ids) do
     repeat
@@ -57,11 +57,11 @@ function M:transitionCrouching(ids, dt, newStates)
 end
 
 function M:transitionGliding(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
-  local directionXs = self.characterComponents.directionXs
-  local animationTimes = self.characterComponents.animationTimes
+  local constraintMaps = self.colliderManager.constraintMaps
+  local directionXs = self.characterManager.directionXs
+  local animationTimes = self.characterManager.animationTimes
 
-  local runInputs = self.characterComponents.runInputs
+  local runInputs = self.characterManager.runInputs
 
   for id in pairs(ids) do
     repeat
@@ -87,8 +87,8 @@ function M:transitionGliding(ids, dt, newStates)
 end
 
 function M:transitionFalling(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
-  local directionXs = self.characterComponents.directionXs
+  local constraintMaps = self.colliderManager.constraintMaps
+  local directionXs = self.characterManager.directionXs
 
   for id in pairs(ids) do
     repeat
@@ -113,7 +113,7 @@ function M:transitionFalling(ids, dt, newStates)
 end
 
 function M:transitionRunning(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
+  local constraintMaps = self.colliderManager.constraintMaps
 
   for id in pairs(ids) do
     repeat
@@ -128,7 +128,7 @@ function M:transitionRunning(ids, dt, newStates)
 end
 
 function M:transitionSliding(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
+  local constraintMaps = self.colliderManager.constraintMaps
 
   for id in pairs(ids) do
     repeat
@@ -143,7 +143,7 @@ function M:transitionSliding(ids, dt, newStates)
 end
 
 function M:transitionSneaking(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
+  local constraintMaps = self.colliderManager.constraintMaps
 
   for id in pairs(ids) do
     repeat
@@ -158,8 +158,8 @@ function M:transitionSneaking(ids, dt, newStates)
 end
 
 function M:transitionStanding(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
-  local directionXs = self.characterComponents.directionXs
+  local constraintMaps = self.colliderManager.constraintMaps
+  local directionXs = self.characterManager.directionXs
 
   for id in pairs(ids) do
     repeat
@@ -184,7 +184,7 @@ function M:transitionStanding(ids, dt, newStates)
 end
 
 function M:transitionWalking(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
+  local constraintMaps = self.colliderManager.constraintMaps
 
   for id in pairs(ids) do
     repeat
@@ -199,8 +199,8 @@ function M:transitionWalking(ids, dt, newStates)
 end
 
 function M:transitionWallSliding(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
-  local directionXs = self.characterComponents.directionXs
+  local constraintMaps = self.colliderManager.constraintMaps
+  local directionXs = self.characterManager.directionXs
 
   for id in pairs(ids) do
     repeat
@@ -225,8 +225,8 @@ function M:transitionWallSliding(ids, dt, newStates)
 end
 
 function M:transitionWallTouching(ids, dt, newStates)
-  local constraintMaps = self.colliderComponents.constraintMaps
-  local directionXs = self.characterComponents.directionXs
+  local constraintMaps = self.colliderManager.constraintMaps
+  local directionXs = self.characterManager.directionXs
 
   for id in pairs(ids) do
     repeat

@@ -4,9 +4,9 @@ local M = class.newClass()
 
 function M:init(game, config)
   self.game = assert(game)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.transformManager = assert(self.game.componentManagers.transform)
 
-  self.parentConstraintComponents =
+  self.parentConstraintManager =
     assert(self.game.componentManagers.parentConstraint)
 
   self.parentConstraintEntities =
@@ -15,8 +15,8 @@ end
 
 function M:fixedUpdate(dt)
   local parents = self.game.entityParents
-  local transforms = self.transformComponents.transforms
-  local localTransforms = self.parentConstraintComponents.localTransforms
+  local transforms = self.transformManager.transforms
+  local localTransforms = self.parentConstraintManager.localTransforms
 
   for entityId in pairs(self.parentConstraintEntities) do
     local parentId = parents[entityId]

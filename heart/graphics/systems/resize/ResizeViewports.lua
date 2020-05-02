@@ -5,12 +5,12 @@ local M = class.newClass()
 function M:init(game, config)
   self.game = assert(game)
   self.viewportEntities = assert(self.game.componentEntitySets.viewport)
-  self.viewportComponents = assert(self.game.componentManagers.viewport)
+  self.viewportManager = assert(self.game.componentManagers.viewport)
 end
 
 function M:resize(width, height)
-  local widths = self.viewportComponents.widths
-  local heights = self.viewportComponents.heights
+  local widths = self.viewportManager.widths
+  local heights = self.viewportManager.heights
 
   for entityId in pairs(self.viewportEntities) do
     widths[entityId] = width

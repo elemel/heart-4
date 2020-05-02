@@ -10,7 +10,7 @@ function M:init(game, config)
   self.bones = assert(self.game.componentManagers.bone)
   self.pointLights = assert(self.game.componentManagers.pointLight)
   self.pointLightEntities = assert(self.game.componentEntitySets.pointLight)
-  self.meshComponents = assert(self.game.componentManagers.mesh)
+  self.meshManager = assert(self.game.componentManagers.mesh)
   self.meshEntities = assert(self.game.componentEntitySets.mesh)
 
   local vertexShaderCode = [[
@@ -46,7 +46,7 @@ function M:draw()
     for meshEntityId in pairs(self.meshEntities) do
       self.shader:send("PreviousTransform", self.bones.previousTransforms[meshEntityId])
       self.shader:send("Transform", self.bones.transforms[meshEntityId])
-      local mesh = self.meshComponents.meshes[meshEntityId]
+      local mesh = self.meshManager.meshes[meshEntityId]
       love.graphics.draw(mesh)
     end
   end

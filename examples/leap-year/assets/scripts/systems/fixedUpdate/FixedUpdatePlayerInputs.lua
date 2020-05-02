@@ -3,21 +3,21 @@ local M = heart.class.newClass()
 function M:init(game, config)
   self.game = assert(game)
   self.playerEntities = assert(self.game.componentEntitySets.player)
-  self.characterComponents = assert(self.game.componentManagers.character)
+  self.characterManager = assert(self.game.componentManagers.character)
 end
 
 function M:fixedUpdate(dt)
-  local oldInputXs = self.characterComponents.oldInputXs
-  local oldInputYs = self.characterComponents.oldInputYs
+  local oldInputXs = self.characterManager.oldInputXs
+  local oldInputYs = self.characterManager.oldInputYs
 
-  local oldRunInputs = self.characterComponents.oldRunInputs
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
+  local oldRunInputs = self.characterManager.oldRunInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local runInputs = self.characterComponents.runInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local runInputs = self.characterManager.runInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
   for id in pairs(self.playerEntities) do
     oldInputXs[id] = inputXs[id]

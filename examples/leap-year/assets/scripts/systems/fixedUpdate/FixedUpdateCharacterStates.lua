@@ -6,12 +6,12 @@ function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
-  self.characterComponents = assert(self.game.componentManagers.character)
+  self.characterManager = assert(self.game.componentManagers.character)
 
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.velocityComponents = assert(self.game.componentManagers.velocity)
-  self.characterStateComponents = assert(self.game.componentManagers.characterState)
-  self.colliderComponents = assert(self.game.componentManagers.collider)
+  self.positionManager = assert(self.game.componentManagers.position)
+  self.velocityManager = assert(self.game.componentManagers.velocity)
+  self.characterStateManager = assert(self.game.componentManagers.characterState)
+  self.colliderManager = assert(self.game.componentManagers.collider)
 
   self.updateHandlers = {
     crouching = self.updateCrouching,
@@ -28,7 +28,7 @@ function M:init(game, config)
 end
 
 function M:fixedUpdate(dt)
-  for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
+  for state, ids in pairs(self.characterStateManager.stateEntitySets) do
     local handler = self.updateHandlers[state]
 
     if handler then
@@ -38,13 +38,13 @@ function M:fixedUpdate(dt)
 end
 
 function M:updateCrouching(ids, dt)
-  local crouchingAcceleration = self.characterComponents.crouchingAcceleration
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
+  local crouchingAcceleration = self.characterManager.crouchingAcceleration
+  local fallingAcceleration = self.characterManager.fallingAcceleration
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
+  local previousXs = self.velocityManager.previousXs
   local maxDdx = crouchingAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -57,8 +57,8 @@ function M:updateCrouching(ids, dt)
 end
 
 function M:updateFalling(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local ys = self.positionComponents.ys
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local ys = self.positionManager.ys
 
   for id in pairs(ids) do
     ys[id] = ys[id] + fallingAcceleration * dt * dt
@@ -66,15 +66,15 @@ function M:updateFalling(ids, dt)
 end
 
 function M:updateGliding(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local glidingAcceleration = self.characterComponents.glidingAcceleration
-  local glidingSpeed = self.characterComponents.glidingSpeed
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local glidingAcceleration = self.characterManager.glidingAcceleration
+  local glidingSpeed = self.characterManager.glidingSpeed
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
+  local previousXs = self.velocityManager.previousXs
+  local inputXs = self.characterManager.inputXs
   local maxDdx = glidingAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -95,15 +95,15 @@ function M:updateGliding(ids, dt)
 end
 
 function M:updateRunning(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local runningAcceleration = self.characterComponents.runningAcceleration
-  local runningSpeed = self.characterComponents.runningSpeed
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local runningAcceleration = self.characterManager.runningAcceleration
+  local runningSpeed = self.characterManager.runningSpeed
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
+  local previousXs = self.velocityManager.previousXs
+  local inputXs = self.characterManager.inputXs
   local maxDdx = runningAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -121,13 +121,13 @@ function M:updateRunning(ids, dt)
 end
 
 function M:updateSliding(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local slidingAcceleration = self.characterComponents.slidingAcceleration
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local slidingAcceleration = self.characterManager.slidingAcceleration
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
+  local previousXs = self.velocityManager.previousXs
 
   local maxDdx = slidingAcceleration * dt * dt
 
@@ -141,15 +141,15 @@ function M:updateSliding(ids, dt)
 end
 
 function M:updateSneaking(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local sneakingAcceleration = self.characterComponents.sneakingAcceleration
-  local sneakingSpeed = self.characterComponents.sneakingSpeed
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local sneakingAcceleration = self.characterManager.sneakingAcceleration
+  local sneakingSpeed = self.characterManager.sneakingSpeed
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
+  local previousXs = self.velocityManager.previousXs
+  local inputXs = self.characterManager.inputXs
   local maxDdx = sneakingAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -167,13 +167,13 @@ function M:updateSneaking(ids, dt)
 end
 
 function M:updateStanding(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local standingAcceleration = self.characterComponents.standingAcceleration
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local standingAcceleration = self.characterManager.standingAcceleration
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
+  local previousXs = self.velocityManager.previousXs
   local maxDdx = standingAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -186,15 +186,15 @@ function M:updateStanding(ids, dt)
 end
 
 function M:updateWalking(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local walkingAcceleration = self.characterComponents.walkingAcceleration
-  local walkingSpeed = self.characterComponents.walkingSpeed
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local walkingAcceleration = self.characterManager.walkingAcceleration
+  local walkingSpeed = self.characterManager.walkingSpeed
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
-  local inputXs = self.characterComponents.inputXs
+  local previousXs = self.velocityManager.previousXs
+  local inputXs = self.characterManager.inputXs
   local maxDdx = walkingAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -212,11 +212,11 @@ function M:updateWalking(ids, dt)
 end
 
 function M:updateWallSliding(ids, dt)
-  local wallSlidingAcceleration = self.characterComponents.fallingAcceleration
-  local wallSlidingSpeed = self.characterComponents.wallSlidingSpeed
+  local wallSlidingAcceleration = self.characterManager.fallingAcceleration
+  local wallSlidingSpeed = self.characterManager.wallSlidingSpeed
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
   local maxDdy = wallSlidingAcceleration * dt * dt
 
   for id in pairs(ids) do
@@ -230,8 +230,8 @@ function M:updateWallSliding(ids, dt)
 end
 
 function M:updateWallTouching(ids, dt)
-  local fallingAcceleration = self.characterComponents.fallingAcceleration
-  local ys = self.positionComponents.ys
+  local fallingAcceleration = self.characterManager.fallingAcceleration
+  local ys = self.positionManager.ys
 
   for id in pairs(ids) do
     ys[id] = ys[id] + fallingAcceleration * dt * dt

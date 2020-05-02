@@ -6,8 +6,8 @@ local M = heart.class.newClass()
 function M:init(game, config)
   self.game = assert(game)
 
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.boxComponents = assert(self.game.componentManagers.box)
+  self.positionManager = assert(self.game.componentManagers.position)
+  self.boxManager = assert(self.game.componentManagers.box)
 
   self.minXs = {}
   self.minYs = {}
@@ -20,11 +20,11 @@ function M:init(game, config)
 end
 
 function M:createComponent(id, config)
-  local x = self.positionComponents.xs[id]
-  local y = self.positionComponents.ys[id]
+  local x = self.positionManager.xs[id]
+  local y = self.positionManager.ys[id]
 
-  local width = self.boxComponents.widths[id]
-  local height = self.boxComponents.heights[id]
+  local width = self.boxManager.widths[id]
+  local height = self.boxManager.heights[id]
 
   local minX = floor(x - 0.5 * width)
   local minY = floor(y - 0.5 * height)
@@ -76,11 +76,11 @@ end
 function M:updateCells(id)
   local grid = self.grid
 
-  local x = self.positionComponents.xs[id]
-  local y = self.positionComponents.ys[id]
+  local x = self.positionManager.xs[id]
+  local y = self.positionManager.ys[id]
 
-  local width = self.boxComponents.widths[id]
-  local height = self.boxComponents.heights[id]
+  local width = self.boxManager.widths[id]
+  local height = self.boxManager.heights[id]
 
   local minX = floor(x - 0.5 * width)
   local minY = floor(y - 0.5 * height)

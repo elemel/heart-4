@@ -15,12 +15,12 @@ function M:init(game, config)
   self.game = assert(game)
 
   self.colliderEntities = assert(self.game.componentEntitySets.collider)
-  self.colliderComponents = assert(self.game.componentManagers.collider)
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.velocityComponents = assert(self.game.componentManagers.velocity)
-  self.boxComponents = assert(self.game.componentManagers.box)
+  self.colliderManager = assert(self.game.componentManagers.collider)
+  self.positionManager = assert(self.game.componentManagers.position)
+  self.velocityManager = assert(self.game.componentManagers.velocity)
+  self.boxManager = assert(self.game.componentManagers.box)
 
-  self.terrainComponents = assert(self.game.componentManagers.terrain)
+  self.terrainManager = assert(self.game.componentManagers.terrain)
 
   self.wallTileTypes = {
     blueBrick = true,
@@ -42,23 +42,23 @@ function M:init(game, config)
 end
 
 function M:fixedUpdate(dt)
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
-  local previousYs = self.velocityComponents.previousYs
+  local previousXs = self.velocityManager.previousXs
+  local previousYs = self.velocityManager.previousYs
 
-  local widths = self.boxComponents.widths
-  local heights = self.boxComponents.heights
+  local widths = self.boxManager.widths
+  local heights = self.boxManager.heights
 
-  local constraintMaps = self.colliderComponents.constraintMaps
+  local constraintMaps = self.colliderManager.constraintMaps
   local wallTileTypes = self.wallTileTypes
 
   for colliderId, map in pairs(constraintMaps) do
     clear(map)
   end
 
-  for terrainId, tileGrid in pairs(self.terrainComponents.tileGrids) do
+  for terrainId, tileGrid in pairs(self.terrainManager.tileGrids) do
     for colliderId in pairs(self.colliderEntities) do
       local constraintMap = constraintMaps[colliderId]
 

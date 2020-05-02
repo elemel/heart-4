@@ -3,7 +3,7 @@ local M = heart.class.newClass()
 function M:init(game, config)
   self.game = assert(game)
   self.arrayImageDomain = assert(self.game.domains.arrayImage)
-  self.terrainComponents = assert(self.game.componentManagers.terrain)
+  self.terrainManager = assert(self.game.componentManagers.terrain)
 end
 
 function M:drawWorld(viewportId)
@@ -11,7 +11,7 @@ function M:drawWorld(viewportId)
   local layerIndices = self.arrayImageDomain.layerIndices
   local scale = 1 / 16
 
-  for id, tileGrid in pairs(self.terrainComponents.tileGrids) do
+  for id, tileGrid in pairs(self.terrainManager.tileGrids) do
     for y, row in pairs(tileGrid) do
       for x, tileType in pairs(row) do
         local layerIndex = layerIndices[tileType]

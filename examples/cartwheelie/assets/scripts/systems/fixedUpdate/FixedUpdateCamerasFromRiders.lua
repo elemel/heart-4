@@ -7,11 +7,11 @@ function M:init(game, config)
   self.physicsDomain = assert(self.game.domains.physics)
   self.riderEntities = assert(self.game.componentEntitySets.rider)
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.transformManager = assert(self.game.componentManagers.transform)
 end
 
 function M:fixedUpdate(dt)
-  local transforms = self.transformComponents.transforms
+  local transforms = self.transformManager.transforms
 
   for riderId in pairs(self.riderEntities) do
     for cameraId in pairs(self.cameraEntities) do

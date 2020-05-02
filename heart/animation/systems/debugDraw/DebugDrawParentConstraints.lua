@@ -5,7 +5,7 @@ local M = class.newClass()
 function M:init(game, config)
   self.game = assert(game)
   self.color = config.color or {0, 1, 0, 1}
-  self.boneComponents = assert(self.game.componentManagers.bone)
+  self.boneManager = assert(self.game.componentManagers.bone)
 
   self.parentConstraintEntities =
     assert(self.game.componentEntitySets.parentConstraint)
@@ -16,7 +16,7 @@ function M:debugDraw(viewportId)
   love.graphics.setColor(self.color)
 
   local entityParents = self.game.entityParents
-  local transforms = self.boneComponents.transforms
+  local transforms = self.boneManager.transforms
 
   for id in pairs(self.parentConstraintEntities) do
     local transform = transforms[id]

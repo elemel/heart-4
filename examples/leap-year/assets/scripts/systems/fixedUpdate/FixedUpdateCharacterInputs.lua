@@ -6,11 +6,11 @@ function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
-  self.characterComponents = assert(self.game.componentManagers.character)
+  self.characterManager = assert(self.game.componentManagers.character)
 
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.velocityComponents = assert(self.game.componentManagers.velocity)
-  self.characterStateComponents = assert(self.game.componentManagers.characterState)
+  self.positionManager = assert(self.game.componentManagers.position)
+  self.velocityManager = assert(self.game.componentManagers.velocity)
+  self.characterStateManager = assert(self.game.componentManagers.characterState)
 
   self.transitionHandlers = {
     crouching = self.transitionCrouching,
@@ -29,7 +29,7 @@ end
 function M:fixedUpdate(dt)
   local newStates = {}
 
-  for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
+  for state, ids in pairs(self.characterStateManager.stateEntitySets) do
     local handler = self.transitionHandlers[state]
 
     if handler then
@@ -38,23 +38,23 @@ function M:fixedUpdate(dt)
   end
 
   for id, state in pairs(newStates) do
-    self.characterStateComponents:setState(id, state)
+    self.characterStateManager:setState(id, state)
   end
 end
 
 function M:transitionCrouching(ids, dt, newStates)
-  local crouchingJumpSpeed = self.characterComponents.crouchingJumpSpeed
-  local directionXs = self.characterComponents.directionXs
-  local animationTimes = self.characterComponents.animationTimes
+  local crouchingJumpSpeed = self.characterManager.crouchingJumpSpeed
+  local directionXs = self.characterManager.directionXs
+  local animationTimes = self.characterManager.animationTimes
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat
@@ -84,8 +84,8 @@ function M:transitionCrouching(ids, dt, newStates)
 end
 
 function M:transitionGliding(ids, dt, newStates)
-  local directionXs = self.characterComponents.directionXs
-  local inputXs = self.characterComponents.inputXs
+  local directionXs = self.characterManager.directionXs
+  local inputXs = self.characterManager.inputXs
 
   for id in pairs(ids) do
     repeat
@@ -99,8 +99,8 @@ function M:transitionGliding(ids, dt, newStates)
 end
 
 function M:transitionFalling(ids, dt, newStates)
-  local directionXs = self.characterComponents.directionXs
-  local inputXs = self.characterComponents.inputXs
+  local directionXs = self.characterManager.directionXs
+  local inputXs = self.characterManager.inputXs
 
   for id in pairs(ids) do
     repeat
@@ -118,19 +118,19 @@ function M:transitionFalling(ids, dt, newStates)
 end
 
 function M:transitionRunning(ids, dt, newStates)
-  local runningJumpSpeed = self.characterComponents.runningJumpSpeed
-  local directionXs = self.characterComponents.directionXs
+  local runningJumpSpeed = self.characterManager.runningJumpSpeed
+  local directionXs = self.characterManager.directionXs
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local runInputs = self.characterComponents.runInputs
+  local runInputs = self.characterManager.runInputs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat
@@ -159,18 +159,18 @@ function M:transitionRunning(ids, dt, newStates)
 end
 
 function M:transitionSliding(ids, dt, newStates)
-  local slidingJumpSpeed = self.characterComponents.slidingJumpSpeed
-  local directionXs = self.characterComponents.directionXs
-  local animationTimes = self.characterComponents.animationTimes
+  local slidingJumpSpeed = self.characterManager.slidingJumpSpeed
+  local directionXs = self.characterManager.directionXs
+  local animationTimes = self.characterManager.animationTimes
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat
@@ -195,17 +195,17 @@ function M:transitionSliding(ids, dt, newStates)
 end
 
 function M:transitionSneaking(ids, dt, newStates)
-  local sneakingJumpSpeed = self.characterComponents.sneakingJumpSpeed
-  local directionXs = self.characterComponents.directionXs
+  local sneakingJumpSpeed = self.characterManager.sneakingJumpSpeed
+  local directionXs = self.characterManager.directionXs
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat
@@ -229,18 +229,18 @@ function M:transitionSneaking(ids, dt, newStates)
 end
 
 function M:transitionStanding(ids, dt, newStates)
-  local standingJumpSpeed = self.characterComponents.standingJumpSpeed
-  local animationTimes = self.characterComponents.animationTimes
-  local directionXs = self.characterComponents.directionXs
+  local standingJumpSpeed = self.characterManager.standingJumpSpeed
+  local animationTimes = self.characterManager.animationTimes
+  local directionXs = self.characterManager.directionXs
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat
@@ -270,19 +270,19 @@ function M:transitionStanding(ids, dt, newStates)
 end
 
 function M:transitionWalking(ids, dt, newStates)
-  local walkingJumpSpeed = self.characterComponents.walkingJumpSpeed
-  local directionXs = self.characterComponents.directionXs
+  local walkingJumpSpeed = self.characterManager.walkingJumpSpeed
+  local directionXs = self.characterManager.directionXs
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local runInputs = self.characterComponents.runInputs
+  local runInputs = self.characterManager.runInputs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat
@@ -311,20 +311,20 @@ function M:transitionWalking(ids, dt, newStates)
 end
 
 function M:transitionWallSliding(ids, dt, newStates)
-  local wallSlidingJumpSpeedX = self.characterComponents.wallSlidingJumpSpeedX
-  local wallSlidingJumpSpeedY = self.characterComponents.wallSlidingJumpSpeedY
+  local wallSlidingJumpSpeedX = self.characterManager.wallSlidingJumpSpeedX
+  local wallSlidingJumpSpeedY = self.characterManager.wallSlidingJumpSpeedY
 
-  local directionXs = self.characterComponents.directionXs
-  local inputXs = self.characterComponents.inputXs
+  local directionXs = self.characterManager.directionXs
+  local inputXs = self.characterManager.inputXs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local previousXs = self.velocityComponents.previousXs
-  local previousYs = self.velocityComponents.previousYs
+  local previousXs = self.velocityManager.previousXs
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat
@@ -347,18 +347,18 @@ function M:transitionWallSliding(ids, dt, newStates)
 end
 
 function M:transitionWallTouching(ids, dt, newStates)
-  local standingJumpSpeed = self.characterComponents.standingJumpSpeed
-  local animationTimes = self.characterComponents.animationTimes
-  local directionXs = self.characterComponents.directionXs
+  local standingJumpSpeed = self.characterManager.standingJumpSpeed
+  local animationTimes = self.characterManager.animationTimes
+  local directionXs = self.characterManager.directionXs
 
-  local inputXs = self.characterComponents.inputXs
-  local inputYs = self.characterComponents.inputYs
+  local inputXs = self.characterManager.inputXs
+  local inputYs = self.characterManager.inputYs
 
-  local oldJumpInputs = self.characterComponents.oldJumpInputs
-  local jumpInputs = self.characterComponents.jumpInputs
+  local oldJumpInputs = self.characterManager.oldJumpInputs
+  local jumpInputs = self.characterManager.jumpInputs
 
-  local ys = self.positionComponents.ys
-  local previousYs = self.velocityComponents.previousYs
+  local ys = self.positionManager.ys
+  local previousYs = self.velocityManager.previousYs
 
   for id in pairs(ids) do
     repeat

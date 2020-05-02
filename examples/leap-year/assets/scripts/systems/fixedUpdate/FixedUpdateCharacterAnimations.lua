@@ -4,39 +4,39 @@ function M:init(game, config)
   self.game = assert(game)
 
   self.characterEntities = assert(self.game.componentEntitySets.character)
-  self.characterComponents = assert(self.game.componentManagers.character)
+  self.characterManager = assert(self.game.componentManagers.character)
 
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.boneComponents = assert(self.game.componentManagers.bone)
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.velocityComponents = assert(self.game.componentManagers.velocity)
-  self.spriteComponents = assert(self.game.componentManagers.sprite)
-  self.characterStateComponents = assert(self.game.componentManagers.characterState)
+  self.transformManager = assert(self.game.componentManagers.transform)
+  self.boneManager = assert(self.game.componentManagers.bone)
+  self.positionManager = assert(self.game.componentManagers.position)
+  self.velocityManager = assert(self.game.componentManagers.velocity)
+  self.spriteManager = assert(self.game.componentManagers.sprite)
+  self.characterStateManager = assert(self.game.componentManagers.characterState)
 
   self.imageResources = assert(self.game.resourceLoaders.image)
 end
 
 function M:fixedUpdate(dt)
-  local directionXs = self.characterComponents.directionXs
+  local directionXs = self.characterManager.directionXs
 
-  local previousXs = self.velocityComponents.previousXs
-  local previousYs = self.velocityComponents.previousYs
+  local previousXs = self.velocityManager.previousXs
+  local previousYs = self.velocityManager.previousYs
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
-  local images = self.spriteComponents.images
+  local images = self.spriteManager.images
 
-  local previousTransforms = self.boneComponents.previousTransforms
-  local transforms = self.transformComponents.transforms
+  local previousTransforms = self.boneManager.previousTransforms
+  local transforms = self.transformManager.transforms
 
-  local states = self.characterStateComponents.states
-  local images = self.spriteComponents.images
+  local states = self.characterStateManager.states
+  local images = self.spriteManager.images
 
-  local characterTypes = self.characterComponents.characterTypes
-  local skins = self.characterComponents.skins
+  local characterTypes = self.characterManager.characterTypes
+  local skins = self.characterManager.skins
 
-  local animationTimes = self.characterComponents.animationTimes
+  local animationTimes = self.characterManager.animationTimes
 
   for id in pairs(self.characterEntities) do
     local characterType = characterTypes[id]

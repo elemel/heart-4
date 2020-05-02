@@ -5,14 +5,14 @@ local M = class.newClass()
 function M:init(game, config)
   self.game = assert(game)
   self.meshResources = assert(game.resourceLoaders.mesh)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.transformManager = assert(self.game.componentManagers.transform)
 
   self.meshes = {}
   self.transforms = {}
 end
 
 function M:createComponent(id, config)
-  local transform = self.transformComponents.transforms[id]
+  local transform = self.transformManager.transforms[id]
 
   if config.mesh then
     self.meshes[id] = self.meshResources:loadResource(config.mesh)

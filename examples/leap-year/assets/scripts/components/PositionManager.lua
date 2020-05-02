@@ -2,7 +2,7 @@ local M = heart.class.newClass()
 
 function M:init(game, config)
   self.game = assert(game)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.transformManager = assert(self.game.componentManagers.transform)
   self.xs = {}
   self.ys = {}
 end
@@ -11,7 +11,7 @@ function M:createComponent(id, config)
   local x = config.x or 0
   local y = config.y or 0
 
-  local transform = self.transformComponents.transforms[id]
+  local transform = self.transformManager.transforms[id]
 
   if transform then
     x, y = transform:transformPoint(x, y)

@@ -4,17 +4,17 @@ function GravityFixedUpdateSystem:init(game, config)
   self.game = assert(game)
 
   self.gravityEntities = assert(self.game.componentEntitySets.gravity)
-  self.gravityComponents = assert(self.game.componentManagers.gravity)
+  self.gravityManager = assert(self.game.componentManagers.gravity)
 
-  self.positionComponents = assert(self.game.componentManagers.position)
+  self.positionManager = assert(self.game.componentManagers.position)
 end
 
 function GravityFixedUpdateSystem:fixedUpdate(dt)
-  local gravityXs = self.gravityComponents.gravityXs
-  local gravityYs = self.gravityComponents.gravityYs
+  local gravityXs = self.gravityManager.gravityXs
+  local gravityYs = self.gravityManager.gravityYs
 
-  local xs = self.positionComponents.xs
-  local ys = self.positionComponents.ys
+  local xs = self.positionManager.xs
+  local ys = self.positionManager.ys
 
   for id in pairs(self.gravityEntities) do
     xs[id] = xs[id] + gravityXs[id] * dt * dt

@@ -6,18 +6,18 @@ function M:init(game, config)
   self.game = assert(game)
 
   self.playerEntities = assert(self.game.componentEntitySets.player)
-  self.positionComponents = assert(self.game.componentManagers.position)
+  self.positionManager = assert(self.game.componentManagers.position)
 
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
-  self.cameraComponents = assert(self.game.componentManagers.camera)
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.viewportComponents = assert(self.game.componentManagers.viewport)
+  self.cameraManager = assert(self.game.componentManagers.camera)
+  self.transformManager = assert(self.game.componentManagers.transform)
+  self.viewportManager = assert(self.game.componentManagers.viewport)
 end
 
 function M:fixedUpdate(dt)
   local playerCount = 0
   local totalX = 0
-  local xs = self.positionComponents.xs
+  local xs = self.positionManager.xs
 
   for playerId in pairs(self.playerEntities) do
     local x = xs[playerId]
@@ -28,10 +28,10 @@ function M:fixedUpdate(dt)
   if playerCount >= 1 then
     local x = totalX / playerCount
 
-    local transforms = self.transformComponents.transforms
+    local transforms = self.transformManager.transforms
 
-    local widths = self.viewportComponents.widths
-    local heights = self.viewportComponents.heights
+    local widths = self.viewportManager.widths
+    local heights = self.viewportManager.heights
 
     for cameraId in pairs(self.cameraEntities) do
       local width = widths[cameraId]

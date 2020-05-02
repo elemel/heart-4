@@ -7,16 +7,16 @@ function M:init(game, config)
   self.game = assert(game)
   self.viewportEntities = assert(self.game.componentEntitySets.viewport)
   self.cameraEntities = assert(self.game.componentEntitySets.camera)
-  self.viewportComponents = assert(self.game.componentManagers.viewport)
-  self.cameraComponents = assert(self.game.componentManagers.camera)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.viewportManager = assert(self.game.componentManagers.viewport)
+  self.cameraManager = assert(self.game.componentManagers.camera)
+  self.transformManager = assert(self.game.componentManagers.transform)
 end
 
 function M:draw()
-  local widths = self.viewportComponents.widths
-  local heights = self.viewportComponents.heights
-  local transforms = self.cameraComponents.transforms
-  local debugTransforms = self.transformComponents.transforms
+  local widths = self.viewportManager.widths
+  local heights = self.viewportManager.heights
+  local transforms = self.cameraManager.transforms
+  local debugTransforms = self.transformManager.transforms
 
   for id in pairs(self.viewportEntities) do
     if self.cameraEntities[id] then
