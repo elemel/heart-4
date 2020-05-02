@@ -43,5 +43,4 @@ function love.update(dt)
 end
 
 function love.warp(levelX, levelY, entityConfigs)
-  print("test", arg.a)
 end
