@@ -1,4 +1,4 @@
-local filenames = require("assets.scripts.arrayImage")
+local filenames = require("assets.arrayImage")
 
 local M = heart.class.newClass()
 

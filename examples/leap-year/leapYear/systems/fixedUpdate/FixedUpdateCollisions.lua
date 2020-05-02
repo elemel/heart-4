@@ -1,4 +1,4 @@
-local utils = require("assets.scripts.utils")
+local utils = require("leapYear.utils")
 
 local boxDistance = utils.boxDistance
 local clear = heart.table.clear

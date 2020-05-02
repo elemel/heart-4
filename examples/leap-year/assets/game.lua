@@ -7,7 +7,7 @@ return {
 
     {
       domainType = "arrayImage",
-      class = "assets.scripts.domains.ArrayImage",
+      class = "leapYear.domains.ArrayImage",
 
       filenames = {
         "assets/images/tiles/stoneWall.png",
@@ -29,7 +29,7 @@ return {
 
     {
       componentType = "sky",
-      class = "assets.scripts.components.SkyManager",
+      class = "leapYear.components.SkyManager",
     },
 
     {
@@ -49,33 +49,33 @@ return {
 
     {
       componentType = "terrain",
-      class = "assets.scripts.components.TerrainManager",
+      class = "leapYear.components.TerrainManager",
     },
 
     {
       componentType = "position",
-      class = "assets.scripts.components.PositionManager",
+      class = "leapYear.components.PositionManager",
     },
 
     {
       componentType = "velocity",
-      class = "assets.scripts.components.VelocityManager",
+      class = "leapYear.components.VelocityManager",
     },
 
     {
       componentType = "gravity",
-      class = "assets.scripts.components.GravityManager",
+      class = "leapYear.components.GravityManager",
       defaultGravityY = 32,
     },
 
     {
       componentType = "box",
-      class = "assets.scripts.components.BoxManager",
+      class = "leapYear.components.BoxManager",
     },
 
     {
       componentType = "collider",
-      class = "assets.scripts.components.ColliderManager",
+      class = "leapYear.components.ColliderManager",
     },
 
     {
@@ -91,24 +91,24 @@ return {
 
     {
       componentType = "character",
-      class = "assets.scripts.components.CharacterManager",
+      class = "leapYear.components.CharacterManager",
     },
   },
 
   systems = {
     debugDraw = {
       -- {
-      --   class = "assets.scripts.systems.debugDraw.DebugDrawTerrains",
+      --   class = "leapYear.systems.debugDraw.DebugDrawTerrains",
       -- },
 
       -- {
-      --   class = "assets.scripts.systems.debugDraw.DebugDrawBoxes",
+      --   class = "leapYear.systems.debugDraw.DebugDrawBoxes",
       -- },
     },
 
     draw = {
       {
-        class = "assets.scripts.systems.draw.DrawSkies",
+        class = "leapYear.systems.draw.DrawSkies",
       },
 
       {
@@ -122,7 +122,7 @@ return {
       },
 
       {
-        class = "assets.scripts.systems.drawWorld.DrawWorldTerrains",
+        class = "leapYear.systems.drawWorld.DrawWorldTerrains",
       },
     },
 
@@ -132,43 +132,43 @@ return {
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateVelocities",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateVelocities",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdatePlayerInputs",
+        class = "leapYear.systems.fixedUpdate.FixedUpdatePlayerInputs",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateCharacterInputs",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterInputs",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateCharacterStates",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterStates",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateGravities",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateGravities",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateColliders",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateColliders",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateCollisions",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateCollisions",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateCharacterCollisions",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterCollisions",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateCharacterAnimations",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterAnimations",
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateCameras",
+        class = "leapYear.systems.fixedUpdate.FixedUpdateCameras",
       },
     },
 

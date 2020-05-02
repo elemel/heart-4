@@ -1,4 +1,4 @@
-local palette = require("assets.scripts.palette")
+local palette = require("assets.palette")
 
 return {
   {

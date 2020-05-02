@@ -1,6 +1,6 @@
 heart = require("heart")
 
-local levelGrid = require("assets.scripts.levelGrid")
+local levelGrid = require("assets.levelGrid")
 
 function love.load()
   love.window.setTitle("Leap Year")

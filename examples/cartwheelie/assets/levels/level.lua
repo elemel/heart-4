@@ -124,7 +124,7 @@ return {
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateRiders",
+        class = "cartwheelie.systems.fixedUpdate.FixedUpdateRiders",
       },
 
       {
@@ -136,7 +136,7 @@ return {
       },
 
       {
-        class = "assets.scripts.systems.fixedUpdate.FixedUpdateCamerasFromRiders",
+        class = "cartwheelie.systems.fixedUpdate.FixedUpdateCamerasFromRiders",
       },
 
       {
