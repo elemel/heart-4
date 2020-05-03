@@ -16,7 +16,7 @@ function M:init(game, config)
   self.imageLoader = assert(self.game.assetLoaders.image)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local directionXs = self.characterManager.directionXs
 
   local previousXs = self.velocityManager.previousXs

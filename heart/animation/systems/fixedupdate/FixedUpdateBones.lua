@@ -9,7 +9,7 @@ function M:init(game, config)
   self.transformManager = assert(self.game.componentManagers.transform)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local previousTransforms = self.boneManager.previousTransforms
   local transforms = self.transformManager.transforms
 

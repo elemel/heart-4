@@ -8,7 +8,7 @@ function M:init(game, config)
   self.velocityManager = assert(self.game.componentManagers.velocity)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local xs = self.positionManager.xs
   local ys = self.positionManager.ys
 

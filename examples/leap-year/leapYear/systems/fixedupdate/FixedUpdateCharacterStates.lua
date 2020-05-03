@@ -27,7 +27,7 @@ function M:init(game, config)
   }
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   for state, ids in pairs(self.characterStateManager.stateEntitySets) do
     local handler = self.updateHandlers[state]
 

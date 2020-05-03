@@ -5,7 +5,7 @@ function M:init(game, config)
   self.terrainManager = assert(self.game.componentManagers.terrain)
 end
 
-function M:debugdraw(viewportId)
+function M:__call(viewportId)
   for id, tileGrid in pairs(self.terrainManager.tileGrids) do
     for y, row in pairs(tileGrid) do
       for x in pairs(row) do

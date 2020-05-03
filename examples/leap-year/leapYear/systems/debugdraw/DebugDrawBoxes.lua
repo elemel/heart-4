@@ -8,7 +8,7 @@ function M:init(game, config)
   self.boxManager = assert(self.game.componentManagers.box)
 end
 
-function M:debugdraw(viewportId)
+function M:__call(viewportId)
   local xs = self.positionManager.xs
   local ys = self.positionManager.ys
 

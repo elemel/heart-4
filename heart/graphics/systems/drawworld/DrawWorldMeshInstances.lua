@@ -8,7 +8,7 @@ function M:init(game, config)
   self.meshInstanceManager = assert(self.game.componentManagers.meshInstance)
 end
 
-function M:drawworld(viewportId)
+function M:__call(viewportId)
   love.graphics.setDepthMode("lequal", true)
   local transforms = self.meshInstanceManager.transforms
 

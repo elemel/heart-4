@@ -41,7 +41,7 @@ function M:init(game, config)
   }
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local xs = self.positionManager.xs
   local ys = self.positionManager.ys
 

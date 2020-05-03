@@ -13,7 +13,7 @@ function M:init(game, config)
   self.riderEntities = assert(self.game.componentEntitySets.rider)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local world = self.physicsDomain.world
   local bodies = self.physicsDomain.bodies
   local motorJoints = self.physicsDomain.motorJoints

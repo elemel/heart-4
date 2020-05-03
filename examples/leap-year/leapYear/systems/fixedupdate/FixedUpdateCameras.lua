@@ -14,7 +14,7 @@ function M:init(game, config)
   self.viewportManager = assert(self.game.componentManagers.viewport)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local playerCount = 0
   local totalX = 0
   local xs = self.positionManager.xs

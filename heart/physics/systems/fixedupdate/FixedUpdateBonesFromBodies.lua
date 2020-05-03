@@ -9,7 +9,7 @@ function M:init(game, config)
   self.boneEntities = assert(self.game.componentEntitySets.bone)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local bodies = self.physicsDomain.bodies
   local transforms = self.transformManager.transforms
 

@@ -9,7 +9,7 @@ function M:init(game, config)
   self.skyManager = assert(self.game.componentManagers.sky)
 end
 
-function M:draw()
+function M:__call()
   local width, height = love.graphics.getDimensions()
   local meshes = self.skyManager.meshes
 

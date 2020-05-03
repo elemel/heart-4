@@ -9,7 +9,7 @@ function GravityFixedUpdateSystem:init(game, config)
   self.positionManager = assert(self.game.componentManagers.position)
 end
 
-function GravityFixedUpdateSystem:fixedupdate(dt)
+function GravityFixedUpdateSystem:__call(dt)
   local gravityXs = self.gravityManager.gravityXs
   local gravityYs = self.gravityManager.gravityYs
 

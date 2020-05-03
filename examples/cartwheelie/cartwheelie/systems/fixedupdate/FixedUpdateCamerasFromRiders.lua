@@ -10,7 +10,7 @@ function M:init(game, config)
   self.transformManager = assert(self.game.componentManagers.transform)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local transforms = self.transformManager.transforms
 
   for riderId in pairs(self.riderEntities) do

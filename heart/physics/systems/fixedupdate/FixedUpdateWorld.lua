@@ -7,7 +7,7 @@ function M:init(game, config)
   self.physicsDomain = assert(self.game.domains.physics)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   self.physicsDomain.world:update(dt)
 end
 

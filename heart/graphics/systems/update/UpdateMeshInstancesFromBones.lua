@@ -15,7 +15,7 @@ function M:init(game, config)
   self.meshInstanceManager = assert(self.game.componentManagers.meshInstance)
 end
 
-function M:update(dt)
+function M:__call(dt)
   local previousTransforms = self.boneManager.previousTransforms
   local transforms = self.transformManager.transforms
   local t = self.timerDomain.accumulatedDt / self.timerDomain.fixedDt

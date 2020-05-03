@@ -8,7 +8,7 @@ function M:init(game, config)
   self.viewportManager = assert(self.game.componentManagers.viewport)
 end
 
-function M:resize(width, height)
+function M:__call(width, height)
   local widths = self.viewportManager.widths
   local heights = self.viewportManager.heights
 

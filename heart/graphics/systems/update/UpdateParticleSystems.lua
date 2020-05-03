@@ -9,7 +9,7 @@ function M:init(game, config)
     assert(self.game.componentManagers.particleSystem)
 end
 
-function M:update(dt)
+function M:__call(dt)
   local particleSystems = self.particleSystemManager.particleSystems
 
   for entityId, particleSystem in pairs(particleSystems) do

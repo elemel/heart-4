@@ -56,7 +56,7 @@ function M:init(assetLoaders, config)
       for i, systemConfig in ipairs(systemConfigs) do
         local systemClass = require(systemConfig.class)
         local system = systemClass.new(self, systemConfig)
-        assert(system[eventType], "Missing event handler")
+        assert(system.__call, "System is not callable: " .. systemConfig.class)
         systems[#systems + 1] = system
         systemFilenames[#systemFilenames + 1] = systemConfig.class
       end
@@ -80,9 +80,8 @@ function M:handleEvent(eventType, ...)
     local result = nil
 
     for i, system in ipairs(systems) do
-      local handler = system[eventType]
       local systemTime = love.timer.getTime()
-      result = handler(system, ...)
+      result = system(...)
       systemTime = love.timer.getTime() - systemTime
       systemTimes[#systemTimes + 1] = {systemTime, systemFilenames[i]}
 

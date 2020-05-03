@@ -12,7 +12,7 @@ function M:init(game, config)
   self.transformManager = assert(self.game.componentManagers.transform)
 end
 
-function M:draw()
+function M:__call()
   local widths = self.viewportManager.widths
   local heights = self.viewportManager.heights
   local transforms = self.cameraManager.transforms

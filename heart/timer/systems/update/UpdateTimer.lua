@@ -7,7 +7,7 @@ function M:init(game, config)
   self.timerDomain = assert(self.game.domains.timer)
 end
 
-function M:update(dt)
+function M:__call(dt)
   local fixedDt = self.timerDomain.fixedDt
   self.timerDomain.accumulatedDt = self.timerDomain.accumulatedDt + dt
 

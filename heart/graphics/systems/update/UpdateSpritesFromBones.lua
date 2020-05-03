@@ -15,7 +15,7 @@ function M:init(game, config)
   self.spriteManager = assert(self.game.componentManagers.sprite)
 end
 
-function M:update(dt)
+function M:__call(dt)
   local previousTransforms = self.boneManager.previousTransforms
   local transforms = self.transformManager.transforms
   local t = self.timerDomain.accumulatedDt / self.timerDomain.fixedDt

@@ -13,7 +13,7 @@ function M:init(game, config)
     assert(self.game.componentEntitySets.parentConstraint)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local parents = self.game.entityParents
   local transforms = self.transformManager.transforms
   local localTransforms = self.parentConstraintManager.localTransforms

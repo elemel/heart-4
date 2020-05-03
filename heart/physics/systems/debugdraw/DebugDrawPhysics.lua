@@ -11,7 +11,7 @@ function M:init(game, config)
   }
 end
 
-function M:debugdraw(viewportId)
+function M:__call(viewportId)
   local r, g, b, a = love.graphics.getColor()
 
   for i, body in ipairs(self.physicsDomain.world:getBodies()) do

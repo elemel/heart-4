@@ -87,7 +87,7 @@ function M:init(game, config)
   self.shader = love.graphics.newShader(pixelShaderCode, vertexShaderCode)
 end
 
-function M:drawworld(viewportId)
+function M:__call(viewportId)
   local timeStepFraction =
     self.fixedTimeStepDomain.accumulatedTimeStep /
     self.fixedTimeStepDomain.fixedTimeStep

@@ -9,7 +9,7 @@ function M:init(game, config)
   self.spriteManager = assert(self.game.componentManagers.sprite)
 end
 
-function M:drawworld(viewportId)
+function M:__call(viewportId)
   local transforms = self.spriteManager.transforms
   local ids = heartTable.keys(self.spriteEntities)
   local zs = self.spriteManager.zs

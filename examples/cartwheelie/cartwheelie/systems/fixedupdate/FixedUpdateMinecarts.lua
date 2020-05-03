@@ -8,7 +8,7 @@ function M:init(game, config)
   self.minecartEntities = assert(self.game.componentEntitySets.minecart)
 end
 
-function M:fixedupdate(dt)
+function M:__call(dt)
   local leftInput = love.keyboard.isDown("a")
   local rightInput = love.keyboard.isDown("d")
   local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
