@@ -102,45 +102,45 @@ return {
       },
     },
 
-    drawWorld = {
+    drawworld = {
       {
-        class = "heart.graphics.systems.drawWorld.DrawWorldSprites",
+        class = "heart.graphics.systems.drawworld.DrawWorldSprites",
       },
 
       {
-        class = "heart.graphics.systems.drawWorld.DrawWorldMeshInstances",
-      },
-    },
-
-    debugDraw = {
-      {
-        class = "heart.physics.systems.debugDraw.DebugDrawPhysics",
+        class = "heart.graphics.systems.drawworld.DrawWorldMeshInstances",
       },
     },
 
-    fixedUpdate = {
+    debugdraw = {
       {
-        class = "heart.animation.systems.fixedUpdate.FixedUpdateBones",
+        class = "heart.physics.systems.debugdraw.DebugDrawPhysics",
+      },
+    },
+
+    fixedupdate = {
+      {
+        class = "heart.animation.systems.fixedupdate.FixedUpdateBones",
       },
 
       {
-        class = "cartwheelie.systems.fixedUpdate.FixedUpdateRiders",
+        class = "cartwheelie.systems.fixedupdate.FixedUpdateRiders",
       },
 
       {
-        class = "heart.physics.systems.fixedUpdate.FixedUpdateWorld",
+        class = "heart.physics.systems.fixedupdate.FixedUpdateWorld",
       },
 
       {
-        class = "heart.physics.systems.fixedUpdate.FixedUpdateBonesFromBodies",
+        class = "heart.physics.systems.fixedupdate.FixedUpdateBonesFromBodies",
       },
 
       {
-        class = "cartwheelie.systems.fixedUpdate.FixedUpdateCamerasFromRiders",
+        class = "cartwheelie.systems.fixedupdate.FixedUpdateCamerasFromRiders",
       },
 
       {
-        class = "heart.animation.systems.fixedUpdate.FixedUpdateParentConstraints",
+        class = "heart.animation.systems.fixedupdate.FixedUpdateParentConstraints",
       },
     },
 

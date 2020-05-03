@@ -13,7 +13,7 @@ function M:update(dt)
 
   while self.timerDomain.accumulatedDt - fixedDt >= 0 do
     self.timerDomain.accumulatedDt = self.timerDomain.accumulatedDt - fixedDt
-    self.game:handleEvent("fixedUpdate", fixedDt)
+    self.game:handleEvent("fixedupdate", fixedDt)
   end
 end
 

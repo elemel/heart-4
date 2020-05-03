@@ -29,7 +29,7 @@ function M:draw()
       love.graphics.scale(heights[id], heights[id])
       love.graphics.applyTransform(transform:inverse())
       love.graphics.setLineWidth(scale / heights[id])
-      self.game:handleEvent("drawWorld", id)
+      self.game:handleEvent("drawworld", id)
       love.graphics.pop()
 
       local debugTransform = debugTransforms[id]
@@ -45,7 +45,7 @@ function M:draw()
       love.graphics.applyTransform(debugTransform:inverse())
       love.graphics.setLineWidth(scale / heights[id])
       love.graphics.setColor(0, 1, 0, 1)
-      self.game:handleEvent("debugDraw", id)
+      self.game:handleEvent("debugdraw", id)
       love.graphics.setColor(1, 1, 1, 1)
       love.graphics.pop()
     end

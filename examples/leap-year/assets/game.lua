@@ -96,13 +96,13 @@ return {
   },
 
   systems = {
-    debugDraw = {
+    debugdraw = {
       -- {
-      --   class = "leapYear.systems.debugDraw.DebugDrawTerrains",
+      --   class = "leapYear.systems.debugdraw.DebugDrawTerrains",
       -- },
 
       -- {
-      --   class = "leapYear.systems.debugDraw.DebugDrawBoxes",
+      --   class = "leapYear.systems.debugdraw.DebugDrawBoxes",
       -- },
     },
 
@@ -116,59 +116,59 @@ return {
       },
     },
 
-    drawWorld = {
+    drawworld = {
       {
-        class = "heart.graphics.systems.drawWorld.DrawWorldSprites",
+        class = "heart.graphics.systems.drawworld.DrawWorldSprites",
       },
 
       {
-        class = "leapYear.systems.drawWorld.DrawWorldTerrains",
+        class = "leapYear.systems.drawworld.DrawWorldTerrains",
       },
     },
 
-    fixedUpdate = {
+    fixedupdate = {
       {
-        class = "heart.animation.systems.fixedUpdate.FixedUpdateBones",
+        class = "heart.animation.systems.fixedupdate.FixedUpdateBones",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateVelocities",
+        class = "leapYear.systems.fixedupdate.FixedUpdateVelocities",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdatePlayerInputs",
+        class = "leapYear.systems.fixedupdate.FixedUpdatePlayerInputs",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterInputs",
+        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterInputs",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterStates",
+        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterStates",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateGravities",
+        class = "leapYear.systems.fixedupdate.FixedUpdateGravities",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateColliders",
+        class = "leapYear.systems.fixedupdate.FixedUpdateColliders",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateCollisions",
+        class = "leapYear.systems.fixedupdate.FixedUpdateCollisions",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterCollisions",
+        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterCollisions",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateCharacterAnimations",
+        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterAnimations",
       },
 
       {
-        class = "leapYear.systems.fixedUpdate.FixedUpdateCameras",
+        class = "leapYear.systems.fixedupdate.FixedUpdateCameras",
       },
     },
 
