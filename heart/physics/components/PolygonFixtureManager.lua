@@ -1,7 +1,8 @@
 local class = require("heart.class")
-local getLocalPoints = heart.physics.getLocalPoints
+local physics = require("heart.physics")
+local getLocalPoints = physics.getLocalPoints
 local heartMath = require("heart.math")
-local transformPoints2 = heart.math.transformPoints2
+local transformPoints2 = heartMath.transformPoints2
 
 local M = class.newClass()
 
