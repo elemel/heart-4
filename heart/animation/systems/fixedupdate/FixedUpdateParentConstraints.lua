@@ -17,14 +17,17 @@ function M:__call(dt)
   local parents = self.game.entityParents
   local transforms = self.transformManager.transforms
   local localTransforms = self.parentConstraintManager.localTransforms
+  local enabledFlags = self.parentConstraintManager.enabledFlags
 
-  for entityId in pairs(self.parentConstraintEntities) do
-    local parentId = parents[entityId]
+  for id in pairs(self.parentConstraintEntities) do
+    if enabledFlags[id] then
+      local parentId = parents[id]
 
-    transforms[entityId]:
-      reset():
-      apply(transforms[parentId]):
-      apply(localTransforms[entityId])
+      transforms[id]:
+        reset():
+        apply(transforms[parentId]):
+        apply(localTransforms[id])
+    end
   end
 end
 

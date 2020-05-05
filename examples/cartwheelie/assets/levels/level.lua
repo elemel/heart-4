@@ -113,13 +113,17 @@ return {
     },
 
     debugdraw = {
-      {
-        class = "heart.physics.systems.debugdraw.DebugDrawFixtures",
-      },
+      -- {
+      --   class = "heart.physics.systems.debugdraw.DebugDrawFixtures",
+      -- },
 
-      {
-        class = "heart.physics.systems.debugdraw.DebugDrawJoints",
-      },
+      -- {
+      --   class = "heart.physics.systems.debugdraw.DebugDrawJoints",
+      -- },
+
+      -- {
+      --   class = "heart.animation.systems.debugdraw.DebugDrawBones",
+      -- },
     },
 
     fixedupdate = {
