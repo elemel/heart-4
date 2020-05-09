@@ -98,81 +98,81 @@ return {
   systems = {
     draw = {
       {
-        class = "heart.graphics.systems.draw.DrawViewportSystem",
+        class = "heart.graphics.systems.draw.ViewportDrawSystem",
       },
     },
 
     drawworld = {
       {
-        class = "heart.graphics.systems.drawworld.DrawSpriteSystem",
+        class = "heart.graphics.systems.drawworld.SpriteDrawWorldSystem",
       },
 
       {
-        class = "heart.graphics.systems.drawworld.DrawMeshInstanceSystem",
+        class = "heart.graphics.systems.drawworld.MeshInstanceDrawWorldSystem",
       },
     },
 
     debugdraw = {
       -- {
-      --   class = "heart.physics.systems.debugdraw.DebugDrawFixtures",
+      --   class = "heart.physics.systems.debugdraw.FixtureDebugDrawSystem",
       -- },
 
       -- {
-      --   class = "heart.physics.systems.debugdraw.DebugDrawJoints",
+      --   class = "heart.physics.systems.debugdraw.JointDebugDrawSystem",
       -- },
 
       -- {
-      --   class = "heart.animation.systems.debugdraw.DebugDrawBones",
+      --   class = "heart.animation.systems.debugdraw.BoneDebugDrawSystem",
       -- },
     },
 
     fixedupdate = {
       {
-        class = "heart.animation.systems.fixedupdate.UpdatePreviousBoneTransformSystem",
+        class = "heart.animation.systems.fixedupdate.PreviousBoneTransformFixedUpdateSystem",
       },
 
       {
-        class = "cartwheelie.systems.fixedupdate.UpdateRiderSystem",
+        class = "cartwheelie.systems.fixedupdate.RiderFixedUpdateSystem",
       },
 
       {
-        class = "heart.physics.systems.fixedupdate.UpdateWorldSystem",
+        class = "heart.physics.systems.fixedupdate.WorldFixedUpdateSystem",
       },
 
       {
-        class = "heart.physics.systems.fixedupdate.UpdateBoneFromBodySystem",
+        class = "heart.physics.systems.fixedupdate.BodyToBoneFixedUpdateSystem",
       },
 
       {
-        class = "cartwheelie.systems.fixedupdate.UpdateCameraFromRiderSystem",
+        class = "cartwheelie.systems.fixedupdate.CameraFromRiderFixedUpdateSystem",
       },
 
       {
-        class = "heart.animation.systems.fixedupdate.UpdateParentConstraintSystem",
+        class = "heart.animation.systems.fixedupdate.ParentConstraintFixedUpdateSystem",
       },
     },
 
     resize = {
       {
-        class = "heart.graphics.systems.resize.ResizeViewportSystem",
+        class = "heart.graphics.systems.resize.ViewportResizeSystem",
       },
     },
 
     update = {
       {
-        class = "heart.timer.systems.update.UpdateTimerSystem",
+        class = "heart.timer.systems.update.TimerUpdateSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateSpriteFromBoneSystem",
+        class = "heart.graphics.systems.update.SpriteFromBoneUpdateSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateMeshInstanceFromBoneSystem",
+        class = "heart.graphics.systems.update.MeshInstanceFromBoneUpdateSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateCameraFromBoneSystem",
+        class = "heart.graphics.systems.update.CameraFromBoneUpdateSystem",
       },
     },
   },
