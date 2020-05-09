@@ -7,7 +7,7 @@ return {
 
     {
       domainType = "arrayImage",
-      class = "leapYear.domains.ArrayImageDomain",
+      class = "domains.ArrayImageDomain",
 
       filenames = {
         "assets/images/tiles/stoneWall.png",
@@ -29,7 +29,7 @@ return {
 
     {
       componentType = "sky",
-      class = "leapYear.components.SkyManager",
+      class = "components.SkyManager",
     },
 
     {
@@ -49,33 +49,33 @@ return {
 
     {
       componentType = "terrain",
-      class = "leapYear.components.TerrainManager",
+      class = "components.TerrainManager",
     },
 
     {
       componentType = "position",
-      class = "leapYear.components.PositionManager",
+      class = "components.PositionManager",
     },
 
     {
       componentType = "velocity",
-      class = "leapYear.components.VelocityManager",
+      class = "components.VelocityManager",
     },
 
     {
       componentType = "gravity",
-      class = "leapYear.components.GravityManager",
+      class = "components.GravityManager",
       defaultGravityY = 32,
     },
 
     {
       componentType = "box",
-      class = "leapYear.components.BoxManager",
+      class = "components.BoxManager",
     },
 
     {
       componentType = "collider",
-      class = "leapYear.components.ColliderManager",
+      class = "components.ColliderManager",
     },
 
     {
@@ -91,24 +91,24 @@ return {
 
     {
       componentType = "character",
-      class = "leapYear.components.CharacterManager",
+      class = "components.CharacterManager",
     },
   },
 
   systems = {
     debugdraw = {
       -- {
-      --   class = "leapYear.systems.debugdraw.TerrainDebugDrawSystem",
+      --   class = "systems.debugdraw.TerrainDebugDrawSystem",
       -- },
 
       -- {
-      --   class = "leapYear.systems.debugdraw.BoxDebugDrawSystem",
+      --   class = "systems.debugdraw.BoxDebugDrawSystem",
       -- },
     },
 
     draw = {
       {
-        class = "leapYear.systems.draw.SkyDrawSystem",
+        class = "systems.draw.SkyDrawSystem",
       },
 
       {
@@ -122,7 +122,7 @@ return {
       },
 
       {
-        class = "leapYear.systems.drawworld.TerrainDrawWorldSystem",
+        class = "systems.drawworld.TerrainDrawWorldSystem",
       },
     },
 
@@ -132,43 +132,43 @@ return {
       },
 
       {
-        class = "leapYear.systems.fixedupdate.VelocityFixedUpdateSystem",
+        class = "systems.fixedupdate.VelocityFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.PlayerInputFixedUpdateSystem",
+        class = "systems.fixedupdate.PlayerInputFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.CharacterInputFixedUpdateSystem",
+        class = "systems.fixedupdate.CharacterInputFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.CharacterStateFixedUpdateSystem",
+        class = "systems.fixedupdate.CharacterStateFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.GravityFixedUpdateSystem",
+        class = "systems.fixedupdate.GravityFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.ColliderFixedUpdateSystem",
+        class = "systems.fixedupdate.ColliderFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.CollisionFixedUpdateSystem",
+        class = "systems.fixedupdate.CollisionFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.CharacterCollisionFixedUpdateSystem",
+        class = "systems.fixedupdate.CharacterCollisionFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.CharacterAnimationFixedUpdateSystem",
+        class = "systems.fixedupdate.CharacterAnimationFixedUpdateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.CameraFromPlayerFixedUpdateSystem",
+        class = "systems.fixedupdate.CameraFromPlayerFixedUpdateSystem",
       },
     },
 

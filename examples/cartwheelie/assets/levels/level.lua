@@ -132,7 +132,7 @@ return {
       },
 
       {
-        class = "cartwheelie.systems.fixedupdate.RiderFixedUpdateSystem",
+        class = "systems.fixedupdate.RiderFixedUpdateSystem",
       },
 
       {
@@ -144,7 +144,7 @@ return {
       },
 
       {
-        class = "cartwheelie.systems.fixedupdate.CameraFromRiderFixedUpdateSystem",
+        class = "systems.fixedupdate.CameraFromRiderFixedUpdateSystem",
       },
 
       {
