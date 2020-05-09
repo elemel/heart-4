@@ -2,12 +2,12 @@ return {
   domains = {
     {
       domainType = "timer",
-      class = "heart.timer.domains.Timer",
+      class = "heart.timer.domains.TimerDomain",
     },
 
     {
       domainType = "arrayImage",
-      class = "leapYear.domains.ArrayImage",
+      class = "leapYear.domains.ArrayImageDomain",
 
       filenames = {
         "assets/images/tiles/stoneWall.png",
@@ -98,97 +98,97 @@ return {
   systems = {
     debugdraw = {
       -- {
-      --   class = "leapYear.systems.debugdraw.DebugDrawTerrains",
+      --   class = "leapYear.systems.debugdraw.DebugDrawTerrainSystem",
       -- },
 
       -- {
-      --   class = "leapYear.systems.debugdraw.DebugDrawBoxes",
+      --   class = "leapYear.systems.debugdraw.DebugDrawBoxSystem",
       -- },
     },
 
     draw = {
       {
-        class = "leapYear.systems.draw.DrawSkies",
+        class = "leapYear.systems.draw.DrawSkySystem",
       },
 
       {
-        class = "heart.graphics.systems.draw.DrawViewports",
+        class = "heart.graphics.systems.draw.DrawViewportSystem",
       },
     },
 
     drawworld = {
       {
-        class = "heart.graphics.systems.drawworld.DrawWorldSprites",
+        class = "heart.graphics.systems.drawworld.DrawSpriteSystem",
       },
 
       {
-        class = "leapYear.systems.drawworld.DrawWorldTerrains",
+        class = "leapYear.systems.drawworld.DrawTerrainSystem",
       },
     },
 
     fixedupdate = {
       {
-        class = "heart.animation.systems.fixedupdate.FixedUpdateBones",
+        class = "heart.animation.systems.fixedupdate.UpdatePreviousBoneTransformSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateVelocities",
+        class = "leapYear.systems.fixedupdate.UpdateVelocitySystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdatePlayerInputs",
+        class = "leapYear.systems.fixedupdate.UpdatePlayerInputSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterInputs",
+        class = "leapYear.systems.fixedupdate.UpdateCharacterInputSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterStates",
+        class = "leapYear.systems.fixedupdate.UpdateCharacterStateSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateGravities",
+        class = "leapYear.systems.fixedupdate.UpdateGravitySystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateColliders",
+        class = "leapYear.systems.fixedupdate.UpdateColliderSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateCollisions",
+        class = "leapYear.systems.fixedupdate.UpdateCollisionSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterCollisions",
+        class = "leapYear.systems.fixedupdate.UpdateCharacterCollisionSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateCharacterAnimations",
+        class = "leapYear.systems.fixedupdate.UpdateCharacterAnimationSystem",
       },
 
       {
-        class = "leapYear.systems.fixedupdate.FixedUpdateCameras",
+        class = "leapYear.systems.fixedupdate.UpdateCameraFromPlayerSystem",
       },
     },
 
     resize = {
       {
-        class = "heart.graphics.systems.resize.ResizeViewports",
+        class = "heart.graphics.systems.resize.ResizeViewportSystem",
       },
     },
 
     update = {
       {
-        class = "heart.timer.systems.update.UpdateTimer",
+        class = "heart.timer.systems.update.UpdateTimerSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateSpritesFromBones",
+        class = "heart.graphics.systems.update.UpdateSpriteFromBoneSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateCamerasFromBones",
+        class = "heart.graphics.systems.update.UpdateCameraFromBoneSystem",
       },
     },
   },

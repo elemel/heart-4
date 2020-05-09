@@ -2,13 +2,13 @@ return {
   domains = {
     {
       domainType = "timer",
-      class = "heart.timer.domains.Timer",
+      class = "heart.timer.domains.TimerDomain",
       fixedTimeStep = 1 / 60,
     },
 
     {
       domainType = "physics",
-      class = "heart.physics.domains.Physics",
+      class = "heart.physics.domains.PhysicsDomain",
       gravityY = 15,
     },
   },
@@ -98,17 +98,17 @@ return {
   systems = {
     draw = {
       {
-        class = "heart.graphics.systems.draw.DrawViewports",
+        class = "heart.graphics.systems.draw.DrawViewportSystem",
       },
     },
 
     drawworld = {
       {
-        class = "heart.graphics.systems.drawworld.DrawWorldSprites",
+        class = "heart.graphics.systems.drawworld.DrawSpriteSystem",
       },
 
       {
-        class = "heart.graphics.systems.drawworld.DrawWorldMeshInstances",
+        class = "heart.graphics.systems.drawworld.DrawMeshInstanceSystem",
       },
     },
 
@@ -128,51 +128,51 @@ return {
 
     fixedupdate = {
       {
-        class = "heart.animation.systems.fixedupdate.FixedUpdateBones",
+        class = "heart.animation.systems.fixedupdate.UpdatePreviousBoneTransformSystem",
       },
 
       {
-        class = "cartwheelie.systems.fixedupdate.FixedUpdateRiders",
+        class = "cartwheelie.systems.fixedupdate.UpdateRiderSystem",
       },
 
       {
-        class = "heart.physics.systems.fixedupdate.FixedUpdateWorld",
+        class = "heart.physics.systems.fixedupdate.UpdateWorldSystem",
       },
 
       {
-        class = "heart.physics.systems.fixedupdate.FixedUpdateBonesFromBodies",
+        class = "heart.physics.systems.fixedupdate.UpdateBoneFromBodySystem",
       },
 
       {
-        class = "cartwheelie.systems.fixedupdate.FixedUpdateCamerasFromRiders",
+        class = "cartwheelie.systems.fixedupdate.UpdateCameraFromRiderSystem",
       },
 
       {
-        class = "heart.animation.systems.fixedupdate.FixedUpdateParentConstraints",
+        class = "heart.animation.systems.fixedupdate.UpdateParentConstraintSystem",
       },
     },
 
     resize = {
       {
-        class = "heart.graphics.systems.resize.ResizeViewports",
+        class = "heart.graphics.systems.resize.ResizeViewportSystem",
       },
     },
 
     update = {
       {
-        class = "heart.timer.systems.update.UpdateTimer",
+        class = "heart.timer.systems.update.UpdateTimerSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateSpritesFromBones",
+        class = "heart.graphics.systems.update.UpdateSpriteFromBoneSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateMeshInstancesFromBones",
+        class = "heart.graphics.systems.update.UpdateMeshInstanceFromBoneSystem",
       },
 
       {
-        class = "heart.graphics.systems.update.UpdateCamerasFromBones",
+        class = "heart.graphics.systems.update.UpdateCameraFromBoneSystem",
       },
     },
   },
