@@ -270,7 +270,7 @@ function M:expandEntityConfig(config)
         local componentPrototype = expandedConfig.components[componentType]
 
         if componentPrototype then
-          expandedComponentConfig = {}
+          local expandedComponentConfig = {}
 
           for name, value in pairs(componentPrototype) do
             expandedComponentConfig[name] = value
