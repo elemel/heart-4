@@ -1,6 +1,6 @@
 heart = require("heart")
 
-local levelGrid = require("assets.levelGrid")
+local levelGrid = require("leapYear.resources.configs.levelGrid")
 
 function love.load()
   love.window.setTitle("Leap Year")
@@ -16,14 +16,14 @@ function love.load()
   love.physics.setMeter(1)
   love.mouse.setVisible(false)
 
-  local assetLoaders = {
-    image = heart.graphics.ImageLoader.new(),
+  local resourceLoaders = {
+    image = heart.graphics.ImageResourceLoader.new(),
   }
 
-  local gameConfig = require("assets.game")
-  local levelConfig = require("assets.levels.forest")
+  local gameConfig = require("leapYear.resources.configs.game")
+  local levelConfig = require("leapYear.resources.configs.levels.forest")
   local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
-  game = heart.Game.new(assetLoaders, config)
+  game = heart.Game.new(resourceLoaders, config)
 
   love.handlers.warp = love.warp
 

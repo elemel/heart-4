@@ -1,6 +1,6 @@
 local M = {}
 
-M.ImageLoader = require("heart.graphics.ImageLoader")
-M.MeshLoader = require("heart.graphics.MeshLoader")
+M.ImageResourceLoader = require("heart.graphics.ImageResourceLoader")
+M.MeshResourceLoader = require("heart.graphics.MeshResourceLoader")
 
 return M
