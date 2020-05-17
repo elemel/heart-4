@@ -93,6 +93,10 @@ return {
   systems = {
     debugdraw = {
       -- {
+      --   class = "heart.graphics.SpriteDebugDrawSystem",
+      -- },
+
+      -- {
       --   class = "leapYear.TerrainDebugDrawSystem",
       -- },
 
