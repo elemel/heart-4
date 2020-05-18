@@ -14,6 +14,18 @@ function M:createComponent(id, config)
     transform:setTransformation(unpack(config.transform))
   end
 
+  if config.z then
+    local zTransform = love.math.newTransform()
+
+    zTransform:setMatrix(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, config.z,
+      0, 0, 0, 1)
+
+    transform:apply(zTransform)
+  end
+
   local parentId = self.game.entityParents[id]
   local parentTransform = parentId and self.transforms[parentId]
 

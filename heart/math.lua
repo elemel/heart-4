@@ -150,7 +150,7 @@ local function mixTransforms(a, b, t, c)
     c31, c32, c33, c34,
     c41, c42, c43, c44)
 
-  return c
+  return c, c34
 end
 
 local function transformPoints2(transform, source, target)

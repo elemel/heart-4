@@ -20,10 +20,11 @@ function M:__call(dt)
   local transforms = self.transformComponents.transforms
   local t = self.timerDomain.accumulatedDt / self.timerDomain.fixedDt
   local spriteTransforms = self.spriteComponents.transforms
+  local zs = self.spriteComponents.zs
 
   for id in pairs(self.boneEntities) do
     if self.spriteEntities[id] then
-      heartMath.mixTransforms(
+      _, zs[id] = heartMath.mixTransforms(
         previousTransforms[id], transforms[id], t, spriteTransforms[id])
     end
   end
