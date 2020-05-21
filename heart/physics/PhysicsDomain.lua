@@ -15,6 +15,7 @@ function M:init(game, config)
   self.polygonFixtures = {}
   self.rectangleFixtures = {}
 
+  self.distanceJoints = {}
   self.frictionJoints = {}
   self.motorJoints = {}
   self.revoluteJoints = {}
