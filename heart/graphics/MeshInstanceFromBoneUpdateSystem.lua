@@ -18,7 +18,7 @@ end
 function M:__call(dt)
   local previousTransforms = self.boneComponents.previousTransforms
   local transforms = self.transformComponents.transforms
-  local t = self.timerDomain.accumulatedDt / self.timerDomain.fixedDt
+  local t = self.timerDomain:getFraction()
   local meshInstanceTransforms = self.meshInstanceComponents.transforms
 
   for id in pairs(self.boneEntities) do

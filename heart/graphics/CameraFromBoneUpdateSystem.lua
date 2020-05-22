@@ -18,7 +18,7 @@ end
 function M:__call(dt)
   local previousTransforms = self.boneComponents.previousTransforms
   local transforms = self.transformComponents.transforms
-  local t = self.timerDomain.accumulatedDt / self.timerDomain.fixedDt
+  local t = self.timerDomain:getFraction()
   local cameraTransforms = self.cameraComponents.transforms
 
   for id in pairs(self.cameraEntities) do

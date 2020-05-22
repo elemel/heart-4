@@ -88,9 +88,7 @@ function M:init(game, config)
 end
 
 function M:__call(viewportId)
-  local timeStepFraction =
-    self.fixedTimeStepDomain.accumulatedTimeStep /
-    self.fixedTimeStepDomain.fixedTimeStep
+  local timeStepFraction = self.timerDomain:getFraction()
 
   self.lightCount = 0
   table.clear(self.lightPositions)

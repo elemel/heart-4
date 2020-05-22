@@ -35,9 +35,7 @@ function M:init(game, config)
 end
 
 function M:__call()
-  local timeStepFraction =
-    self.fixedTimeStepDomain.accumulatedTimeStep /
-    self.fixedTimeStepDomain.fixedTimeStep
+  local timeStepFraction = self.timerDomain:getFraction()
 
   love.graphics.setDepthMode("less", true)
   love.graphics.setShader(self.shader)

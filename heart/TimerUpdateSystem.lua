@@ -8,12 +8,14 @@ function M:init(game, config)
 end
 
 function M:__call(dt)
-  local fixedDt = self.timerDomain.fixedDt
   self.timerDomain.accumulatedDt = self.timerDomain.accumulatedDt + dt
 
-  while self.timerDomain.accumulatedDt - fixedDt >= 0 do
-    self.timerDomain.accumulatedDt = self.timerDomain.accumulatedDt - fixedDt
-    self.game:handleEvent("fixedupdate", fixedDt)
+  while self.timerDomain.accumulatedDt >= self.timerDomain.fixedDt do
+    self.timerDomain.accumulatedDt =
+      self.timerDomain.accumulatedDt - self.timerDomain.fixedDt
+
+    self.timerDomain.fixedCount = self.timerDomain.fixedCount + 1
+    self.game:handleEvent("fixedupdate", self.timerDomain.fixedDt)
   end
 end
 
