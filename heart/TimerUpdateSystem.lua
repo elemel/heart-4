@@ -7,7 +7,7 @@ function M:init(game, config)
   self.timerDomain = assert(self.game.domains.timer)
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   self.timerDomain.accumulatedDt = self.timerDomain.accumulatedDt + dt
 
   while self.timerDomain.accumulatedDt >= self.timerDomain.fixedDt do

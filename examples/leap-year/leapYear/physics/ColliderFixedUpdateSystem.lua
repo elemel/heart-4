@@ -7,7 +7,7 @@ function M:init(game, config)
   self.colliderComponents = assert(self.game.componentManagers.collider)
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   for id in pairs(self.colliderEntities) do
     self.colliderComponents:updateCells(id)
   end

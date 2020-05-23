@@ -16,7 +16,7 @@ function M:init(game, config)
   self.imageResources = assert(self.game.resourceLoaders.image)
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   local directionXs = self.characterComponents.directionXs
 
   local previousXs = self.velocityComponents.previousXs

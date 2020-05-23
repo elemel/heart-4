@@ -8,7 +8,7 @@ function M:init(game, config)
   self.color = config.color or {0, 1, 0, 1}
 end
 
-function M:__call(viewportId)
+function M:handleEvent(viewportId)
   local r, g, b, a = love.graphics.getColor()
   love.graphics.setColor(self.color)
 

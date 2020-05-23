@@ -41,7 +41,7 @@ function M:init(game, config)
   }
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   local xs = self.positionComponents.xs
   local ys = self.positionComponents.ys
 

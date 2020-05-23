@@ -6,7 +6,7 @@ function M:init(game, config)
   self.characterComponents = assert(self.game.componentManagers.character)
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   local oldInputXs = self.characterComponents.oldInputXs
   local oldInputYs = self.characterComponents.oldInputYs
 

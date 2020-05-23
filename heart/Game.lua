@@ -56,7 +56,6 @@ function M:init(resourceLoaders, config)
       for i, systemConfig in ipairs(systemConfigs) do
         local systemClass = require(systemConfig.class)
         local system = systemClass.new(self, systemConfig)
-        assert(system.__call, "System is not callable: " .. systemConfig.class)
         systems[#systems + 1] = system
         systemFilenames[#systemFilenames + 1] = systemConfig.class
       end
@@ -81,7 +80,7 @@ function M:handleEvent(eventType, ...)
 
     for i, system in ipairs(systems) do
       local systemTime = love.timer.getTime()
-      result = system(...)
+      result = system:handleEvent(...)
       systemTime = love.timer.getTime() - systemTime
       systemTimes[#systemTimes + 1] = {systemTime, systemFilenames[i]}
 

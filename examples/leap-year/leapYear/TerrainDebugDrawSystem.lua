@@ -5,7 +5,7 @@ function M:init(game, config)
   self.terrainComponents = assert(self.game.componentManagers.terrain)
 end
 
-function M:__call(viewportId)
+function M:handleEvent(viewportId)
   for id, tileGrid in pairs(self.terrainComponents.tileGrids) do
     for y, row in pairs(tileGrid) do
       for x in pairs(row) do

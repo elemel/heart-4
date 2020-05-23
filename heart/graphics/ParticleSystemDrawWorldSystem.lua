@@ -9,7 +9,7 @@ function M:init(game, config)
     assert(self.game.componentManagers.particleSystem)
 end
 
-function M:__call(viewportId)
+function M:handleEvent(viewportId)
   love.graphics.setDepthMode("less", false)
   local particleSystems = self.particleSystemComponents.particleSystems
   local blendModes = self.particleSystemComponents.blendModes

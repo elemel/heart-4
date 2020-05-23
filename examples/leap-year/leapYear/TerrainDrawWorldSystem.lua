@@ -6,7 +6,7 @@ function M:init(game, config)
   self.terrainComponents = assert(self.game.componentManagers.terrain)
 end
 
-function M:__call(viewportId)
+function M:handleEvent(viewportId)
   local image = self.arrayImageDomain.image
   local layerIndices = self.arrayImageDomain.layerIndices
   local scale = 1 / 16

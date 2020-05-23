@@ -15,7 +15,7 @@ function M:init(game, config)
   self.spriteComponents = assert(self.game.componentManagers.sprite)
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   local previousTransforms = self.boneComponents.previousTransforms
   local transforms = self.transformComponents.transforms
   local t = self.timerDomain:getFraction()

@@ -87,7 +87,7 @@ function M:init(game, config)
   self.shader = love.graphics.newShader(pixelShaderCode, vertexShaderCode)
 end
 
-function M:__call(viewportId)
+function M:handleEvent(viewportId)
   local timeStepFraction = self.timerDomain:getFraction()
 
   self.lightCount = 0

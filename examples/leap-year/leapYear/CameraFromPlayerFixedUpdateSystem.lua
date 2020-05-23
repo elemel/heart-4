@@ -13,7 +13,7 @@ function M:init(game, config)
   self.viewportComponents = assert(self.game.componentManagers.viewport)
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   local playerCount = 0
   local totalX = 0
   local xs = self.positionComponents.xs

@@ -14,7 +14,7 @@ function M:init(game, config)
   self.transformComponents = assert(self.game.componentManagers.transform)
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   local parents = self.game.entityParents
   local transforms = self.transformComponents.transforms
   local localTransforms = self.parentConstraintComponents.localTransforms

@@ -26,7 +26,7 @@ function M:init(game, config)
   }
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   local newStates = {}
 
   for state, ids in pairs(self.characterStateComponents.stateEntitySets) do

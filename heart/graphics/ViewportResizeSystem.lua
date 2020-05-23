@@ -8,7 +8,7 @@ function M:init(game, config)
   self.viewportComponents = assert(self.game.componentManagers.viewport)
 end
 
-function M:__call(width, height)
+function M:handleEvent(width, height)
   local widths = self.viewportComponents.widths
   local heights = self.viewportComponents.heights
 

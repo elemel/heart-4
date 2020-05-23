@@ -26,7 +26,7 @@ function M:init(game, config)
   }
 end
 
-function M:__call(dt)
+function M:handleEvent(dt)
   for state, ids in pairs(self.characterStateComponents.stateEntitySets) do
     local handler = self.updateHandlers[state]
 
