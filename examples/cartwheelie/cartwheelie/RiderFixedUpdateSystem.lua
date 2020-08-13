@@ -7,10 +7,10 @@ local function getOtherBody(joint, body)
   return body == body1 and body2 or body1
 end
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.physicsDomain = assert(self.game.domains.physics)
-  self.riderEntities = assert(self.game.componentEntitySets.rider)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.physicsDomain = assert(self.engine.domains.physics)
+  self.riderEntities = assert(self.engine.componentEntitySets.rider)
 end
 
 function M:handleEvent(dt)
@@ -50,14 +50,14 @@ function M:handleEvent(dt)
 
     if hitBody ~= groundBody then
       if joint then
-        self.game:destroyComponent(entityId, "motorJoint")
+        self.engine:destroyComponent(entityId, "motorJoint")
         joint = nil
       end
 
       groundBody = hitBody
 
       if groundBody then
-        joint = self.game:createComponent(entityId, "motorJoint", {
+        joint = self.engine:createComponent(entityId, "motorJoint", {
           body1 = groundBody:getUserData(),
           body2 = entityId,
           collideConnected = true,

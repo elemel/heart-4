@@ -3,9 +3,9 @@ local heartTable = require("heart.table")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.meshInstanceComponents = assert(self.game.componentManagers.meshInstance)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.meshInstanceComponents = assert(self.engine.componentManagers.meshInstance)
 end
 
 function M:handleEvent(viewportId)

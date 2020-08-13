@@ -2,9 +2,9 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.timerDomain = assert(self.game.domains.timer)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.timerDomain = assert(self.engine.domains.timer)
 end
 
 function M:handleEvent(dt)
@@ -15,7 +15,7 @@ function M:handleEvent(dt)
       self.timerDomain.accumulatedDt - self.timerDomain.fixedDt
 
     self.timerDomain.fixedCount = self.timerDomain.fixedCount + 1
-    self.game:handleEvent("fixedupdate", self.timerDomain.fixedDt)
+    self.engine:handleEvent("fixedupdate", self.timerDomain.fixedDt)
   end
 end
 

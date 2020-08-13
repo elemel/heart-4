@@ -23,7 +23,7 @@ function love.load()
   local gameConfig = require("leapYear.resources.configs.game")
   local levelConfig = require("leapYear.resources.configs.levels.forest")
   local config = setmetatable({entities = levelConfig}, {__index = gameConfig})
-  game = heart.Game.new(resourceLoaders, config)
+  engine = heart.Engine.new(resourceLoaders, config)
 
   love.handlers.warp = love.warp
 
@@ -31,15 +31,15 @@ function love.load()
 end
 
 function love.draw()
-  game:handleEvent("draw")
+  engine:handleEvent("draw")
 end
 
 function love.resize(width, height)
-  game:handleEvent("resize", width, height)
+  engine:handleEvent("resize", width, height)
 end
 
 function love.update(dt)
-  game:handleEvent("update", dt)
+  engine:handleEvent("update", dt)
 end
 
 function love.warp(levelX, levelY, entityConfigs)

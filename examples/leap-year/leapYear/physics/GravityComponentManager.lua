@@ -1,7 +1,7 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
   self.defaultGravityX = config.defaultGravityX or 0
   self.defaultGravityY = config.defaultGravityY or 0

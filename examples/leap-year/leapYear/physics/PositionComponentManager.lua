@@ -1,8 +1,8 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
   self.xs = {}
   self.ys = {}
 end

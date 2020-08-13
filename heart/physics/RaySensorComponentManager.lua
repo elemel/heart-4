@@ -2,10 +2,10 @@ local heart = require("heart")
 
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.physicsDomain = assert(self.game.domains.physics)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.physicsDomain = assert(self.engine.domains.physics)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
   self.localRays = {}
   self.filters = {}
   self.contacts = {}

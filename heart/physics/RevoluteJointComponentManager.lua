@@ -2,17 +2,17 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.physicsDomain = assert(self.game.domains.physics)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.physicsDomain = assert(self.engine.domains.physics)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
 end
 
 function M:createComponent(entityId, config)
   local transform = self.transformComponents.transforms[entityId]
 
-  local bodyId2 = self.game:findAncestorComponent(entityId, "body")
-  local bodyId1 = self.game:findAncestorComponent(bodyId2, "body", 1)
+  local bodyId2 = self.engine:findAncestorComponent(entityId, "body")
+  local bodyId1 = self.engine:findAncestorComponent(bodyId2, "body", 1)
   local body1 = self.physicsDomain.bodies[bodyId1]
   local body2 = self.physicsDomain.bodies[bodyId2]
   local x1 = config.x1 or 0

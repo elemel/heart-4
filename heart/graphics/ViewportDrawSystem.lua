@@ -3,15 +3,15 @@ local heartMath = require("heart.math")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
-  self.cameraEntities = assert(self.game.componentEntitySets.camera)
-  self.viewportEntities = assert(self.game.componentEntitySets.viewport)
+  self.cameraEntities = assert(self.engine.componentEntitySets.camera)
+  self.viewportEntities = assert(self.engine.componentEntitySets.viewport)
 
-  self.cameraComponents = assert(self.game.componentManagers.camera)
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.viewportComponents = assert(self.game.componentManagers.viewport)
+  self.cameraComponents = assert(self.engine.componentManagers.camera)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
+  self.viewportComponents = assert(self.engine.componentManagers.viewport)
 end
 
 function M:handleEvent()
@@ -31,7 +31,7 @@ function M:handleEvent()
       love.graphics.scale(heights[id], heights[id])
       love.graphics.applyTransform(transform:inverse())
       love.graphics.setLineWidth(scale / heights[id])
-      self.game:handleEvent("drawworld", id)
+      self.engine:handleEvent("drawworld", id)
       love.graphics.pop()
 
       local debugTransform = debugTransforms[id]
@@ -47,7 +47,7 @@ function M:handleEvent()
       love.graphics.applyTransform(debugTransform:inverse())
       love.graphics.setLineWidth(scale / heights[id])
       love.graphics.setColor(0, 1, 0, 1)
-      self.game:handleEvent("debugdraw", id)
+      self.engine:handleEvent("debugdraw", id)
       love.graphics.setColor(1, 1, 1, 1)
       love.graphics.pop()
     end

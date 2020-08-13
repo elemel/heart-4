@@ -1,6 +1,6 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
+function M:init(engine, config)
   self.widths = {}
   self.heights = {}
 end

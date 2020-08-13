@@ -2,20 +2,20 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
   self.parentConstraintEntities =
-    assert(self.game.componentEntitySets.parentConstraint)
+    assert(self.engine.componentEntitySets.parentConstraint)
 
   self.parentConstraintComponents =
-    assert(self.game.componentManagers.parentConstraint)
+    assert(self.engine.componentManagers.parentConstraint)
 
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
 end
 
 function M:handleEvent(dt)
-  local parents = self.game.entityParents
+  local parents = self.engine.entityParents
   local transforms = self.transformComponents.transforms
   local localTransforms = self.parentConstraintComponents.localTransforms
   local enabledFlags = self.parentConstraintComponents.enabledFlags

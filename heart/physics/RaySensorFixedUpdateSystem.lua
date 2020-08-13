@@ -2,10 +2,10 @@ local heart = require("heart")
 
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.physicsDomain = assert(self.game.domains.physics)
-  self.raySensorComponents = assert(self.game.componentManagers.raySensor)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.physicsDomain = assert(self.engine.domains.physics)
+  self.raySensorComponents = assert(self.engine.componentManagers.raySensor)
 end
 
 function M:handleEvent(dt)

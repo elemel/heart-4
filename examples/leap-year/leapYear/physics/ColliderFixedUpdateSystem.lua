@@ -1,10 +1,10 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
-  self.colliderEntities = assert(self.game.componentEntitySets.collider)
-  self.colliderComponents = assert(self.game.componentManagers.collider)
+  self.colliderEntities = assert(self.engine.componentEntitySets.collider)
+  self.colliderComponents = assert(self.engine.componentManagers.collider)
 end
 
 function M:handleEvent(dt)

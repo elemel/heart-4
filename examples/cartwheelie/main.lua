@@ -18,17 +18,17 @@ function love.load()
   }
 
   local config = require("cartwheelie.resources.configs.game")
-  game = heart.Game.new(resourceLoaders, config)
+  engine = heart.Engine.new(resourceLoaders, config)
 end
 
 function love.draw()
-  game:handleEvent("draw")
+  engine:handleEvent("draw")
 end
 
 function love.resize(width, height)
-  game:handleEvent("resize", width, height)
+  engine:handleEvent("resize", width, height)
 end
 
 function love.update(dt)
-  game:handleEvent("update", dt)
+  engine:handleEvent("update", dt)
 end

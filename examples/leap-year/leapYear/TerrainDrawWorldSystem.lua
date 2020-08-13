@@ -1,9 +1,9 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.arrayImageDomain = assert(self.game.domains.arrayImage)
-  self.terrainComponents = assert(self.game.componentManagers.terrain)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.arrayImageDomain = assert(self.engine.domains.arrayImage)
+  self.terrainComponents = assert(self.engine.componentManagers.terrain)
 end
 
 function M:handleEvent(viewportId)

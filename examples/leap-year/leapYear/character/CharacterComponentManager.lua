@@ -2,8 +2,8 @@ local set2 = heart.table.set2
 
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
   self.directionXs = {}
   self.characterTypes = {}

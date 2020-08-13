@@ -1,11 +1,11 @@
 local GravityFixedUpdateSystem = heart.class.newClass()
 
-function GravityFixedUpdateSystem:init(game, config)
-  self.game = assert(game)
-  self.gravityEntities = assert(self.game.componentEntitySets.gravity)
+function GravityFixedUpdateSystem:init(engine, config)
+  self.engine = assert(engine)
+  self.gravityEntities = assert(self.engine.componentEntitySets.gravity)
 
-  self.gravityComponents = assert(self.game.componentManagers.gravity)
-  self.positionComponents = assert(self.game.componentManagers.position)
+  self.gravityComponents = assert(self.engine.componentManagers.gravity)
+  self.positionComponents = assert(self.engine.componentManagers.position)
 end
 
 function GravityFixedUpdateSystem:handleEvent(dt)

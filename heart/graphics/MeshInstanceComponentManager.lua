@@ -2,10 +2,10 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.meshLoader = assert(game.resourceLoaders.mesh)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.meshLoader = assert(engine.resourceLoaders.mesh)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
 
   self.meshes = {}
   self.transforms = {}

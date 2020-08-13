@@ -2,11 +2,11 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
-  self.skyEntities = assert(self.game.componentEntitySets.sky)
-  self.skyComponents = assert(self.game.componentManagers.sky)
+  self.skyEntities = assert(self.engine.componentEntitySets.sky)
+  self.skyComponents = assert(self.engine.componentManagers.sky)
 end
 
 function M:handleEvent()

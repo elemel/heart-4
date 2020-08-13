@@ -1,8 +1,8 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.positionComponents = assert(self.game.componentManagers.position)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.positionComponents = assert(self.engine.componentManagers.position)
 
   self.previousXs = {}
   self.previousYs = {}

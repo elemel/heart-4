@@ -1,19 +1,19 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
-  self.characterEntities = assert(self.game.componentEntitySets.character)
+  self.characterEntities = assert(self.engine.componentEntitySets.character)
 
-  self.boneComponents = assert(self.game.componentManagers.bone)
-  self.characterComponents = assert(self.game.componentManagers.character)
-  self.characterStateComponents = assert(self.game.componentManagers.characterState)
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.spriteComponents = assert(self.game.componentManagers.sprite)
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.velocityComponents = assert(self.game.componentManagers.velocity)
+  self.boneComponents = assert(self.engine.componentManagers.bone)
+  self.characterComponents = assert(self.engine.componentManagers.character)
+  self.characterStateComponents = assert(self.engine.componentManagers.characterState)
+  self.positionComponents = assert(self.engine.componentManagers.position)
+  self.spriteComponents = assert(self.engine.componentManagers.sprite)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
+  self.velocityComponents = assert(self.engine.componentManagers.velocity)
 
-  self.imageResources = assert(self.game.resourceLoaders.image)
+  self.imageResources = assert(self.engine.resourceLoaders.image)
 end
 
 function M:handleEvent(dt)

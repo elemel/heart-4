@@ -2,15 +2,15 @@ local clamp = heart.math.clamp
 
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
-  self.cameraEntities = assert(self.game.componentEntitySets.camera)
-  self.playerEntities = assert(self.game.componentEntitySets.player)
+  self.cameraEntities = assert(self.engine.componentEntitySets.camera)
+  self.playerEntities = assert(self.engine.componentEntitySets.player)
 
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.viewportComponents = assert(self.game.componentManagers.viewport)
+  self.positionComponents = assert(self.engine.componentManagers.position)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
+  self.viewportComponents = assert(self.engine.componentManagers.viewport)
 end
 
 function M:handleEvent(dt)

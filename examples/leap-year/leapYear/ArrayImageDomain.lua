@@ -2,7 +2,7 @@ local filenames = require("leapYear.resources.configs.arrayImage")
 
 local M = heart.class.newClass()
 
-function M:init(game, config)
+function M:init(engine, config)
   self.image = love.graphics.newArrayImage(filenames)
 
   self.layerNames = {}

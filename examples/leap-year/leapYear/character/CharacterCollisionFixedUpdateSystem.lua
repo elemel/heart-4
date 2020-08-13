@@ -2,14 +2,14 @@ local clamp = heart.math.clamp
 
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
-  self.characterEntities = assert(self.game.componentEntitySets.character)
+  self.characterEntities = assert(self.engine.componentEntitySets.character)
 
-  self.characterComponents = assert(self.game.componentManagers.character)
-  self.characterStateComponents = assert(self.game.componentManagers.characterState)
-  self.colliderComponents = assert(self.game.componentManagers.collider)
+  self.characterComponents = assert(self.engine.componentManagers.character)
+  self.characterStateComponents = assert(self.engine.componentManagers.characterState)
+  self.colliderComponents = assert(self.engine.componentManagers.collider)
 
   self.transitionHandlers = {
     crouching = self.transitionCrouching,

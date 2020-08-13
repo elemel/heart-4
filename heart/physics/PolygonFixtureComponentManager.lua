@@ -6,16 +6,16 @@ local transformPoints2 = heartMath.transformPoints2
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.physicsDomain = assert(self.game.domains.physics)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.physicsDomain = assert(self.engine.domains.physics)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
 end
 
 function M:createComponent(id, config)
   local transform = self.transformComponents.transforms[entityId]
 
-  local bodyId = assert(self.game:findAncestorComponent(id, "body"))
+  local bodyId = assert(self.engine:findAncestorComponent(id, "body"))
   local body = self.physicsDomain.bodies[bodyId]
   local localVertices
 

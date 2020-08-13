@@ -1,9 +1,9 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.playerEntities = assert(self.game.componentEntitySets.player)
-  self.characterComponents = assert(self.game.componentManagers.character)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.playerEntities = assert(self.engine.componentEntitySets.player)
+  self.characterComponents = assert(self.engine.componentManagers.character)
 end
 
 function M:handleEvent(dt)

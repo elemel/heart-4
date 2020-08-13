@@ -11,16 +11,16 @@ local squaredDistance2 = heart.math.squaredDistance2
 
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
 
-  self.colliderEntities = assert(self.game.componentEntitySets.collider)
+  self.colliderEntities = assert(self.engine.componentEntitySets.collider)
 
-  self.boxComponents = assert(self.game.componentManagers.box)
-  self.colliderComponents = assert(self.game.componentManagers.collider)
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.terrainComponents = assert(self.game.componentManagers.terrain)
-  self.velocityComponents = assert(self.game.componentManagers.velocity)
+  self.boxComponents = assert(self.engine.componentManagers.box)
+  self.colliderComponents = assert(self.engine.componentManagers.collider)
+  self.positionComponents = assert(self.engine.componentManagers.position)
+  self.terrainComponents = assert(self.engine.componentManagers.terrain)
+  self.velocityComponents = assert(self.engine.componentManagers.velocity)
 
   self.wallTileTypes = {
     blueBrick = true,

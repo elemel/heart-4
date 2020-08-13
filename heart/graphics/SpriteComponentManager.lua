@@ -2,10 +2,10 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.imageLoader = assert(game.resourceLoaders.image)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
+  self.imageLoader = assert(engine.resourceLoaders.image)
   self.images = {}
   self.zs = {}
 

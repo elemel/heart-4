@@ -1,11 +1,11 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.velocityEntities = assert(self.game.componentEntitySets.velocity)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.velocityEntities = assert(self.engine.componentEntitySets.velocity)
 
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.velocityComponents = assert(self.game.componentManagers.velocity)
+  self.positionComponents = assert(self.engine.componentManagers.position)
+  self.velocityComponents = assert(self.engine.componentManagers.velocity)
 end
 
 function M:handleEvent(dt)

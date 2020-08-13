@@ -1,11 +1,11 @@
 local M = heart.class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.boxEntities = assert(self.game.componentEntitySets.box)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.boxEntities = assert(self.engine.componentEntitySets.box)
 
-  self.positionComponents = assert(self.game.componentManagers.position)
-  self.boxComponents = assert(self.game.componentManagers.box)
+  self.positionComponents = assert(self.engine.componentManagers.position)
+  self.boxComponents = assert(self.engine.componentManagers.box)
 end
 
 function M:handleEvent(viewportId)

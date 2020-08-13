@@ -3,10 +3,10 @@ local heartTable = require("heart.table")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.spriteEntities = assert(self.game.componentEntitySets.sprite)
-  self.spriteComponents = assert(self.game.componentManagers.sprite)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.spriteEntities = assert(self.engine.componentEntitySets.sprite)
+  self.spriteComponents = assert(self.engine.componentManagers.sprite)
 end
 
 function M:handleEvent(viewportId)

@@ -4,15 +4,15 @@ local heartTable = require("heart.table")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.fixedTimeStepDomain = assert(self.game.domains.fixedTimeStep)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.fixedTimeStepDomain = assert(self.engine.domains.fixedTimeStep)
 
-  self.meshInstance3Entities = assert(self.game.componentEntitySets.meshInstance3)
-  self.pointLightEntities = assert(self.game.componentEntitySets.pointLight)
+  self.meshInstance3Entities = assert(self.engine.componentEntitySets.meshInstance3)
+  self.pointLightEntities = assert(self.engine.componentEntitySets.pointLight)
 
-  self.boneComponents = assert(self.game.componentManagers.bone)
-  self.meshInstance3Components = assert(self.game.componentManagers.meshInstance3)
+  self.boneComponents = assert(self.engine.componentManagers.bone)
+  self.meshInstance3Components = assert(self.engine.componentManagers.meshInstance3)
 
   local vertexShaderCode = [[
     uniform float TimeStepFraction;

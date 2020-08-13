@@ -3,7 +3,7 @@ local heartTable = require("heart.table")
 
 local M = class.newClass()
 
-function M:init(game, config)
+function M:init(engine, config)
   self.defaultState = config.defaultState
 
   if config.validStates then

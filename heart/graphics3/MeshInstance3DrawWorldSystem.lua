@@ -4,14 +4,14 @@ local table = require("heart.table")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.fixedTimeStepDomain = assert(self.game.domains.fixedTimeStep)
-  self.bones = assert(self.game.componentManagers.bone)
-  self.pointLights = assert(self.game.componentManagers.pointLight)
-  self.pointLightEntities = assert(self.game.componentEntitySets.pointLight)
-  self.meshInstanceComponents = assert(self.game.componentManagers.mesh)
-  self.meshEntities = assert(self.game.componentEntitySets.mesh)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.fixedTimeStepDomain = assert(self.engine.domains.fixedTimeStep)
+  self.bones = assert(self.engine.componentManagers.bone)
+  self.pointLights = assert(self.engine.componentManagers.pointLight)
+  self.pointLightEntities = assert(self.engine.componentEntitySets.pointLight)
+  self.meshInstanceComponents = assert(self.engine.componentManagers.mesh)
+  self.meshEntities = assert(self.engine.componentEntitySets.mesh)
 
   self.lightCount = 0
   self.lightPositions = {}

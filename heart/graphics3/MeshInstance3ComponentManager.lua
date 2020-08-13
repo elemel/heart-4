@@ -2,8 +2,8 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
   self.meshes = {}
 
   self.vertexFormat = {

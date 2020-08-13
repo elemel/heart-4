@@ -2,10 +2,10 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.viewportEntities = assert(self.game.componentEntitySets.viewport)
-  self.viewportComponents = assert(self.game.componentManagers.viewport)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.viewportEntities = assert(self.engine.componentEntitySets.viewport)
+  self.viewportComponents = assert(self.engine.componentManagers.viewport)
 end
 
 function M:handleEvent(width, height)

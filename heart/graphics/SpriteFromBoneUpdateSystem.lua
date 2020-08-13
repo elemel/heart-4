@@ -3,16 +3,16 @@ local heartMath = require("heart.math")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.timerDomain = assert(game.domains.timer)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.timerDomain = assert(engine.domains.timer)
 
-  self.boneEntities = assert(self.game.componentEntitySets.bone)
-  self.spriteEntities = assert(self.game.componentEntitySets.sprite)
+  self.boneEntities = assert(self.engine.componentEntitySets.bone)
+  self.spriteEntities = assert(self.engine.componentEntitySets.sprite)
 
-  self.boneComponents = assert(self.game.componentManagers.bone)
-  self.transformComponents = assert(self.game.componentManagers.transform)
-  self.spriteComponents = assert(self.game.componentManagers.sprite)
+  self.boneComponents = assert(self.engine.componentManagers.bone)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
+  self.spriteComponents = assert(self.engine.componentManagers.sprite)
 end
 
 function M:handleEvent(dt)

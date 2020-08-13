@@ -2,20 +2,20 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
+function M:init(engine, config)
+  self.engine = assert(engine)
   self.color = config.color or {0, 1, 0, 1}
   self.scale = config.scale or 1
 
-  self.boneEntities = assert(self.game.componentEntitySets.bone)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+  self.boneEntities = assert(self.engine.componentEntitySets.bone)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
 end
 
 function M:handleEvent(viewportId)
   local r, g, b, a = love.graphics.getColor()
   love.graphics.setColor(self.color)
 
-  local entityParents = self.game.entityParents
+  local entityParents = self.engine.entityParents
   local transforms = self.transformComponents.transforms
 
   for id in pairs(self.boneEntities) do

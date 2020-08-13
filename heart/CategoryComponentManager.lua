@@ -2,7 +2,7 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
+function M:init(engine, config)
 end
 
 function M:createComponent(entityId, config)

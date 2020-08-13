@@ -2,11 +2,11 @@ local class = require("heart.class")
 
 local M = class.newClass()
 
-function M:init(game, config)
-  self.game = assert(game)
-  self.boneEntities = assert(self.game.componentEntitySets.bone)
-  self.boneComponents = assert(self.game.componentManagers.bone)
-  self.transformComponents = assert(self.game.componentManagers.transform)
+function M:init(engine, config)
+  self.engine = assert(engine)
+  self.boneEntities = assert(self.engine.componentEntitySets.bone)
+  self.boneComponents = assert(self.engine.componentManagers.bone)
+  self.transformComponents = assert(self.engine.componentManagers.transform)
 end
 
 function M:handleEvent(dt)
