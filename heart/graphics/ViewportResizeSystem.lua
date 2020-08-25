@@ -9,12 +9,10 @@ function M:init(engine, config)
 end
 
 function M:handleEvent(width, height)
-  local widths = self.viewportComponents.widths
-  local heights = self.viewportComponents.heights
+  local sizes = self.viewportComponents.sizes
 
-  for entityId in pairs(self.viewportEntities) do
-    widths[entityId] = width
-    heights[entityId] = height
+  for id in pairs(self.viewportEntities) do
+    sizes[id] = {width, height}
   end
 end
 

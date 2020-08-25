@@ -15,22 +15,22 @@ function M:init(engine, config)
 end
 
 function M:handleEvent()
-  local widths = self.viewportComponents.widths
-  local heights = self.viewportComponents.heights
+  local sizes = self.viewportComponents.sizes
   local transforms = self.cameraComponents.transforms
   local debugTransforms = self.transformComponents.transforms
 
   for id in pairs(self.viewportEntities) do
     if self.cameraEntities[id] then
+      local width, height = unpack(sizes[id])
       local transform = transforms[id]
       local _, _, _, scaleX, scaleY = heartMath.decompose2(transform)
       local scale = math.sqrt(math.abs(scaleX * scaleY))
 
       love.graphics.push()
-      love.graphics.translate(0.5 * widths[id], 0.5 * heights[id])
-      love.graphics.scale(heights[id], heights[id])
+      love.graphics.translate(0.5 * width, 0.5 * height)
+      love.graphics.scale(height, height)
       love.graphics.applyTransform(transform:inverse())
-      love.graphics.setLineWidth(scale / heights[id])
+      love.graphics.setLineWidth(scale / height)
       self.engine:handleEvent("drawworld", id)
       love.graphics.pop()
 
@@ -42,10 +42,10 @@ function M:handleEvent()
       local debugScale = math.sqrt(math.abs(debugScaleX * debugScaleY))
 
       love.graphics.push()
-      love.graphics.translate(0.5 * widths[id], 0.5 * heights[id])
-      love.graphics.scale(heights[id], heights[id])
+      love.graphics.translate(0.5 * width, 0.5 * height)
+      love.graphics.scale(height, height)
       love.graphics.applyTransform(debugTransform:inverse())
-      love.graphics.setLineWidth(scale / heights[id])
+      love.graphics.setLineWidth(scale / height)
       love.graphics.setColor(0, 1, 0, 1)
       self.engine:handleEvent("debugdraw", id)
       love.graphics.setColor(1, 1, 1, 1)
