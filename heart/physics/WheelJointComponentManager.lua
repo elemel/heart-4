@@ -10,7 +10,7 @@ function M:init(engine, config)
 end
 
 function M:createComponent(entityId, config)
-  local transform = self.transformComponents.transforms[entityId]
+  local transform = self.transformComponents:getTransform(entityId)
 
   local bodyId2 = self.engine:findAncestorComponent(entityId, "body")
   local bodyId1 = self.engine:findAncestorComponent(bodyId2, "body", 1)

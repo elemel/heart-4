@@ -17,6 +17,10 @@ local function clamp(x, x1, x2)
   return min(max(x, x1), x2)
 end
 
+local function clamp2(x, y, x1, y1, x2, y2)
+  return min(max(x, x1), x2), min(max(y, y1), y2)
+end
+
 -- https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/smoothstep.xhtml
 local function smoothstep(x1, x2, x)
   local t = clamp((x - x1) / (x2 - x1), 0, 1)
@@ -25,6 +29,10 @@ end
 
 local function length2(x, y)
   return sqrt(x * x + y * y)
+end
+
+local function length4(x, y, z)
+  return sqrt(x * x + y * y + z * z)
 end
 
 local function squaredDistance2(x1, y1, x2, y2)
@@ -44,13 +52,13 @@ local function cross2(x1, y1, x2, y2)
 end
 
 local function normalize2(x, y)
-  local length = length2(x, y)
-
-  if length == 0 then
-    return 1, 0, 0
-  end
-
+  local length = sqrt(x * x + y * y)
   return x / length, y / length, length
+end
+
+local function normalize3(x, y, z)
+  local length = sqrt(x * x + y * y + z * z)
+  return x / length, y / length, z / length, length
 end
 
 local function clampLength2(x, y, minLength, maxLength)
@@ -64,7 +72,27 @@ local function mix(x1, x2, t)
 end
 
 local function mix2(x1, y1, x2, y2, t)
-  return (1 - t) * x1 + t * x2, (1 - t) * y1 + t * y2
+  local x = (1 - t) * x1 + t * x2
+  local y = (1 - t) * y1 + t * y2
+
+  return x, y
+end
+
+local function mix3(x1, y1, z1, x2, y2, z2, t)
+  local x = (1 - t) * x1 + t * x2
+  local y = (1 - t) * y1 + t * y2
+  local z = (1 - t) * z1 + t * z2
+
+  return x, y, z
+end
+
+local function mix4(x1, y1, z1, w1, x2, y2, z2, w2, t)
+  local x = (1 - t) * x1 + t * x2
+  local y = (1 - t) * y1 + t * y2
+  local z = (1 - t) * z1 + t * z2
+  local w = (1 - t) * w1 + t * w2
+
+  return x, y, z, w
 end
 
 local function normalizeAngle(a)
@@ -153,16 +181,16 @@ local function mixTransforms(a, b, t, c)
   return c, c34
 end
 
-local function transformPoints2(transform, source, target)
-  target = target or {}
+local function transformPoints2(transform, points, result)
+  result = result or {}
   local transformPoint = transform.transformPoint
 
-  for i = 1, #source, 2 do
-    target[#target + 1], target[#target + 2] =
-      transformPoint(transform, source[i], source[i + 1])
+  for i = 1, #points, 2 do
+    result[#result + 1], result[#result + 2] =
+      transformPoint(transform, points[i], points[i + 1])
   end
 
-  return target
+  return result
 end
 
 local function transformVector2(transform, x, y)
@@ -415,6 +443,7 @@ end
 return {
   bounds2 = bounds2,
   clamp = clamp,
+  clamp2 = clamp2,
   clampLength2 = clampLength2,
   cross2 = cross2,
   decompose2 = decompose2,

@@ -10,15 +10,25 @@ function M:init(engine, config)
 end
 
 function M:createComponent(entityId, config)
-  local transform = self.transformComponents.transforms[entityId]
+  local transform = self.transformComponents:getTransform(entityId)
+
   local bodyId = assert(self.engine:findAncestorComponent(entityId, "body"))
   local body = self.physicsDomain.bodies[bodyId]
-  local x = config.x or 0
-  local y = config.y or 0
+
+  local x = 0
+  local y = 0
+
+  if config.center then
+    x = config.center[1] or x
+    y = config.center[2] or y
+  end
+
+  local radius = config.radius or 0.5
+
   x, y = transform:transformPoint(x, y)
   x, y = body:getLocalPoint(x, y)
-  local radius = config.radius or 0.5
-  radius = heartMath.transformRadius(transform, radius)
+  radius = transform.w * radius
+
   local shape = love.physics.newCircleShape(x, y, radius)
   local density = config.density or 1
   local fixture = love.physics.newFixture(body, shape, density)

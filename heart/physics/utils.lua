@@ -1,15 +1,14 @@
 local M = {}
 
-function M.getLocalPoints(body, worldPoints, localPoints)
-  localPoints = localPoints or {}
-  local getLocalPoint = body.getLocalPoint
+function M.getLocalPoints(body, worldPoints, result)
+  result = result or {}
 
   for i = 1, #worldPoints, 2 do
-    localPoints[#localPoints + 1], localPoints[#localPoints + 2] =
-      getLocalPoint(body, worldPoints[i], worldPoints[i + 1])
+    result[#result + 1], result[#result + 2] =
+      body:getLocalPoint(worldPoints[i], worldPoints[i + 1])
   end
 
-  return localPoints
+  return result
 end
 
 return M

@@ -1,4 +1,6 @@
-local function removeArrayValues(t, v)
+local M = {}
+
+function M.removeArrayValues(t, v)
   local n = 0
 
   for i, v2 in ipairs(t) do
@@ -13,7 +15,7 @@ local function removeArrayValues(t, v)
   end
 end
 
-local function clear(t, v)
+function M.clear(t, v)
   if v == nil then
     for k in pairs(t) do
       t[k] = nil
@@ -27,7 +29,17 @@ local function clear(t, v)
   end
 end
 
-local function keys(t, ks)
+function M.copy(t, result)
+  result = result or {}
+
+  for k, v in pairs(t) do
+    result[k] = v
+  end
+
+  return result
+end
+
+function M.keys(t, ks)
   ks = ks or {}
 
   for k in pairs(t) do
@@ -37,7 +49,7 @@ local function keys(t, ks)
   return ks
 end
 
-local function values(t, vs)
+function M.values(t, vs)
   vs = vs or {}
 
   for k, v in pairs(t) do
@@ -47,7 +59,7 @@ local function values(t, vs)
   return vs
 end
 
-local function get(t, k, v)
+function M.get(t, k, v)
   local v2 = t[k]
 
   if v2 == nil then
@@ -57,7 +69,7 @@ local function get(t, k, v)
   return v2
 end
 
-local function get2(t, k1, k2, v)
+function M.get2(t, k1, k2, v)
   t = t[k1]
 
   if t == nil then
@@ -73,7 +85,7 @@ local function get2(t, k1, k2, v)
   return v2
 end
 
-local function get3(t, k1, k2, k3, v)
+function M.get3(t, k1, k2, k3, v)
   t = t[k1]
 
   if t == nil then
@@ -95,7 +107,7 @@ local function get3(t, k1, k2, k3, v)
   return v2
 end
 
-local function set2(t, k1, k2, v)
+function M.set2(t, k1, k2, v)
   if v == nil then
     local t2 = t[k1]
 
@@ -128,7 +140,7 @@ local function set2(t, k1, k2, v)
   end
 end
 
-local function set3(t, k1, k2, k3, v)
+function M.set3(t, k1, k2, k3, v)
   if v == nil then
     local t2 = t[k1]
 
@@ -180,14 +192,4 @@ local function set3(t, k1, k2, k3, v)
   end
 end
 
-return {
-  clear = clear,
-  get = get,
-  get2 = get2,
-  get3 = get3,
-  keys = keys,
-  removeArrayValues = removeArrayValues,
-  set2 = set2,
-  set3 = set3,
-  values = values,
-}
+return M

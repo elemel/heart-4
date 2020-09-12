@@ -7,28 +7,29 @@ function M:init(engine, config)
   self.transformComponents = assert(self.engine.componentManagers.transform)
   self.imageLoader = assert(engine.resourceLoaders.image)
   self.images = {}
-  self.zs = {}
-
+  self.localTransforms = {}
   self.transforms = {}
 end
 
-function M:createComponent(entityId, config)
-  local transform = self.transformComponents.transforms[entityId]
+function M:createComponent(id, config)
+  self.images[id] = self.imageLoader:loadResource(config.image)
+  self.localTransforms[id] = love.math.newTransform()
 
-  if config.image then
-    local imageFilename = assert(config.image)
-    local image = self.imageLoader:loadResource(imageFilename)
-    self.images[entityId] = image
+  if config.transform then
+    self.localTransforms[id]:setTransformation(unpack(config.transform))
   end
 
-  self.zs[entityId] = config.z or 0
-  self.transforms[entityId] = transform:clone()
+  local transform = self.transformComponents:getTransform(id)
+
+  self.transforms[id] = love.math.newTransform():
+    setMatrix(transform:getMatrix()):
+    apply(self.localTransforms[id])
 end
 
-function M:destroyComponent(entityId)
-  self.images[entityId] = nil
-  self.zs[entityId] = nil
-  self.transforms[entityId] = nil
+function M:destroyComponent(id)
+  self.transforms[id] = nil
+  self.localTransforms[id] = nil
+  self.images[id] = nil
 end
 
 return M

@@ -13,20 +13,29 @@ function M:init(engine, config)
 end
 
 function M:createComponent(id, config)
-  local transform = self.transformComponents.transforms[entityId]
-
+  local entityTransform = self.transformComponents:getTransform(id)
   local bodyId = assert(self.engine:findAncestorComponent(id, "body"))
   local body = self.physicsDomain.bodies[bodyId]
-  local localVertices
 
-  if config.localVertices then
-    localVertices = config.localVertices
-  else
-    local vertices = transformPoints2(transform, config.vertices)
-    localVertices = getLocalPoints(body, vertices)
+  local points = config.points or {
+    -0.5, -0.5,
+    0.5, -0.5,
+    0.5, 0.5,
+    -0.5, 0.5,
+  }
+
+  local localTransform = love.math.newTransform()
+
+  if config.transform then
+    localTransform:setTransformation(unpack(config.transform))
   end
 
-  local shape = love.physics.newPolygonShape(localVertices)
+  local transform = love.math.newTransform():setMatrix(entityTransform:getMatrix()):apply(localTransform)
+
+  points = transformPoints2(transform, points)
+  points = getLocalPoints(body, points)
+
+  local shape = love.physics.newPolygonShape(points)
   local density = config.density or 1
   local fixture = love.physics.newFixture(body, shape, density)
   fixture:setUserData(id)

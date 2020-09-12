@@ -10,13 +10,10 @@ function M:init(engine, config)
 end
 
 function M:handleEvent(viewportId)
-  local transforms = self.spriteComponents.transforms
-  local ids = heartTable.keys(self.spriteEntities)
-  local zs = self.spriteComponents.zs
-  table.sort(ids, function(a, b) return zs[a] < zs[b] end)
   local images = self.spriteComponents.images
+  local transforms = self.spriteComponents.transforms
 
-  for _, id in ipairs(ids) do
+  for id in pairs(self.spriteEntities) do
     love.graphics.draw(images[id], transforms[id])
   end
 end

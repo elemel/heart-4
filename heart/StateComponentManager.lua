@@ -8,7 +8,6 @@ function M:init(engine, config)
 
   if config.validStates then
     self.defaultState = self.defaultState or config.validStates[1]
-
     self.validStates = {}
 
     for _, state in ipairs(config.validStates) do

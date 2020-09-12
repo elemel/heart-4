@@ -10,7 +10,7 @@ function M:init(engine, config)
 end
 
 function M:createComponent(entityId, config)
-  local transform = self.transformComponents.transforms[entityId]
+  local transform = self.transformComponents:getTransform(entityId)
 
   local bodyId = assert(self.engine:findAncestorComponent(entityId, "body"))
   local body = self.physicsDomain.bodies[bodyId]

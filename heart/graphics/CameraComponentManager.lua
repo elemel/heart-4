@@ -9,8 +9,8 @@ function M:init(engine, config)
 end
 
 function M:createComponent(id, config)
-  local transform = self.transformComponents.transforms[id]
-  self.transforms[id] = transform:clone()
+  local transform = self.transformComponents:getTransform(id)
+  self.transforms[id] = love.math.newTransform():setMatrix(transform:getMatrix())
 end
 
 function M:destroyComponent(id)

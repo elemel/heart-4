@@ -10,12 +10,12 @@ function M:init(engine, config)
 end
 
 function M:createComponent(entityId, config)
-  local transform = self.transformComponents.transforms[entityId]
-  local x = config.x or 0
-  local y = config.y or 0
-  x, y = transform:transformPoint(x, y)
-  local angle = config.angle or 0
-  angle = heartMath.transformAngle(transform, angle)
+  local transform = self.transformComponents:getTransform(entityId)
+  local x, y = transform:transformPoint(config.x or 0, config.y or 0)
+
+  local _, _, angle = transform:getTransform2()
+  angle = angle + (config.angle or 0)
+
   local bodyType = config.bodyType or "static"
   local body = love.physics.newBody(self.physicsDomain.world, x, y, bodyType)
   body:setUserData(entityId)
