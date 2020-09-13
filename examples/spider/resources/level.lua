@@ -68,6 +68,10 @@ return {
       {
         class = "heart.physics.JointDebugDrawSystem",
       },
+
+      {
+        class = "spider.SpiderDebugDrawSystem",
+      },
     },
 
     draw = {
@@ -109,6 +113,8 @@ return {
 
   entities = {
     {
+      title = "Camera",
+
       components = {
         transform = {},
         viewport = {},
@@ -162,6 +168,8 @@ return {
     },
 
     {
+      title = "Spider",
+
       components = {
         spider = {},
 
@@ -175,6 +183,20 @@ return {
         },
 
         circleFixture = {},
+      },
+
+      children = {
+        {
+          components = {
+            transform = {},
+
+            circleFixture = {
+              density = 0,
+              radius = 2,
+              sensor = true,
+            },
+          },
+        },
       },
     },
   },
