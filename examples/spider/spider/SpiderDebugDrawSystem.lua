@@ -8,13 +8,16 @@ end
 
 function M:handleEvent(viewportId)
   local r, g, b, a = love.graphics.getColor()
-  love.graphics.setColor(1, 1, 0, 1)
 
   local physicsDomain = self.engine.domains.physics
   local bodies = physicsDomain.bodies
   local circleFixtures = physicsDomain.circleFixtures
   local spiderEntities = self.engine.componentEntitySets.spider
   local transformComponents = self.engine.componentManagers.transform
+  local spiderComponents = self.engine.componentManagers.spider
+  local moveInputs = spiderComponents.moveInputs
+
+  love.graphics.setColor(1, 1, 0, 1)
 
   for id in pairs(spiderEntities) do
     for _, contact in ipairs(bodies[id]:getContacts()) do
@@ -33,6 +36,20 @@ function M:handleEvent(viewportId)
         love.graphics.line(x3, y3, x4, y4)
       end
     end
+  end
+
+  love.graphics.setColor(1, 0.5, 0, 1)
+
+  for id in pairs(spiderEntities) do
+    local x1, y1 = bodies[id]:getPosition()
+
+    local moveInputX = moveInputs[id][1]
+    local moveInputY = moveInputs[id][2]
+
+    local x2 = x1 + 2 * moveInputX
+    local y2 = y1 + 2 * moveInputY
+
+    love.graphics.line(x1, y1, x2, y2)
   end
 
   love.graphics.setColor(r, g, b, a)

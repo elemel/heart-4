@@ -12,23 +12,13 @@ function M:handleEvent(dt)
   local distanceJoints = self.engine.domains.physics.distanceJoints
   local transformComponents = self.engine.componentManagers.transform
   local spiderEntities = self.engine.componentEntitySets.spider
-
-  local upInput = love.keyboard.isDown("w")
-  local leftInput = love.keyboard.isDown("a")
-  local downInput = love.keyboard.isDown("s")
-  local rightInput = love.keyboard.isDown("d")
-
-  local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
-  local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
-
-  local dx = 10 * inputX * dt
-  local dy = 10 * inputY * dt
-
-  if inputX and inputY then
-    inputX, inputY = heart.math.normalize2(inputX, inputY)
-  end
+  local spiderComponents = self.engine.componentManagers.spider
+  local moveInputs = spiderComponents.moveInputs
 
   for id in pairs(spiderEntities) do
+    local dx = 10 * moveInputs[id][1] * dt
+    local dy = 10 * moveInputs[id][2] * dt
+
     local transform = transformComponents:getTransform(id)
     local x1, y1 = bodies[id]:getPosition()
 

@@ -14,11 +14,6 @@ return {
 
   componentManagers = {
     {
-      componentType = "spider",
-      class = "heart.CategoryComponentManager",
-    },
-
-    {
       componentType = "leg",
       class = "heart.CategoryComponentManager",
     },
@@ -57,6 +52,11 @@ return {
       componentType = "distanceJoint",
       class = "heart.physics.DistanceJointComponentManager",
     },
+
+    {
+      componentType = "spider",
+      class = "spider.SpiderComponentManager",
+    },
   },
 
   systems = {
@@ -81,6 +81,10 @@ return {
     },
 
     fixedupdate = {
+      {
+        class = "spider.SpiderInputFixedUpdateSystem",
+      },
+
       {
         class = "spider.SpiderFixedUpdateSystem",
       },
@@ -171,8 +175,6 @@ return {
       title = "Spider",
 
       components = {
-        spider = {},
-
         transform = {
           transform = {0, -5},
         },
@@ -183,6 +185,8 @@ return {
         },
 
         circleFixture = {},
+
+        spider = {},
       },
 
       children = {
