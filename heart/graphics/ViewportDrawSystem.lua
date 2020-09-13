@@ -10,14 +10,13 @@ function M:init(engine, config)
   self.viewportEntities = assert(self.engine.componentEntitySets.viewport)
 
   self.cameraComponents = assert(self.engine.componentManagers.camera)
-  self.transformComponents = assert(self.engine.componentManagers.transform)
   self.viewportComponents = assert(self.engine.componentManagers.viewport)
 end
 
 function M:handleEvent()
   local sizes = self.viewportComponents.sizes
   local transforms = self.cameraComponents.transforms
-  local debugTransforms = self.transformComponents.transforms
+  local debugTransforms = self.cameraComponents.debugTransforms
 
   for id in pairs(self.viewportEntities) do
     if self.cameraEntities[id] then

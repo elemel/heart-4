@@ -20,9 +20,17 @@ function M:createComponent(entityId, config)
   local body = love.physics.newBody(self.physicsDomain.world, x, y, bodyType)
   body:setUserData(entityId)
   body:setAngle(angle)
+
   local linearVelocityX = config.linearVelocityX or 0
   local linearVelocityY = config.linearVelocityY or 0
+
+  if config.linearVelocity then
+    linearVelocityX = config.linearVelocity[1] or 0
+    linearVelocityY = config.linearVelocity[2] or 0
+  end
+
   body:setLinearVelocity(linearVelocityX, linearVelocityY)
+
   body:setAngularVelocity(config.angularVelocity or 0)
   body:setFixedRotation(config.fixedRotation or false)
   body:setGravityScale(config.gravityScale or 1)

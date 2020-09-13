@@ -5,8 +5,10 @@ local heartTable = require("heart.table")
 local M = class.newClass()
 
 function M:init(resourceLoaders, config)
+  self.resourceLoaders = resourceLoaders or {}
+  config = config or {}
+
   self.emptyConfig = {}
-  self.resourceLoaders = assert(resourceLoaders)
   self.domains = {}
 
   self.componentManagers = {}

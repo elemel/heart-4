@@ -9,7 +9,7 @@ function M:init(engine, config)
 end
 
 function M:createComponent(entityId, config)
-  local transform = self.transformComponents.transforms[entityId]
+  local transform = self.transformComponents:getTransform(entityId)
   local bodyId2 = config.body2 or "body"
 
   if type(bodyId2) == "string" then

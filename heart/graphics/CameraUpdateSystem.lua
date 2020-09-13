@@ -15,11 +15,17 @@ end
 
 function M:handleEvent(dt)
   local t = self.timerDomain:getFraction()
+
+  local localCameraTransforms = self.cameraComponents.localTransforms
   local cameraTransforms = self.cameraComponents.transforms
+  local cameraDebugTransforms = self.cameraComponents.debugTransforms
 
   for id in pairs(self.cameraEntities) do
-    local transform = self.transformComponents:getInterpolatedTransform(id, t)
-    cameraTransforms[id]:setMatrix(transform:getMatrix())
+    local interpolatedTransform = self.transformComponents:getInterpolatedTransform(id, t)
+    cameraTransforms[id]:setMatrix(interpolatedTransform:getMatrix()):apply(localCameraTransforms[id])
+
+    local transform = self.transformComponents:getTransform(id)
+    cameraDebugTransforms[id]:setMatrix(transform:getMatrix()):apply(localCameraTransforms[id])
   end
 end
 
