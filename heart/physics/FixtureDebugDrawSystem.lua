@@ -5,12 +5,14 @@ local M = class.newClass()
 function M:init(engine, config)
   self.engine = assert(engine)
   self.physicsDomain = assert(self.engine.domains.physics)
+
+  -- TODO: Custom debug color per fixture
   self.color = config.color or {0, 1, 0, 1}
+  self.sensorColor = config.sensorColor or {0, 1, 0, 0.25}
 end
 
 function M:handleEvent(viewportId)
   local r, g, b, a = love.graphics.getColor()
-  love.graphics.setColor(self.color)
 
   for i, body in ipairs(self.physicsDomain.world:getBodies()) do
     local bodyComponent = body:getUserData()
@@ -18,6 +20,12 @@ function M:handleEvent(viewportId)
     for j, fixture in ipairs(body:getFixtures()) do
       local shape = fixture:getShape()
       local shapeType = shape:getType()
+
+      if fixture:isSensor() then
+        love.graphics.setColor(self.sensorColor)
+      else
+        love.graphics.setColor(self.color)
+      end
 
       if shapeType == "polygon" then
         love.graphics.polygon("line", body:getWorldPoints(shape:getPoints()))

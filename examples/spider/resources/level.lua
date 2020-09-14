@@ -10,11 +10,22 @@ return {
       class = "heart.physics.PhysicsDomain",
       gravity = {0, 10},
     },
+
+    {
+      domainType = "level",
+      class = "spider.LevelDomain",
+      bounds = {{-10, -10}, {10, 10}},
+    },
   },
 
   componentManagers = {
     {
       componentType = "leg",
+      class = "heart.CategoryComponentManager",
+    },
+
+    {
+      componentType = "player",
       class = "heart.CategoryComponentManager",
     },
 
@@ -72,6 +83,10 @@ return {
       {
         class = "spider.SpiderDebugDrawSystem",
       },
+
+      {
+        class = "spider.LevelDebugDrawSystem",
+      },
     },
 
     draw = {
@@ -82,7 +97,7 @@ return {
 
     fixedupdate = {
       {
-        class = "spider.SpiderInputFixedUpdateSystem",
+        class = "spider.InputFixedUpdateSystem",
       },
 
       {
@@ -95,6 +110,10 @@ return {
 
       {
         class = "heart.physics.DynamicBodyFixedUpdateSystem",
+      },
+
+      {
+        class = "spider.CameraFixedUpdateSystem",
       },
     },
 
@@ -175,6 +194,8 @@ return {
       title = "Spider",
 
       components = {
+        player = {},
+
         transform = {
           transform = {0, -5},
         },

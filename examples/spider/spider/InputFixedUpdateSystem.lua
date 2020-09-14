@@ -7,7 +7,7 @@ function M:init(engine, config)
 end
 
 function M:handleEvent(dt)
-  local spiderEntities = self.engine.componentEntitySets.spider
+  local playerEntities = self.engine.componentEntitySets.player
   local spiderComponents = self.engine.componentManagers.spider
   local moveInputs = spiderComponents.moveInputs
 
@@ -23,7 +23,7 @@ function M:handleEvent(dt)
     inputX, inputY = heart.math.normalize2(inputX, inputY)
   end
 
-  for id in pairs(spiderEntities) do
+  for id in pairs(playerEntities) do
     moveInputs[id][1] = inputX
     moveInputs[id][2] = inputY
   end
