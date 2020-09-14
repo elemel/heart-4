@@ -19,40 +19,6 @@ function M:handleEvent(dt)
     local dx = 10 * moveInputs[id][1] * dt
     local dy = 10 * moveInputs[id][2] * dt
 
-    local transform = transformComponents:getTransform(id)
-    local x1, y1 = bodies[id]:getPosition()
-
-    local angle = 2 * math.pi * love.math.random()
-    local length = 2
-
-    local x2 = x1 + length * math.cos(angle)
-    local y2 = y1 + length * math.sin(angle)
-
-    local groundFixture = nil
-    local groundX = 0
-    local groundY = 0
-    local groundNormalX = 0
-    local groundNormalY = -1
-
-    world:rayCast(
-      x1, y1, x2, y2,
-
-      function(fixture, x, y, normalX, normalY, fraction)
-        if false then
-          return 1
-        end
-
-        groundFixture = fixture
-
-        groundX = x
-        groundY = y
-
-        groundNormalX = normalX
-        groundNormalY = normalY
-
-        return fraction
-      end)
-
     local legIds = self.engine:findDescendantComponents(id, "leg")
     local legCount = #legIds
 
@@ -78,36 +44,71 @@ function M:handleEvent(dt)
       end
     end
 
-    local legIds = self.engine:findDescendantComponents(id, "leg")
+    local transform = transformComponents:getTransform(id)
 
-    if groundFixture and legCount < 8 then
-      local bodyId1 = groundFixture:getBody():getUserData()
+    for i = 1, 8 do
+      local x1, y1 = bodies[id]:getPosition()
 
-      x1, y1 = transform:inverseTransformPoint(groundX, groundY)
-      local length = math.sqrt(x1 * x1 + y1 * y1)
+      local angle = (i - 1 + love.math.random()) / 8 * (2 * math.pi)
+      local length = 2
 
-      local legId = self.engine:createEntity(id, {
-        components = {
-          leg = {},
-          transform = {},
+      local x2 = x1 + length * math.cos(angle)
+      local y2 = y1 + length * math.sin(angle)
 
-          distanceJoint = {
-            body1 = bodyId1,
-            body2 = id,
+      local groundFixture = nil
+      local groundX = 0
+      local groundY = 0
+      local groundNormalX = 0
+      local groundNormalY = -1
 
-            x1 = x1,
-            y1 = y1,
+      world:rayCast(
+        x1, y1, x2, y2,
 
-            x2 = 0,
-            y2 = 0,
+        function(fixture, x, y, normalX, normalY, fraction)
+          if false then
+            return 1
+          end
 
-            collideConnected = true,
-            length = length,
-            frequency = 10,
-            dampingRatio = 1,
+          groundFixture = fixture
+
+          groundX = x
+          groundY = y
+
+          groundNormalX = normalX
+          groundNormalY = normalY
+
+          return fraction
+        end)
+
+      if groundFixture and legCount < 8 then
+        local bodyId1 = groundFixture:getBody():getUserData()
+
+        x1, y1 = transform:inverseTransformPoint(groundX, groundY)
+        local length = math.sqrt(x1 * x1 + y1 * y1)
+
+        local legId = self.engine:createEntity(id, {
+          components = {
+            leg = {},
+            transform = {},
+
+            distanceJoint = {
+              body1 = bodyId1,
+              body2 = id,
+
+              x1 = x1,
+              y1 = y1,
+
+              x2 = 0,
+              y2 = 0,
+
+              collideConnected = true,
+              length = length,
+              frequency = 10,
+              dampingRatio = 1,
+            },
           },
-        },
-      })
+        })
+      end
     end
   end
 end
