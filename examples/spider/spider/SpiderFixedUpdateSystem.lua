@@ -14,6 +14,8 @@ function M:handleEvent(dt)
   local spiderEntities = self.engine.componentEntitySets.spider
   local spiderComponents = self.engine.componentManagers.spider
   local moveInputs = spiderComponents.moveInputs
+  local eyeComponents = self.engine.componentManagers.eye
+  local targets = eyeComponents.targets
 
   for id in pairs(spiderEntities) do
     local dx = 10 * moveInputs[id][1] * dt
@@ -44,46 +46,14 @@ function M:handleEvent(dt)
       end
     end
 
+    local eyeIds = self.engine:findDescendantComponents(id, "eye")
     local transform = transformComponents:getTransform(id)
 
-    for i = 1, 8 do
-      local x1, y1 = bodies[id]:getPosition()
+    for _, eyeId in ipairs(eyeIds) do
+      if targets[eyeId][1] and legCount < 8 then
+        local bodyId1 = targets[eyeId][1]:getBody():getUserData()
 
-      local angle = (i - 1 + love.math.random()) / 8 * (2 * math.pi)
-      local length = 2
-
-      local x2 = x1 + length * math.cos(angle)
-      local y2 = y1 + length * math.sin(angle)
-
-      local groundFixture = nil
-      local groundX = 0
-      local groundY = 0
-      local groundNormalX = 0
-      local groundNormalY = -1
-
-      world:rayCast(
-        x1, y1, x2, y2,
-
-        function(fixture, x, y, normalX, normalY, fraction)
-          if false then
-            return 1
-          end
-
-          groundFixture = fixture
-
-          groundX = x
-          groundY = y
-
-          groundNormalX = normalX
-          groundNormalY = normalY
-
-          return fraction
-        end)
-
-      if groundFixture and legCount < 8 then
-        local bodyId1 = groundFixture:getBody():getUserData()
-
-        x1, y1 = transform:inverseTransformPoint(groundX, groundY)
+        local x1, y1 = transform:inverseTransformPoint(targets[eyeId][2], targets[eyeId][3])
         local length = math.sqrt(x1 * x1 + y1 * y1)
 
         local legId = self.engine:createEntity(id, {

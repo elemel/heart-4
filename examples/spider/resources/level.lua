@@ -68,6 +68,11 @@ return {
       componentType = "spider",
       class = "spider.SpiderComponentManager",
     },
+
+    {
+      componentType = "eye",
+      class = "spider.EyeComponentManager",
+    },
   },
 
   systems = {
@@ -98,6 +103,10 @@ return {
     fixedupdate = {
       {
         class = "spider.InputFixedUpdateSystem",
+      },
+
+      {
+        class = "spider.EyeFixedUpdateSystem",
       },
 
       {
@@ -212,6 +221,22 @@ return {
 
       children = {
         {
+          title = "Head",
+
+          components = {
+            transform = {
+              transform = {0, -0.5},
+            },
+
+            circleFixture = {
+              radius = 0.25,
+            },
+          },
+        },
+
+        {
+          title = "Spider Sense",
+
           components = {
             transform = {},
 
@@ -220,6 +245,102 @@ return {
               radius = 2,
               sensor = true,
             },
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {0.11548494156391084, -0.4521645709543638},
+            },
+
+            eye = {},
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {0.04783542904563623, -0.38451505843608913},
+            },
+
+            eye = {},
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {-0.047835429045636216, -0.38451505843608913},
+            },
+
+            eye = {},
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {-0.11548494156391084, -0.4521645709543638},
+            },
+
+            eye = {},
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {-0.11548494156391084, -0.5478354290456362},
+            },
+
+            eye = {},
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {-0.04783542904563629, -0.6154849415639108},
+            },
+
+            eye = {},
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {0.04783542904563625, -0.6154849415639109},
+            },
+
+            eye = {},
+          },
+        },
+
+        {
+          title = "Eye",
+
+          components = {
+            transform = {
+              transform = {0.11548494156391081, -0.5478354290456363},
+            },
+
+            eye = {},
           },
         },
       },
