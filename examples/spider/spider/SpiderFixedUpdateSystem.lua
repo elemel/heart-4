@@ -14,69 +14,68 @@ function M:handleEvent(dt)
   local spiderEntities = self.engine.componentEntitySets.spider
   local spiderComponents = self.engine.componentManagers.spider
   local moveInputs = spiderComponents.moveInputs
-  local eyeComponents = self.engine.componentManagers.eye
-  local targets = eyeComponents.targets
+  local legComponents = self.engine.componentManagers.leg
+  local targets = legComponents.targets
 
   for id in pairs(spiderEntities) do
     local dx = 10 * moveInputs[id][1] * dt
     local dy = 10 * moveInputs[id][2] * dt
 
     local legIds = self.engine:findDescendantComponents(id, "leg")
-    local legCount = #legIds
+    local jointCount = 0
 
     for _, legId in ipairs(legIds) do
-      local x1, y1, x2, y2 = distanceJoints[legId]:getAnchors()
-
-      local oldLength = heart.math.distance2(x1, y1, x2, y2)
-      local newLength = heart.math.distance2(x1, y1, x2 + dx, y2 + dy)
-
-      local length = distanceJoints[legId]:getLength()
-      length = length + newLength - oldLength
-      length = math.max(length, 0.75)
-
-      if length < 2 then
-        distanceJoints[legId]:setLength(length)
-        bodies[id]:setAwake(true)
-      elseif legCount > 4 then
-        self.engine:destroyEntity(legId)
-        legCount = legCount - 1
-      else
-        distanceJoints[legId]:setLength(2)
-        bodies[id]:setAwake(true)
+      if distanceJoints[legId] then
+        jointCount = jointCount + 1
       end
     end
 
-    local eyeIds = self.engine:findDescendantComponents(id, "eye")
-    local transform = transformComponents:getTransform(id)
+    for _, legId in ipairs(legIds) do
+      if distanceJoints[legId] then
+        local x1, y1, x2, y2 = distanceJoints[legId]:getAnchors()
 
-    for _, eyeId in ipairs(eyeIds) do
-      if targets[eyeId][1] and legCount < 8 then
-        local bodyId1 = targets[eyeId][1]:getBody():getUserData()
+        local oldLength = heart.math.distance2(x1, y1, x2, y2)
+        local newLength = heart.math.distance2(x1, y1, x2 + dx, y2 + dy)
 
-        local x1, y1 = transform:inverseTransformPoint(targets[eyeId][2], targets[eyeId][3])
+        local length = distanceJoints[legId]:getLength()
+        length = length + newLength - oldLength
+        length = math.max(length, 0.75)
+
+        if length < 2 then
+          distanceJoints[legId]:setLength(length)
+          bodies[id]:setAwake(true)
+        elseif jointCount > 4 then
+          self.engine:destroyComponent(legId, "distanceJoint")
+          jointCount = jointCount - 1
+        else
+          distanceJoints[legId]:setLength(2)
+          bodies[id]:setAwake(true)
+        end
+      end
+    end
+
+    for _, legId in ipairs(legIds) do
+      if not distanceJoints[legId] and targets[legId][1] then
+        local transform = transformComponents:getTransform(legId)
+        local bodyId1 = targets[legId][1]:getBody():getUserData()
+
+        local x1, y1 = transform:inverseTransformPoint(targets[legId][2], targets[legId][3])
         local length = math.sqrt(x1 * x1 + y1 * y1)
 
-        local legId = self.engine:createEntity(id, {
-          components = {
-            leg = {},
-            transform = {},
+        self.engine:createComponent(legId, "distanceJoint", {
+          body1 = bodyId1,
+          body2 = id,
 
-            distanceJoint = {
-              body1 = bodyId1,
-              body2 = id,
+          x1 = x1,
+          y1 = y1,
 
-              x1 = x1,
-              y1 = y1,
+          x2 = 0,
+          y2 = 0,
 
-              x2 = 0,
-              y2 = 0,
-
-              collideConnected = true,
-              length = length,
-              frequency = 10,
-              dampingRatio = 1,
-            },
-          },
+          collideConnected = true,
+          length = length,
+          frequency = 10,
+          dampingRatio = 1,
         })
       end
     end

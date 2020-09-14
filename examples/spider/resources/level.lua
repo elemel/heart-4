@@ -20,11 +20,6 @@ return {
 
   componentManagers = {
     {
-      componentType = "leg",
-      class = "heart.CategoryComponentManager",
-    },
-
-    {
       componentType = "player",
       class = "heart.CategoryComponentManager",
     },
@@ -70,8 +65,8 @@ return {
     },
 
     {
-      componentType = "eye",
-      class = "spider.EyeComponentManager",
+      componentType = "leg",
+      class = "spider.LegComponentManager",
     },
   },
 
@@ -106,7 +101,7 @@ return {
       },
 
       {
-        class = "spider.EyeFixedUpdateSystem",
+        class = "spider.LegFixedUpdateSystem",
       },
 
       {
@@ -235,112 +230,98 @@ return {
         },
 
         {
-          title = "Spider Sense",
+          title = "Leg",
 
           components = {
-            transform = {},
-
-            circleFixture = {
-              density = 0,
-              radius = 2,
-              sensor = true,
+            transform = {
+              transform = {0.3464548246917325, 0.14350628713690866},
             },
+
+            leg = {},
           },
         },
 
         {
-          title = "Eye",
+          title = "Leg",
 
           components = {
             transform = {
-              transform = {0.11548494156391084, -0.4521645709543638},
+              transform = {0.1435062871369087, 0.3464548246917325},
             },
 
-            eye = {},
+            leg = {},
           },
         },
 
         {
-          title = "Eye",
+          title = "Leg",
 
           components = {
             transform = {
-              transform = {0.04783542904563623, -0.38451505843608913},
+              transform = {-0.14350628713690866, 0.3464548246917325},
             },
 
-            eye = {},
+            leg = {},
           },
         },
 
         {
-          title = "Eye",
+          title = "Leg",
 
           components = {
             transform = {
-              transform = {-0.047835429045636216, -0.38451505843608913},
+              transform = {-0.3464548246917325, 0.1435062871369087},
             },
 
-            eye = {},
+            leg = {},
           },
         },
 
         {
-          title = "Eye",
+          title = "Leg",
 
           components = {
             transform = {
-              transform = {-0.11548494156391084, -0.4521645709543638},
+              transform = {-0.3464548246917325, -0.14350628713690863},
             },
 
-            eye = {},
+            leg = {},
           },
         },
 
         {
-          title = "Eye",
+          title = "Leg",
 
           components = {
             transform = {
-              transform = {-0.11548494156391084, -0.5478354290456362},
+              transform = {-0.14350628713690888, -0.34645482469173244},
             },
 
-            eye = {},
+            leg = {},
           },
         },
 
         {
-          title = "Eye",
+          title = "Leg",
 
           components = {
             transform = {
-              transform = {-0.04783542904563629, -0.6154849415639108},
+              transform = {0.14350628713690874, -0.3464548246917325},
             },
 
-            eye = {},
+            leg = {},
           },
         },
 
         {
-          title = "Eye",
+          title = "Leg",
 
           components = {
             transform = {
-              transform = {0.04783542904563625, -0.6154849415639109},
+              transform = {0.34645482469173244, -0.14350628713690888},
             },
 
-            eye = {},
-          },
-        },
-
-        {
-          title = "Eye",
-
-          components = {
-            transform = {
-              transform = {0.11548494156391081, -0.5478354290456363},
-            },
-
-            eye = {},
+            leg = {},
           },
         },
       },

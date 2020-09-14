@@ -16,9 +16,9 @@ function M:handleEvent(viewportId)
   local transformComponents = self.engine.componentManagers.transform
   local spiderComponents = self.engine.componentManagers.spider
   local moveInputs = spiderComponents.moveInputs
-  local eyeEntities = self.engine.componentEntitySets.eye
-  local eyeComponents = self.engine.componentManagers.eye
-  local targets = eyeComponents.targets
+  local legEntities = self.engine.componentEntitySets.leg
+  local legComponents = self.engine.componentManagers.leg
+  local targets = legComponents.targets
 
   love.graphics.setColor(1, 1, 0, 1)
 
@@ -57,7 +57,7 @@ function M:handleEvent(viewportId)
 
   love.graphics.setColor(1, 0, 0, 0.5)
 
-  for id in pairs(eyeEntities) do
+  for id in pairs(legEntities) do
     if targets[id][1] then
       local x1, y1 = transformComponents:getTransform(id):getPosition()
 

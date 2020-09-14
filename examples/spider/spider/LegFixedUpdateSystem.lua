@@ -7,16 +7,16 @@ function M:init(engine, config)
 end
 
 function M:handleEvent(dt)
-  local eyeEntities = self.engine.componentEntitySets.eye
+  local legEntities = self.engine.componentEntitySets.leg
   local transformComponents = self.engine.componentManagers.transform
   local physicsDomain = self.engine.domains.physics
   local world = physicsDomain.world
-  local eyeComponents = self.engine.componentManagers.eye
-  local targets = eyeComponents.targets
+  local legComponents = self.engine.componentManagers.leg
+  local targets = legComponents.targets
   local bodies = physicsDomain.bodies
   local parents = self.engine.entityParents
 
-  for id in pairs(eyeEntities) do
+  for id in pairs(legEntities) do
     local x1, y1 = transformComponents:getTransform(id):getPosition()
 
     local angle = 2 * math.pi * love.math.random()
