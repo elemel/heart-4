@@ -72,21 +72,21 @@ return {
 
   systems = {
     debugdraw = {
-      {
-        class = "heart.physics.FixtureDebugDrawSystem",
-      },
+      -- {
+      --   class = "heart.physics.FixtureDebugDrawSystem",
+      -- },
 
-      {
-        class = "heart.physics.JointDebugDrawSystem",
-      },
+      -- {
+      --   class = "heart.physics.JointDebugDrawSystem",
+      -- },
 
-      {
-        class = "spider.SpiderDebugDrawSystem",
-      },
+      -- {
+      --   class = "spider.SpiderDebugDrawSystem",
+      -- },
 
-      {
-        class = "spider.LevelDebugDrawSystem",
-      },
+      -- {
+      --   class = "spider.LevelDebugDrawSystem",
+      -- },
     },
 
     draw = {
@@ -95,13 +95,19 @@ return {
       },
     },
 
+    drawworld = {
+      {
+        class = "spider.DrawWorldSystem",
+      },
+    },
+
     fixedupdate = {
       {
-        class = "spider.InputFixedUpdateSystem",
+        class = "heart.animation.TransformFixedUpdateSystem",
       },
 
       {
-        class = "spider.LegFixedUpdateSystem",
+        class = "spider.InputFixedUpdateSystem",
       },
 
       {
@@ -206,11 +212,9 @@ return {
 
         body = {
           bodyType = "dynamic",
-          fixedRotation = true,
         },
 
         circleFixture = {},
-
         spider = {},
       },
 
@@ -234,7 +238,7 @@ return {
 
           components = {
             transform = {
-              transform = {0.3464548246917325, 0.14350628713690866},
+              transform = {-0.4157348061512726, -0.2777851165098011},
             },
 
             leg = {},
@@ -246,7 +250,7 @@ return {
 
           components = {
             transform = {
-              transform = {0.1435062871369087, 0.3464548246917325},
+              transform = {-0.4903926402016152, -0.09754516100806412},
             },
 
             leg = {},
@@ -258,7 +262,7 @@ return {
 
           components = {
             transform = {
-              transform = {-0.14350628713690866, 0.3464548246917325},
+              transform = {-0.4903926402016152, 0.09754516100806412},
             },
 
             leg = {},
@@ -270,7 +274,7 @@ return {
 
           components = {
             transform = {
-              transform = {-0.3464548246917325, 0.1435062871369087},
+              transform = {-0.4157348061512726, 0.2777851165098011},
             },
 
             leg = {},
@@ -282,7 +286,7 @@ return {
 
           components = {
             transform = {
-              transform = {-0.3464548246917325, -0.14350628713690863},
+              transform = {0.4157348061512726, -0.2777851165098011},
             },
 
             leg = {},
@@ -294,7 +298,7 @@ return {
 
           components = {
             transform = {
-              transform = {-0.14350628713690888, -0.34645482469173244},
+              transform = {0.4903926402016152, -0.09754516100806412},
             },
 
             leg = {},
@@ -306,7 +310,7 @@ return {
 
           components = {
             transform = {
-              transform = {0.14350628713690874, -0.3464548246917325},
+              transform = {0.4903926402016152, 0.09754516100806412},
             },
 
             leg = {},
@@ -318,7 +322,7 @@ return {
 
           components = {
             transform = {
-              transform = {0.34645482469173244, -0.14350628713690888},
+              transform = {0.4157348061512726, 0.2777851165098011},
             },
 
             leg = {},

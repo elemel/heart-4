@@ -4,23 +4,18 @@ local M = heart.class.newClass()
 
 function M:init(engine, config)
   self.engine = assert(engine)
-  self.ranges = {}
-  self.targets = {}
+  self.rayIntersections = {}
+  self.jointAnchors = {}
 end
 
 function M:createComponent(id, config)
-  self.ranges[id] = config.range or 1
-
-  self.targets[id] = {
-    nil, -- Fixture
-    0, 0, -- Position
-    0, 0, -- Normal
-  }
+  self.rayIntersections[id] = {}
+  self.jointAnchors[id] = {}
 end
 
 function M:destroyComponent(id)
-  self.targets[id] = nil
-  self.ranges[id] = nil
+  self.jointAnchors[id] = nil
+  self.rayIntersections[id] = nil
 end
 
 return M

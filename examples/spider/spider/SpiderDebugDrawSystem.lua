@@ -16,9 +16,6 @@ function M:handleEvent(viewportId)
   local transformComponents = self.engine.componentManagers.transform
   local spiderComponents = self.engine.componentManagers.spider
   local moveInputs = spiderComponents.moveInputs
-  local legEntities = self.engine.componentEntitySets.leg
-  local legComponents = self.engine.componentManagers.leg
-  local targets = legComponents.targets
 
   love.graphics.setColor(1, 1, 0, 1)
 
@@ -41,32 +38,19 @@ function M:handleEvent(viewportId)
     end
   end
 
-  love.graphics.setColor(1, 0.5, 0, 1)
+  -- love.graphics.setColor(1, 0.5, 0, 1)
 
-  for id in pairs(spiderEntities) do
-    local x1, y1 = bodies[id]:getPosition()
+  -- for id in pairs(spiderEntities) do
+  --   local x1, y1 = bodies[id]:getPosition()
 
-    local moveInputX = moveInputs[id][1]
-    local moveInputY = moveInputs[id][2]
+  --   local moveInputX = moveInputs[id][1]
+  --   local moveInputY = moveInputs[id][2]
 
-    local x2 = x1 + 2 * moveInputX
-    local y2 = y1 + 2 * moveInputY
+  --   local x2 = x1 + 2 * moveInputX
+  --   local y2 = y1 + 2 * moveInputY
 
-    love.graphics.line(x1, y1, x2, y2)
-  end
-
-  love.graphics.setColor(1, 0, 0, 0.5)
-
-  for id in pairs(legEntities) do
-    if targets[id][1] then
-      local x1, y1 = transformComponents:getTransform(id):getPosition()
-
-      local x2 = targets[id][2]
-      local y2 = targets[id][3]
-
-      love.graphics.line(x1, y1, x2, y2)
-    end
-  end
+  --   love.graphics.line(x1, y1, x2, y2)
+  -- end
 
   love.graphics.setColor(r, g, b, a)
 end
