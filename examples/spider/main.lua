@@ -5,7 +5,7 @@ function love.load()
 
   love.window.setMode(800, 600, {
     -- highdpi = true,
-    -- msaa = 8,
+    msaa = 8,
     resizable = true,
   })
 

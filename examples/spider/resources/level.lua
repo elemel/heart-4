@@ -14,7 +14,7 @@ return {
     {
       domainType = "level",
       class = "spider.LevelDomain",
-      bounds = {{-10, -10}, {10, 10}},
+      bounds = {{-15, -10}, {15, 10}},
     },
   },
 
@@ -57,6 +57,11 @@ return {
     {
       componentType = "distanceJoint",
       class = "heart.physics.DistanceJointComponentManager",
+    },
+
+    {
+      componentType = "revoluteJoint",
+      class = "heart.physics.RevoluteJointComponentManager",
     },
 
     {
@@ -167,7 +172,7 @@ return {
         body = {},
 
         polygonFixture = {
-          transform = {0, 0, 0, 5, 1},
+          transform = {0, 0, 0, 4, 1},
         },
       },
     },
@@ -181,7 +186,7 @@ return {
         body = {},
 
         polygonFixture = {
-          transform = {0, 0, 0, 1, 5},
+          transform = {0, 0, 0, 1, 4},
         },
       },
     },
@@ -195,7 +200,37 @@ return {
         body = {},
 
         polygonFixture = {
-          transform = {0, 0, 0, 5, 1},
+          transform = {0, 0, 0, 4, 1},
+        },
+      },
+    },
+
+    {
+      components = {
+        transform = {},
+        body = {},
+      },
+
+      children = {
+        {
+          components = {
+            transform = {
+              transform = {5, -3, 1.3 * math.pi},
+            },
+
+            body = {
+              bodyType = "dynamic",
+            },
+
+            polygonFixture = {
+              transform = {0, 0, 0, 4, 1},
+            },
+
+            revoluteJoint = {
+              motorEnabled = true,
+              maxMotorTorque = 10,
+            },
+          },
         },
       },
     },
@@ -238,7 +273,7 @@ return {
 
           components = {
             transform = {
-              transform = {-0.4157348061512726, -0.2777851165098011},
+              transform = {0.4903926402016152, 0.09754516100806412},
             },
 
             leg = {},
@@ -250,7 +285,7 @@ return {
 
           components = {
             transform = {
-              transform = {-0.4903926402016152, -0.09754516100806412},
+              transform = {0.4157348061512726, 0.2777851165098011},
             },
 
             leg = {},
@@ -286,6 +321,30 @@ return {
 
           components = {
             transform = {
+              transform = {-0.4157348061512726, -0.2777851165098011},
+            },
+
+            leg = {},
+          },
+        },
+
+        {
+          title = "Leg",
+
+          components = {
+            transform = {
+              transform = {-0.4903926402016152, -0.09754516100806412},
+            },
+
+            leg = {},
+          },
+        },
+
+        {
+          title = "Leg",
+
+          components = {
+            transform = {
               transform = {0.4157348061512726, -0.2777851165098011},
             },
 
@@ -299,30 +358,6 @@ return {
           components = {
             transform = {
               transform = {0.4903926402016152, -0.09754516100806412},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {0.4903926402016152, 0.09754516100806412},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {0.4157348061512726, 0.2777851165098011},
             },
 
             leg = {},

@@ -18,9 +18,14 @@ function M:handleEvent(viewportId)
   love.graphics.setColor(0.5, 0.5, 0.5, 1)
 
   for id, fixture in pairs(self.engine.domains.physics.polygonFixtures) do
-    local body = fixture:getBody()
-    local shape = fixture:getShape()
-    love.graphics.polygon("fill", body:getWorldPoints(shape:getPoints()))
+    local transform = transformComponents:getInterpolatedTransform(id, t)
+    local points = {fixture:getShape():getPoints()}
+
+    for i = 1, #points, 2 do
+      points[i], points[i + 1] = transform:transformPoint(points[i], points[i + 1])
+    end
+
+    love.graphics.polygon("fill", points)
   end
 
   love.graphics.pop()
@@ -37,20 +42,21 @@ function M:handleEvent(viewportId)
       local spiderTransform = transformComponents:getInterpolatedTransform(spiderId, t)
       local spiderX, spiderY = spiderTransform:getPosition()
 
-      local transform = transformComponents:getInterpolatedTransform(id, t)
-      local hipX, hipY = transform:getPosition()
-      local _, _, footX, footY = distanceJoints[id]:getAnchors()
+      local hipTransform = transformComponents:getInterpolatedTransform(id, t)
+      local hipX, hipY = hipTransform:getPosition()
+
+      local anchor = jointAnchors[id]
+      local anchorTransform = transformComponents:getInterpolatedTransform(anchor.bodyId, t)
+      local footX, footY = anchorTransform:transformPoint(anchor.localPosition[1], anchor.localPosition[2])
+      local footNormalX, footNormalY = anchorTransform:transformVector(anchor.localNormal[1], anchor.localNormal[2])
 
       local offsetX = footX - hipX
       local offsetY = footY - hipY
 
-      local normalX = jointAnchors[id][4]
-      local normalY = jointAnchors[id][5]
-
       local kneeX = 0
       local kneeY = 0
 
-      if offsetX * normalY < normalX * offsetY then
+      if offsetX * footNormalY < footNormalX * offsetY then
         kneeX, kneeY = inverseKinematics.solve(hipX, hipY, footX, footY, 2)
       else
         kneeX, kneeY = inverseKinematics.solve(footX, footY, hipX, hipY, 2)
@@ -64,11 +70,19 @@ function M:handleEvent(viewportId)
     end
   end
 
-  love.graphics.setColor(1, 0.5, 0, 1)
+  love.graphics.pop()
+  love.graphics.push("all")
 
   for id in pairs(self.engine.componentEntitySets.spider) do
     local transform = transformComponents:getInterpolatedTransform(id, t)
     local x, y, angle = transform:getTransform2()
+
+    local sightX, sightY = transform:transformPoint(0, -10)
+
+    love.graphics.setColor(1, 0, 0, 0.25)
+    love.graphics.line(x, y, sightX, sightY)
+
+    love.graphics.setColor(1, 0.5, 0, 1)
 
     love.graphics.push()
     love.graphics.translate(x, y)

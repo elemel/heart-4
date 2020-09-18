@@ -10,7 +10,11 @@ end
 
 function M:createComponent(id, config)
   self.rayIntersections[id] = {}
-  self.jointAnchors[id] = {}
+
+  self.jointAnchors[id] = {
+    localPosition = {0, 0},
+    localNormal = {0, 0},
+  }
 end
 
 function M:destroyComponent(id)

@@ -7,6 +7,7 @@ function M:init(engine, config)
 end
 
 function M:handleEvent(dt)
+  local epsilon = 0.01
   local world = self.engine.domains.physics.world
   local bodies = self.engine.domains.physics.bodies
   local distanceJoints = self.engine.domains.physics.distanceJoints
@@ -27,7 +28,7 @@ function M:handleEvent(dt)
     local jointCount = 0
     local maxLength = 2
 
-    for _, legId in ipairs(legIds) do
+    for i, legId in ipairs(legIds) do
       if distanceJoints[legId] then
         jointCount = jointCount + 1
       end
@@ -68,7 +69,7 @@ function M:handleEvent(dt)
             return fraction
           end)
 
-        if not targetFixture or targetFixture:getBody() ~= oldTargetBody or heart.math.squaredDistance2(targetX, targetY, x2, y2) > 0.1 * 0.1 then
+        if not targetFixture or targetFixture:getBody() ~= oldTargetBody or heart.math.squaredDistance2(targetX, targetY, x2, y2) > epsilon * epsilon then
           if jointCount > 4 then
             self.engine:destroyComponent(legId, "distanceJoint")
             jointCount = jointCount - 1
@@ -111,7 +112,8 @@ function M:handleEvent(dt)
           end)
 
         if targetFixture then
-          local targetBodyId = targetFixture:getBody():getUserData()
+          local targetBody = targetFixture:getBody()
+          local targetBodyId = targetBody:getUserData()
           local x2, y2 = legTransform:inverseTransformPoint(targetX, targetY)
 
           self.engine:createComponent(legId, "distanceJoint", {
@@ -130,16 +132,12 @@ function M:handleEvent(dt)
           })
 
           jointCount = jointCount + 1
+          local anchor = jointAnchors[legId]
 
-          jointAnchors[legId][1] = targetFixture
-
-          -- TODO: Transform to local
-          jointAnchors[legId][2] = targetX
-          jointAnchors[legId][3] = targetY
-
-          -- TODO: Transform to local
-          jointAnchors[legId][4] = targetNormalX
-          jointAnchors[legId][5] = targetNormalY
+          anchor.fixture = targetFixture
+          anchor.bodyId = targetBodyId
+          anchor.localPosition[1], anchor.localPosition[2] = targetBody:getLocalPoint(targetX, targetY)
+          anchor.localNormal[1], anchor.localNormal[2] = targetBody:getLocalVector(targetNormalX, targetNormalY)
         end
       end
     end
