@@ -14,7 +14,10 @@ function M:handleEvent(dt)
   local transformComponents = self.engine.componentManagers.transform
   local spiderEntities = self.engine.componentEntitySets.spider
   local spiderComponents = self.engine.componentManagers.spider
+
   local moveInputs = spiderComponents.moveInputs
+  local jumpInputs = spiderComponents.jumpInputs
+
   local legComponents = self.engine.componentManagers.leg
   local jointAnchors = legComponents.jointAnchors
 
@@ -32,6 +35,61 @@ function M:handleEvent(dt)
       if distanceJoints[legId] then
         jointCount = jointCount + 1
       end
+    end
+
+    if jumpInputs[spiderId] and jointCount >= 1 then
+      local threadBodyId = nil
+
+      local threadAnchorX = 0
+      local threadAnchorY = 0
+
+      local jumpDirectionX = 0
+      local jumpDirectionY = 0
+
+      for i, legId in ipairs(legIds) do
+        if distanceJoints[legId] then
+          local body1, body2 = distanceJoints[legId]:getBodies()
+          local anchorX1, anchorY1, anchorX2, anchorY2 = distanceJoints[legId]:getAnchors()
+
+          if body1 == spiderBody then
+            threadBodyId = body2:getUserData()
+
+            threadAnchorX = anchorX2
+            threadAnchorY = anchorY2
+          else
+            threadBodyId = body1:getUserData()
+
+            threadAnchorX = anchorX1
+            threadAnchorY = anchorY1
+          end
+
+          local jointAnchor = legComponents.jointAnchors[legId]
+          jumpDirectionX, jumpDirectionY = jointAnchor.fixture:getBody():getWorldVector(unpack(jointAnchor.localNormal))
+
+          self.engine:destroyComponent(legId, "distanceJoint")
+          jointCount = jointCount - 1
+        end
+      end
+
+      local spiderTransform = transformComponents:getTransform(spiderId)
+      threadAnchorX, threadAnchorY = spiderTransform:inverseTransformPoint(threadAnchorX, threadAnchorY)
+
+      local jumpLinearImpulse = 7
+      spiderBody:applyLinearImpulse(jumpLinearImpulse * jumpDirectionX, jumpLinearImpulse * jumpDirectionY)
+
+      self.engine:createComponent(spiderId, "ropeJoint", {
+        body1 = spiderId,
+        body2 = threadBodyId,
+
+        x1 = 0,
+        y1 = 0.5,
+
+        x2 = threadAnchorX,
+        y2 = threadAnchorY,
+
+        collideConnected = true,
+        maxLength = 10,
+      })
     end
 
     for _, legId in ipairs(legIds) do
@@ -77,7 +135,7 @@ function M:handleEvent(dt)
         end
       end
 
-      if not distanceJoints[legId] then
+      if not jumpInputs[spiderId] and not distanceJoints[legId] then
         local legTransform = transformComponents:getTransform(legId)
         local x1, y1 = legTransform:getPosition()
 
@@ -138,6 +196,8 @@ function M:handleEvent(dt)
           anchor.bodyId = targetBodyId
           anchor.localPosition[1], anchor.localPosition[2] = targetBody:getLocalPoint(targetX, targetY)
           anchor.localNormal[1], anchor.localNormal[2] = targetBody:getLocalVector(targetNormalX, targetNormalY)
+
+          self.engine:destroyComponent(spiderId, "ropeJoint")
         end
       end
     end

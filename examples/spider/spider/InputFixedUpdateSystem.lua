@@ -9,12 +9,16 @@ end
 function M:handleEvent(dt)
   local playerEntities = self.engine.componentEntitySets.player
   local spiderComponents = self.engine.componentManagers.spider
+
   local moveInputs = spiderComponents.moveInputs
+  local jumpInputs = spiderComponents.jumpInputs
 
   local upInput = love.keyboard.isDown("w")
   local leftInput = love.keyboard.isDown("a")
   local downInput = love.keyboard.isDown("s")
   local rightInput = love.keyboard.isDown("d")
+
+  local jumpInput = love.keyboard.isDown("space")
 
   local inputX = (rightInput and 1 or 0) - (leftInput and 1 or 0)
   local inputY = (downInput and 1 or 0) - (upInput and 1 or 0)
@@ -26,6 +30,8 @@ function M:handleEvent(dt)
   for id in pairs(playerEntities) do
     moveInputs[id][1] = inputX
     moveInputs[id][2] = inputY
+
+    jumpInputs[id] = jumpInput
   end
 end
 

@@ -10,7 +10,10 @@ end
 function M:handleEvent(viewportId)
   local t = self.engine.domains.timer:getFraction()
   local transformComponents = self.engine.componentManagers.transform
+
   local distanceJoints = self.engine.domains.physics.distanceJoints
+  local ropeJoints = self.engine.domains.physics.ropeJoints
+
   local jointAnchors = self.engine.componentManagers.leg.jointAnchors
   local parents = self.engine.entityParents
 
@@ -79,8 +82,8 @@ function M:handleEvent(viewportId)
 
     local sightX, sightY = transform:transformPoint(0, -10)
 
-    love.graphics.setColor(1, 0, 0, 0.25)
-    love.graphics.line(x, y, sightX, sightY)
+    -- love.graphics.setColor(1, 0, 0, 0.25)
+    -- love.graphics.line(x, y, sightX, sightY)
 
     love.graphics.setColor(1, 0.5, 0, 1)
 
@@ -90,6 +93,17 @@ function M:handleEvent(viewportId)
     love.graphics.circle("fill", 0, 0, 0.5 + 0.03125)
     love.graphics.circle("fill", 0, -0.5, 0.25)
     love.graphics.pop()
+  end
+
+  love.graphics.pop()
+
+  love.graphics.push()
+
+  for id in pairs(self.engine.componentEntitySets.spider) do
+    if ropeJoints[id] then
+      local x1, y1, x2, y2 = ropeJoints[id]:getAnchors()
+      love.graphics.line(x1, y1, x2, y2)
+    end
   end
 
   love.graphics.pop()

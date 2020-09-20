@@ -65,6 +65,11 @@ return {
     },
 
     {
+      componentType = "ropeJoint",
+      class = "heart.physics.RopeJointComponentManager",
+    },
+
+    {
       componentType = "spider",
       class = "spider.SpiderComponentManager",
     },
