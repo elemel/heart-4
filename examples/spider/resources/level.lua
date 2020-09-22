@@ -14,7 +14,7 @@ return {
     {
       domainType = "level",
       class = "spider.LevelDomain",
-      bounds = {{-15, -10}, {15, 10}},
+      bounds = {{-15, -10}, {25, 10}},
     },
   },
 
@@ -185,7 +185,7 @@ return {
     {
       components = {
         transform = {
-          transform = {-3, -1, 0.1 * math.pi},
+          transform = {-3, -1, 0.125 * math.pi},
         },
 
         body = {},
@@ -199,7 +199,7 @@ return {
     {
       components = {
         transform = {
-          transform = {2, 2, -0.2 * math.pi},
+          transform = {2, 4, -0.25 * math.pi},
         },
 
         body = {},
@@ -220,7 +220,7 @@ return {
         {
           components = {
             transform = {
-              transform = {5, -3, 1.3 * math.pi},
+              transform = {5, -4, 1.25 * math.pi},
             },
 
             body = {
@@ -236,6 +236,34 @@ return {
               maxMotorTorque = 10,
             },
           },
+        },
+      },
+    },
+
+    {
+      components = {
+        transform = {
+          transform = {10, 0},
+        },
+
+        body = {},
+
+        polygonFixture = {
+          transform = {0, 0, 0, 1, 8},
+        },
+      },
+    },
+
+    {
+      components = {
+        transform = {
+          transform = {16, 0},
+        },
+
+        body = {},
+
+        polygonFixture = {
+          transform = {0, 0, 0, 1, 8},
         },
       },
     },
