@@ -2,7 +2,15 @@ local sqrt = math.sqrt
 
 local M = {}
 
-function M.solve(x1, y1, x2, y2, length)
+function M.solve(x1, y1, x2, y2, length, direction)
+  length = length or 1
+  direction = direction or 1
+
+  if length < 0 then
+    length = -length
+    direction = -direction
+  end
+
   local midX = 0.5 * (x1 + x2)
   local midY = 0.5 * (y1 + y2)
 
@@ -20,8 +28,8 @@ function M.solve(x1, y1, x2, y2, length)
 
   local distance = sqrt(squaredDistance)
 
-  local tangentX = (x2 - x1) / distance
-  local tangentY = (y2 - y1) / distance
+  local tangentX = direction * (x2 - x1) / distance
+  local tangentY = direction * (y2 - y1) / distance
 
   local normalX = tangentY
   local normalY = -tangentX

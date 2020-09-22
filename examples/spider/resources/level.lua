@@ -8,7 +8,7 @@ return {
     {
       domainType = "physics",
       class = "heart.physics.PhysicsDomain",
-      gravity = {0, 10},
+      gravity = {0, 32},
     },
 
     {
@@ -163,7 +163,7 @@ return {
         viewport = {},
 
         camera = {
-          transform = {0, 0, 0, 10},
+          transform = {0, 0, 0, 16},
         },
       },
     },
@@ -241,132 +241,11 @@ return {
     },
 
     {
-      title = "Spider",
+      prototype = "resources.spider",
 
       components = {
-        player = {},
-
         transform = {
           transform = {0, -5},
-        },
-
-        body = {
-          bodyType = "dynamic",
-        },
-
-        circleFixture = {},
-        spider = {},
-      },
-
-      children = {
-        {
-          title = "Head",
-
-          components = {
-            transform = {
-              transform = {0, -0.5},
-            },
-
-            circleFixture = {
-              radius = 0.25,
-            },
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {0.4903926402016152, 0.09754516100806412},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {0.4157348061512726, 0.2777851165098011},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {-0.4903926402016152, 0.09754516100806412},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {-0.4157348061512726, 0.2777851165098011},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {-0.4157348061512726, -0.2777851165098011},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {-0.4903926402016152, -0.09754516100806412},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {0.4157348061512726, -0.2777851165098011},
-            },
-
-            leg = {},
-          },
-        },
-
-        {
-          title = "Leg",
-
-          components = {
-            transform = {
-              transform = {0.4903926402016152, -0.09754516100806412},
-            },
-
-            leg = {},
-          },
         },
       },
     },

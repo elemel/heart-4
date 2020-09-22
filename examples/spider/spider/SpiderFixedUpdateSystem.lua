@@ -51,17 +51,10 @@ function M:handleEvent(dt)
           local body1, body2 = distanceJoints[legId]:getBodies()
           local anchorX1, anchorY1, anchorX2, anchorY2 = distanceJoints[legId]:getAnchors()
 
-          if body1 == spiderBody then
-            threadBodyId = body2:getUserData()
+          threadBodyId = body2:getUserData()
 
-            threadAnchorX = anchorX2
-            threadAnchorY = anchorY2
-          else
-            threadBodyId = body1:getUserData()
-
-            threadAnchorX = anchorX1
-            threadAnchorY = anchorY1
-          end
+          threadAnchorX = anchorX2
+          threadAnchorY = anchorY2
 
           local jointAnchor = legComponents.jointAnchors[legId]
           jumpDirectionX, jumpDirectionY = jointAnchor.fixture:getBody():getWorldVector(unpack(jointAnchor.localNormal))
@@ -74,7 +67,7 @@ function M:handleEvent(dt)
       local spiderTransform = transformComponents:getTransform(spiderId)
       threadAnchorX, threadAnchorY = spiderTransform:inverseTransformPoint(threadAnchorX, threadAnchorY)
 
-      local jumpLinearImpulse = 7
+      local jumpLinearImpulse = 32 * 0.5 * (1 - jumpDirectionY)
       spiderBody:applyLinearImpulse(jumpLinearImpulse * jumpDirectionX, jumpLinearImpulse * jumpDirectionY)
 
       self.engine:createComponent(spiderId, "ropeJoint", {
@@ -82,13 +75,13 @@ function M:handleEvent(dt)
         body2 = threadBodyId,
 
         x1 = 0,
-        y1 = 0.5,
+        y1 = 0.75 + 0.375,
 
         x2 = threadAnchorX,
         y2 = threadAnchorY,
 
         collideConnected = true,
-        maxLength = 10,
+        maxLength = 8,
       })
     end
 
@@ -154,7 +147,7 @@ function M:handleEvent(dt)
           x1, y1, x2, y2,
 
           function(fixture, x, y, normalX, normalY, fraction)
-            if fixture:getBody() == spiderBody then
+            if fixture:isSensor() or fixture:getBody() == spiderBody then
               return 1
             end
 

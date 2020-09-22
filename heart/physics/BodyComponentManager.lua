@@ -35,6 +35,10 @@ function M:createComponent(entityId, config)
   body:setFixedRotation(config.fixedRotation or false)
   body:setGravityScale(config.gravityScale or 1)
   body:setSleepingAllowed(config.sleepingAllowed ~= false)
+
+  body:setLinearDamping(config.linearDamping or 0)
+  body:setAngularDamping(config.angularDamping or 0)
+
   self.physicsDomain.bodies[entityId] = body
   return body
 end
