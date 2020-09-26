@@ -11,6 +11,8 @@ function M:handleEvent(dt)
   local spiderComponents = self.engine.componentManagers.spider
 
   local moveInputs = spiderComponents.moveInputs
+
+  local previousJumpInputs = spiderComponents.previousJumpInputs
   local jumpInputs = spiderComponents.jumpInputs
 
   local upInput = love.keyboard.isDown("w")
@@ -31,6 +33,7 @@ function M:handleEvent(dt)
     moveInputs[id][1] = inputX
     moveInputs[id][2] = inputY
 
+    previousJumpInputs[id] = jumpInputs[id]
     jumpInputs[id] = jumpInput
   end
 end

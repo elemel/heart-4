@@ -1,5 +1,8 @@
 local heart = require("heart")
 
+local clamp = heart.math.clamp
+local distance2 = heart.math.distance2
+
 local M = heart.class.newClass()
 
 function M:init(engine, config)
@@ -11,6 +14,7 @@ function M:handleEvent(dt)
   local world = self.engine.domains.physics.world
   local bodies = self.engine.domains.physics.bodies
   local distanceJoints = self.engine.domains.physics.distanceJoints
+  local ropeJoints = self.engine.domains.physics.ropeJoints
   local transformComponents = self.engine.componentManagers.transform
   local spiderEntities = self.engine.componentEntitySets.spider
   local spiderComponents = self.engine.componentManagers.spider
@@ -18,6 +22,7 @@ function M:handleEvent(dt)
 
   local moveInputs = spiderComponents.moveInputs
   local jumpInputs = spiderComponents.jumpInputs
+  local previousJumpInputs = spiderComponents.previousJumpInputs
 
   local footComponents = self.engine.componentManagers.foot
   local localJointNormals = footComponents.localJointNormals
@@ -25,8 +30,8 @@ function M:handleEvent(dt)
   for spiderId in pairs(spiderEntities) do
     local spiderBody = bodies[spiderId]
 
-    local dx = 10 * moveInputs[spiderId][1] * dt
-    local dy = 10 * moveInputs[spiderId][2] * dt
+    local dx = moveInputs[spiderId][1] * dt
+    local dy = moveInputs[spiderId][2] * dt
 
     local footIds = self.engine:findDescendantComponents(spiderId, "foot")
     local jointCount = 0
@@ -68,8 +73,7 @@ function M:handleEvent(dt)
       local spiderTransform = transformComponents:getTransform(spiderId)
       threadAnchorX, threadAnchorY = spiderTransform:inverseTransformPoint(threadAnchorX, threadAnchorY)
 
-      local jumpLinearImpulse = 32 * 0.5 * (1 - jumpDirectionY)
-      spiderBody:applyLinearImpulse(jumpLinearImpulse * jumpDirectionX, jumpLinearImpulse * jumpDirectionY)
+      spiderBody:applyLinearImpulse(16 * jumpDirectionX, 16 * jumpDirectionY - 16)
 
       self.engine:createComponent(spiderId, "ropeJoint", {
         body1 = spiderId,
@@ -82,7 +86,7 @@ function M:handleEvent(dt)
         y2 = threadAnchorY,
 
         collideConnected = true,
-        maxLength = 8,
+        maxLength = 16,
       })
     end
 
@@ -200,7 +204,7 @@ function M:handleEvent(dt)
         local x1, y1, x2, y2 = distanceJoints[footId]:getAnchors()
 
         local oldLength = heart.math.distance2(x1, y1, x2, y2)
-        local newLength = heart.math.distance2(x1 + dx, y1 + dy, x2, y2)
+        local newLength = heart.math.distance2(x1 + 8 * dx, y1 + 8 * dy, x2, y2)
         local length = distanceJoints[footId]:getLength()
 
         length = length + newLength - oldLength
@@ -216,6 +220,30 @@ function M:handleEvent(dt)
           distanceJoints[footId]:setLength(maxLength)
           bodies[spiderId]:setAwake(true)
         end
+      end
+    end
+
+    if ropeJoints[spiderId] then
+      if jumpInputs[spiderId] and not previousJumpInputs[spiderId] then
+        ropeJoints[spiderId]:setMaxLength(16)
+      end
+
+      if not jumpInputs[spiderId] and previousJumpInputs[spiderId] then
+        local x1, y1, x2, y2 = ropeJoints[spiderId]:getAnchors()
+        ropeJoints[spiderId]:setMaxLength(distance2(x1, y1, x2, y2))
+      end
+
+      if not jumpInputs[spiderId] then
+        local x1, y1, x2, y2 = ropeJoints[spiderId]:getAnchors()
+
+        local oldLength = heart.math.distance2(x1, y1, x2, y2)
+        local newLength = heart.math.distance2(x1 + 4 * dx, y1 + 4 * dy, x2, y2)
+        local length = ropeJoints[spiderId]:getMaxLength()
+
+        length = length + newLength - oldLength
+        length = clamp(length, 0.25, 16)
+
+        ropeJoints[spiderId]:setMaxLength(length)
       end
     end
   end
