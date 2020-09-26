@@ -14,7 +14,7 @@ function M:handleEvent(viewportId)
   local distanceJoints = self.engine.domains.physics.distanceJoints
   local ropeJoints = self.engine.domains.physics.ropeJoints
 
-  local localJointNormals = self.engine.componentManagers.leg.localJointNormals
+  local localJointNormals = self.engine.componentManagers.foot.localJointNormals
   local parents = self.engine.entityParents
 
   love.graphics.push("all")
@@ -58,7 +58,7 @@ function M:handleEvent(viewportId)
 
   love.graphics.setColor(0.75, 0.25, 0, 1)
 
-  for id in pairs(self.engine.componentEntitySets.leg) do
+  for id in pairs(self.engine.componentEntitySets.foot) do
     if distanceJoints[id] then
       local body1, body2 = distanceJoints[id]:getBodies()
       local x1, y1, x2, y2 = distanceJoints[id]:getAnchors()
@@ -83,11 +83,9 @@ function M:handleEvent(viewportId)
       love.graphics.circle("fill", x, y, 0.0625)
       love.graphics.circle("fill", x2, y2, 0.0625)
     else
-      local footId = next(self.engine.entityChildSets[id] or {})
-
-      if footId and ropeJoints[footId] then
-        local body1, body2 = ropeJoints[footId]:getBodies()
-        local x1, y1, x2, y2 = ropeJoints[footId]:getAnchors()
+      if ropeJoints[id] then
+        local body1, body2 = ropeJoints[id]:getBodies()
+        local x1, y1, x2, y2 = ropeJoints[id]:getAnchors()
 
         local transform1 = transformComponents:getInterpolatedTransform(body1:getUserData(), t)
         local transform2 = transformComponents:getInterpolatedTransform(body2:getUserData(), t)

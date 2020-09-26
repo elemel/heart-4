@@ -25,6 +25,8 @@ return {
         ropeJoint = {
           maxLength = 2,
         },
+
+        foot = {},
       },
     },
   },

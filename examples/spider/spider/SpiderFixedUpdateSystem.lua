@@ -14,12 +14,13 @@ function M:handleEvent(dt)
   local transformComponents = self.engine.componentManagers.transform
   local spiderEntities = self.engine.componentEntitySets.spider
   local spiderComponents = self.engine.componentManagers.spider
+  local parents = self.engine.entityParents
 
   local moveInputs = spiderComponents.moveInputs
   local jumpInputs = spiderComponents.jumpInputs
 
-  local legComponents = self.engine.componentManagers.leg
-  local localJointNormals = legComponents.localJointNormals
+  local footComponents = self.engine.componentManagers.foot
+  local localJointNormals = footComponents.localJointNormals
 
   for spiderId in pairs(spiderEntities) do
     local spiderBody = bodies[spiderId]
@@ -27,12 +28,12 @@ function M:handleEvent(dt)
     local dx = 10 * moveInputs[spiderId][1] * dt
     local dy = 10 * moveInputs[spiderId][2] * dt
 
-    local legIds = self.engine:findDescendantComponents(spiderId, "leg")
+    local footIds = self.engine:findDescendantComponents(spiderId, "foot")
     local jointCount = 0
     local maxLength = 2
 
-    for i, legId in ipairs(legIds) do
-      if distanceJoints[legId] then
+    for _, footId in ipairs(footIds) do
+      if distanceJoints[footId] then
         jointCount = jointCount + 1
       end
     end
@@ -46,20 +47,20 @@ function M:handleEvent(dt)
       local jumpDirectionX = 0
       local jumpDirectionY = 0
 
-      for i, legId in ipairs(legIds) do
-        if distanceJoints[legId] then
-          local body1, body2 = distanceJoints[legId]:getBodies()
-          local anchorX1, anchorY1, anchorX2, anchorY2 = distanceJoints[legId]:getAnchors()
+      for _, footId in ipairs(footIds) do
+        if distanceJoints[footId] then
+          local body1, body2 = distanceJoints[footId]:getBodies()
+          local anchorX1, anchorY1, anchorX2, anchorY2 = distanceJoints[footId]:getAnchors()
 
           threadBodyId = body2:getUserData()
 
           threadAnchorX = anchorX2
           threadAnchorY = anchorY2
 
-          local localNormal = localJointNormals[legId]
+          local localNormal = localJointNormals[footId]
           jumpDirectionX, jumpDirectionY = body2:getWorldVector(localNormal[1], localNormal[2])
 
-          self.engine:destroyComponent(legId, "distanceJoint")
+          self.engine:destroyComponent(footId, "distanceJoint")
           jointCount = jointCount - 1
         end
       end
@@ -84,10 +85,10 @@ function M:handleEvent(dt)
       })
     end
 
-    for _, legId in ipairs(legIds) do
-      if distanceJoints[legId] then
-        local x1, y1, x2, y2 = distanceJoints[legId]:getAnchors()
-        local _, oldTargetBody = distanceJoints[legId]:getBodies()
+    for _, footId in ipairs(footIds) do
+      if distanceJoints[footId] then
+        local x1, y1, x2, y2 = distanceJoints[footId]:getAnchors()
+        local _, oldTargetBody = distanceJoints[footId]:getBodies()
 
         local directionX, directionY = heart.math.normalize2(x2 - x1, y2 - y1)
 
@@ -121,13 +122,14 @@ function M:handleEvent(dt)
 
         if not targetFixture or targetFixture:getBody() ~= oldTargetBody or heart.math.squaredDistance2(targetX, targetY, x2, y2) > epsilon * epsilon then
           if jointCount > 4 then
-            self.engine:destroyComponent(legId, "distanceJoint")
+            self.engine:destroyComponent(footId, "distanceJoint")
             jointCount = jointCount - 1
           end
         end
       end
 
-      if not jumpInputs[spiderId] and not distanceJoints[legId] then
+      if not jumpInputs[spiderId] and not distanceJoints[footId] then
+        local legId = parents[footId]
         local legTransform = transformComponents:getTransform(legId)
         local x1, y1 = legTransform:getPosition()
 
@@ -162,16 +164,18 @@ function M:handleEvent(dt)
           end)
 
         if targetFixture then
+          local footTransform = transformComponents:getTransform(footId)
           local targetBody = targetFixture:getBody()
           local targetBodyId = targetBody:getUserData()
-          local x2, y2 = legTransform:inverseTransformPoint(targetX, targetY)
+          local localX1, localY1 = footTransform:inverseTransformPoint(x1, y1)
+          local x2, y2 = footTransform:inverseTransformPoint(targetX, targetY)
 
-          self.engine:createComponent(legId, "distanceJoint", {
+          self.engine:createComponent(footId, "distanceJoint", {
             body1 = spiderId,
             body2 = targetBodyId,
 
-            x1 = 0,
-            y1 = 0,
+            x1 = localX1,
+            y1 = localY1,
 
             x2 = x2,
             y2 = y2,
@@ -182,7 +186,7 @@ function M:handleEvent(dt)
           })
 
           jointCount = jointCount + 1
-          local localNormal = localJointNormals[legId]
+          local localNormal = localJointNormals[footId]
           localNormal[1], localNormal[2] = targetBody:getLocalVector(targetNormalX, targetNormalY)
 
           self.engine:destroyComponent(spiderId, "ropeJoint")
@@ -190,25 +194,25 @@ function M:handleEvent(dt)
       end
     end
 
-    for _, legId in ipairs(legIds) do
-      if distanceJoints[legId] then
-        local x1, y1, x2, y2 = distanceJoints[legId]:getAnchors()
+    for _, footId in ipairs(footIds) do
+      if distanceJoints[footId] then
+        local x1, y1, x2, y2 = distanceJoints[footId]:getAnchors()
 
         local oldLength = heart.math.distance2(x1, y1, x2, y2)
         local newLength = heart.math.distance2(x1 + dx, y1 + dy, x2, y2)
-        local length = distanceJoints[legId]:getLength()
+        local length = distanceJoints[footId]:getLength()
 
         length = length + newLength - oldLength
         length = math.max(length, 0.25)
 
         if length < maxLength then
-          distanceJoints[legId]:setLength(length)
+          distanceJoints[footId]:setLength(length)
           bodies[spiderId]:setAwake(true)
         elseif jointCount > 4 then
-          self.engine:destroyComponent(legId, "distanceJoint")
+          self.engine:destroyComponent(footId, "distanceJoint")
           jointCount = jointCount - 1
         else
-          distanceJoints[legId]:setLength(maxLength)
+          distanceJoints[footId]:setLength(maxLength)
           bodies[spiderId]:setAwake(true)
         end
       end

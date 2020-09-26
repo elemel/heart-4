@@ -20,6 +20,11 @@ return {
 
   componentManagers = {
     {
+      componentType = "leg",
+      class = "heart.CategoryComponentManager",
+    },
+
+    {
       componentType = "player",
       class = "heart.CategoryComponentManager",
     },
@@ -75,8 +80,8 @@ return {
     },
 
     {
-      componentType = "leg",
-      class = "spider.LegComponentManager",
+      componentType = "foot",
+      class = "spider.FootComponentManager",
     },
   },
 
