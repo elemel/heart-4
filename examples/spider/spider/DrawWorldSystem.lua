@@ -14,7 +14,7 @@ function M:handleEvent(viewportId)
   local distanceJoints = self.engine.domains.physics.distanceJoints
   local ropeJoints = self.engine.domains.physics.ropeJoints
 
-  local jointAnchors = self.engine.componentManagers.leg.jointAnchors
+  local localJointNormals = self.engine.componentManagers.leg.localJointNormals
   local parents = self.engine.entityParents
 
   love.graphics.push("all")
@@ -72,8 +72,8 @@ function M:handleEvent(viewportId)
       local offsetX = x2 - x1
       local offsetY = y2 - y1
 
-      local anchor = jointAnchors[id]
-      local footNormalX, footNormalY = transform2:transformVector(anchor.localNormal[1], anchor.localNormal[2])
+      local localNormal = localJointNormals[id]
+      local footNormalX, footNormalY = transform2:transformVector(localNormal[1], localNormal[2])
 
       local direction = (offsetX * footNormalY < footNormalX * offsetY) and 1 or -1
       local x, y = inverseKinematics.solve(x1, y1, x2, y2, 2, direction)

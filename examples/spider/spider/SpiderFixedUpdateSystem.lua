@@ -19,7 +19,7 @@ function M:handleEvent(dt)
   local jumpInputs = spiderComponents.jumpInputs
 
   local legComponents = self.engine.componentManagers.leg
-  local jointAnchors = legComponents.jointAnchors
+  local localJointNormals = legComponents.localJointNormals
 
   for spiderId in pairs(spiderEntities) do
     local spiderBody = bodies[spiderId]
@@ -56,8 +56,8 @@ function M:handleEvent(dt)
           threadAnchorX = anchorX2
           threadAnchorY = anchorY2
 
-          local jointAnchor = legComponents.jointAnchors[legId]
-          jumpDirectionX, jumpDirectionY = jointAnchor.fixture:getBody():getWorldVector(unpack(jointAnchor.localNormal))
+          local localNormal = localJointNormals[legId]
+          jumpDirectionX, jumpDirectionY = body2:getWorldVector(localNormal[1], localNormal[2])
 
           self.engine:destroyComponent(legId, "distanceJoint")
           jointCount = jointCount - 1
@@ -182,12 +182,8 @@ function M:handleEvent(dt)
           })
 
           jointCount = jointCount + 1
-          local anchor = jointAnchors[legId]
-
-          anchor.fixture = targetFixture
-          anchor.bodyId = targetBodyId
-          anchor.localPosition[1], anchor.localPosition[2] = targetBody:getLocalPoint(targetX, targetY)
-          anchor.localNormal[1], anchor.localNormal[2] = targetBody:getLocalVector(targetNormalX, targetNormalY)
+          local localNormal = localJointNormals[legId]
+          localNormal[1], localNormal[2] = targetBody:getLocalVector(targetNormalX, targetNormalY)
 
           self.engine:destroyComponent(spiderId, "ropeJoint")
         end

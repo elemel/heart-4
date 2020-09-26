@@ -5,20 +5,16 @@ local M = heart.class.newClass()
 function M:init(engine, config)
   self.engine = assert(engine)
   self.rayIntersections = {}
-  self.jointAnchors = {}
+  self.localJointNormals = {}
 end
 
 function M:createComponent(id, config)
   self.rayIntersections[id] = {}
-
-  self.jointAnchors[id] = {
-    localPosition = {0, 0},
-    localNormal = {0, 0},
-  }
+  self.localJointNormals[id] = {}
 end
 
 function M:destroyComponent(id)
-  self.jointAnchors[id] = nil
+  self.localJointNormals[id] = nil
   self.rayIntersections[id] = nil
 end
 
