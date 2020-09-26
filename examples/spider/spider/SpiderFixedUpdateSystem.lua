@@ -126,7 +126,7 @@ function M:handleEvent(dt)
           end)
 
         if not targetFixture or targetFixture:getBody() ~= oldTargetBody or heart.math.squaredDistance2(targetX, targetY, x2, y2) > epsilon * epsilon then
-          if jointCount > 4 then
+          if jointCount > 1 then
             self.engine:destroyComponent(footId, "distanceJoint")
             jointCount = jointCount - 1
           end
@@ -213,7 +213,7 @@ function M:handleEvent(dt)
         if length < maxLength then
           distanceJoints[footId]:setLength(length)
           bodies[spiderId]:setAwake(true)
-        elseif jointCount > 4 then
+        elseif jointCount > 1 then
           self.engine:destroyComponent(footId, "distanceJoint")
           jointCount = jointCount - 1
         else
