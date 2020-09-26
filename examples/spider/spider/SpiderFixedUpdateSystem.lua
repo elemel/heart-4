@@ -68,7 +68,8 @@ function M:handleEvent(dt)
       local spiderTransform = transformComponents:getTransform(spiderId)
       threadAnchorX, threadAnchorY = spiderTransform:inverseTransformPoint(threadAnchorX, threadAnchorY)
 
-      spiderBody:applyLinearImpulse(16 * jumpDirectionX, 16 * jumpDirectionY - 16)
+      local jumpLinearImpulse = 32 * 0.5 * (1 - jumpDirectionY)
+      spiderBody:applyLinearImpulse(jumpLinearImpulse * jumpDirectionX, jumpLinearImpulse * jumpDirectionY)
 
       self.engine:createComponent(spiderId, "ropeJoint", {
         body1 = spiderId,
