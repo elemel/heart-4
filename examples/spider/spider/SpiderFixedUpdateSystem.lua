@@ -66,6 +66,7 @@ function M:handleEvent(dt)
           jumpDirectionX, jumpDirectionY = body2:getWorldVector(localNormal[1], localNormal[2])
 
           self.engine:destroyComponent(footId, "distanceJoint")
+          transformComponents:setMode(footId, "local")
           jointCount = jointCount - 1
         end
       end
@@ -128,6 +129,7 @@ function M:handleEvent(dt)
         if not targetFixture or targetFixture:getBody() ~= oldTargetBody or heart.math.squaredDistance2(targetX, targetY, x2, y2) > epsilon * epsilon then
           if jointCount > 1 then
             self.engine:destroyComponent(footId, "distanceJoint")
+            transformComponents:setMode(footId, "local")
             jointCount = jointCount - 1
           end
         end
@@ -215,6 +217,7 @@ function M:handleEvent(dt)
           bodies[spiderId]:setAwake(true)
         elseif jointCount > 1 then
           self.engine:destroyComponent(footId, "distanceJoint")
+          transformComponents:setMode(footId, "local")
           jointCount = jointCount - 1
         else
           distanceJoints[footId]:setLength(maxLength)

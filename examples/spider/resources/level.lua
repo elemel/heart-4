@@ -138,6 +138,10 @@ return {
       },
 
       {
+        class = "spider.FootAnimationFixedUpdateSystem",
+      },
+
+      {
         class = "spider.CameraFixedUpdateSystem",
       },
     },

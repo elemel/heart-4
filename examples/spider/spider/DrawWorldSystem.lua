@@ -15,6 +15,7 @@ function M:handleEvent(viewportId)
   local ropeJoints = self.engine.domains.physics.ropeJoints
 
   local localJointNormals = self.engine.componentManagers.foot.localJointNormals
+  local kneeDirections = self.engine.componentManagers.foot.kneeDirections
   local parents = self.engine.entityParents
 
   love.graphics.push("all")
@@ -59,54 +60,21 @@ function M:handleEvent(viewportId)
   love.graphics.setColor(0.75, 0.25, 0, 1)
 
   for id in pairs(self.engine.componentEntitySets.foot) do
-    if distanceJoints[id] then
-      local body1, body2 = distanceJoints[id]:getBodies()
-      local x1, y1, x2, y2 = distanceJoints[id]:getAnchors()
+    local legId = parents[id]
 
-      local transform1 = transformComponents:getInterpolatedTransform(body1:getUserData(), t)
-      local transform2 = transformComponents:getInterpolatedTransform(body2:getUserData(), t)
+    local transform1 = transformComponents:getInterpolatedTransform(legId, t)
+    local transform2 = transformComponents:getInterpolatedTransform(id, t)
 
-      x1, y1 = transform1:transformPoint(body1:getLocalPoint(x1, y1))
-      x2, y2 = transform2:transformPoint(body2:getLocalPoint(x2, y2))
+    local x1, y1 = transform1:getPosition()
+    local x2, y2 = transform2:getPosition()
 
-      local offsetX = x2 - x1
-      local offsetY = y2 - y1
+    local direction = kneeDirections[id]
 
-      local localNormal = localJointNormals[id]
-      local footNormalX, footNormalY = transform2:transformVector(localNormal[1], localNormal[2])
+    local x, y = inverseKinematics.solve(x1, y1, x2, y2, 2, direction)
+    love.graphics.line(x1, y1, x, y, x2, y2)
 
-      local direction = (offsetX * footNormalY < footNormalX * offsetY) and 1 or -1
-      local x, y = inverseKinematics.solve(x1, y1, x2, y2, 2, direction)
-
-      love.graphics.line(x1, y1, x, y, x2, y2)
-
-      love.graphics.circle("fill", x, y, 0.0625)
-      love.graphics.circle("fill", x2, y2, 0.0625)
-    else
-      if ropeJoints[id] then
-        local body1, body2 = ropeJoints[id]:getBodies()
-        local x1, y1, x2, y2 = ropeJoints[id]:getAnchors()
-
-        local transform1 = transformComponents:getInterpolatedTransform(body1:getUserData(), t)
-        local transform2 = transformComponents:getInterpolatedTransform(body2:getUserData(), t)
-
-        x1, y1 = transform1:transformPoint(body1:getLocalPoint(x1, y1))
-        x2, y2 = transform2:transformPoint(body2:getLocalPoint(x2, y2))
-
-        local offsetX = x2 - x1
-        local offsetY = y2 - y1
-
-        local tangentX, tangentY = transformComponents.localTransforms[id]:getPosition()
-        local direction = offsetX * tangentY < tangentX * offsetY and 1 or -1
-
-        local x, y = inverseKinematics.solve(x1, y1, x2, y2, 2, direction)
-
-        love.graphics.line(x1, y1, x, y, x2, y2)
-
-        love.graphics.circle("fill", x, y, 0.0625)
-        love.graphics.circle("fill", x2, y2, 0.0625)
-      end
-    end
+    love.graphics.circle("fill", x, y, 0.0625)
+    love.graphics.circle("fill", x2, y2, 0.0625)
   end
 
   love.graphics.pop()
@@ -139,11 +107,6 @@ function M:handleEvent(viewportId)
   for id in pairs(self.engine.componentEntitySets.spider) do
     local transform = transformComponents:getInterpolatedTransform(id, t)
     local x, y, angle = transform:getTransform2()
-
-    local sightX, sightY = transform:transformPoint(0, -10)
-
-    -- love.graphics.setColor(1, 0, 0, 0.25)
-    -- love.graphics.line(x, y, sightX, sightY)
 
     love.graphics.push()
     love.graphics.translate(x, y)
