@@ -20,4 +20,8 @@ function M:resize(w, h)
   self.engine:handleEvent("resize", w, h)
 end
 
+function M:keypressed(key, scancode, isrepeat)
+  self.engine:handleEvent("keypressed", key, scancode, isrepeat)
+end
+
 return M

@@ -1,5 +1,5 @@
 local heart = require("heart")
-local GameScreen = require("spider.GameScreen")
+local TitleScreen = require("spider.TitleScreen")
 
 function love.load()
   love.window.setTitle("Spider")
@@ -12,7 +12,7 @@ function love.load()
 
   love.physics.setMeter(1)
   love.graphics.setBackgroundColor(0.125, 0.125, 0.125, 1)
-  screen = GameScreen.new()
+  screen = TitleScreen.new()
 end
 
 function love.update(dt)
@@ -25,4 +25,8 @@ end
 
 function love.resize(w, h)
   screen:resize(w, h)
+end
+
+function love.keypressed(key, scancode, isrepeat)
+  screen:keypressed(key, scancode, isrepeat)
 end
