@@ -1,4 +1,5 @@
 local heart = require("heart")
+local GameScreen = require("spider.GameScreen")
 
 function love.load()
   love.window.setTitle("Spider")
@@ -11,20 +12,17 @@ function love.load()
 
   love.physics.setMeter(1)
   love.graphics.setBackgroundColor(0.125, 0.125, 0.125, 1)
-
-  local resourceLoaders = {}
-  local config = require("resources.levels.earth")
-  engine = heart.Engine.new(resourceLoaders, config)
+  screen = GameScreen.new()
 end
 
 function love.update(dt)
-  engine:handleEvent("update", dt)
+  screen:update(dt)
 end
 
 function love.draw()
-  engine:handleEvent("draw")
+  screen:draw()
 end
 
 function love.resize(w, h)
-  engine:handleEvent("resize", w, h)
+  screen:resize(w, h)
 end
