@@ -13,7 +13,7 @@ function love.load()
   love.graphics.setBackgroundColor(0.125, 0.125, 0.125, 1)
 
   local resourceLoaders = {}
-  local config = require("resources.level")
+  local config = require("resources.levels.earth")
   engine = heart.Engine.new(resourceLoaders, config)
 end
 
