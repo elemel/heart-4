@@ -111,7 +111,6 @@ function M:generateEntityId()
 end
 
 function M:createEntity(parentId, config)
-  config = self:expandEntityConfig(config)
   local entityId = config.id
 
   if entityId then
@@ -240,74 +239,6 @@ function M:destroyComponent(entityId, componentType)
   self.componentEntitySets[componentType][entityId] = nil
   self.componentCounts[componentType] = self.componentCounts[componentType] - 1
   return true
-end
-
-function M:expandEntityConfig(config)
-  local prototypeFilename = config.prototype
-
-  if not prototypeFilename then
-    return config
-  end
-
-  local prototype = require(prototypeFilename)
-  prototype = self:expandEntityConfig(prototype)
-
-  local expandedConfig = {
-    id = config.id,
-    parent = config.parent,
-  }
-
-  if config.components or prototype.components then
-    expandedConfig.components = {}
-
-    if prototype.components then
-      for componentType, componentPrototype in pairs(prototype.components) do
-        expandedConfig.components[componentType] = componentPrototype
-      end
-    end
-
-    if config.components then
-      for componentType, componentConfig in pairs(config.components) do
-        local componentPrototype = expandedConfig.components[componentType]
-
-        if componentPrototype then
-          local expandedComponentConfig = {}
-
-          for name, value in pairs(componentPrototype) do
-            expandedComponentConfig[name] = value
-          end
-
-          for name, value in pairs(componentConfig) do
-            expandedComponentConfig[name] = value
-          end
-
-          componentConfig = expandedComponentConfig
-        end
-
-        expandedConfig.components[componentType] = componentConfig
-      end
-    end
-  end
-
-  if config.children or prototype.children then
-    expandedConfig.children = {}
-
-    if prototype.children then
-      for i, childConfig in ipairs(prototype.children) do
-        childConfig = self:expandEntityConfig(childConfig)
-        expandedConfig.children[i] = childConfig
-      end
-    end
-
-    if config.children then
-      for i, childConfig in ipairs(config.children) do
-        childConfig = self:expandEntityConfig(childConfig)
-        expandedConfig.children[i] = childConfig
-      end
-    end
-  end
-
-  return expandedConfig
 end
 
 function M:setEntityParent(entityId, parentId)

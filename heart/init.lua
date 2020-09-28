@@ -2,6 +2,7 @@ local M = {}
 
 M.class = require("heart.class")
 M.color = require("heart.color")
+M.config = require("heart.config")
 M.Engine = require("heart.Engine")
 M.graphics = require("heart.graphics")
 M.math = require("heart.math")

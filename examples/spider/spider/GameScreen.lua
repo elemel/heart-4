@@ -4,7 +4,7 @@ local M = heart.class.newClass()
 
 function M:init()
   local resourceLoaders = {}
-  local config = require("resources.levels.earth")
+  local config = heart.config.expand(require("resources.levels.earth"))
   self.engine = heart.Engine.new(resourceLoaders, config)
 end
 
