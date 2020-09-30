@@ -14,11 +14,16 @@ return {
     {
       domainType = "level",
       class = "spider.LevelDomain",
-      bounds = {{-32, -32}, {32, 32}},
+      bounds = {{-45.65625, -12}, {45.65625, 12}},
     },
   },
 
   componentManagers = {
+    {
+      componentType = "ball",
+      class = "heart.CategoryComponentManager",
+    },
+
     {
       componentType = "leg",
       class = "heart.CategoryComponentManager",
@@ -75,6 +80,11 @@ return {
     },
 
     {
+      componentType = "sprite",
+      class = "heart.graphics.SpriteComponentManager",
+    },
+
+    {
       componentType = "spider",
       class = "spider.SpiderComponentManager",
     },
@@ -113,6 +123,10 @@ return {
     drawworld = {
       {
         class = "spider.DrawWorldSystem",
+      },
+
+      {
+        class = "heart.graphics.SpriteDrawWorldSystem",
       },
     },
 
@@ -155,6 +169,10 @@ return {
     update = {
       {
         class = "heart.TimerUpdateSystem",
+      },
+
+      {
+        class = "heart.graphics.SpriteUpdateSystem",
       },
 
       {

@@ -4,9 +4,9 @@ local M = heart.class.newClass()
 
 function M:init()
   self.titleFont = love.graphics.newFont(64)
-  self.textFont = love.graphics.newFont(32)
+  self.textFont = love.graphics.newFont(24)
   self.titleText = love.graphics.newText(self.titleFont, "Spider")
-  self.startText = love.graphics.newText(self.textFont, "Press any key to start")
+  self.startText = love.graphics.newText(self.textFont, "Press enter to enter, or escape to escape")
 end
 
 function M:update(dt)
@@ -18,7 +18,7 @@ function M:draw()
   local startWidth, startHeight = self.startText:getDimensions()
 
   local titleX = math.floor(0.5 * windowWidth)
-  local titleY = math.floor(0.25 * windowHeight)
+  local titleY = math.floor(0.5 * windowHeight)
 
   local titleOriginX = math.floor(0.5 * titleWidth)
   local titleOriginY = math.floor(0.5 * titleHeight)
@@ -37,8 +37,12 @@ function M:resize(w, h)
 end
 
 function M:keypressed(key, scancode, isrepeat)
-  local GameScreen = require("spider.GameScreen")
-  screen = GameScreen.new()
+  if key == "return" then
+    local GameScreen = require("spider.GameScreen")
+    screen = GameScreen.new()
+  elseif key == "escape" then
+    love.event.quit()
+  end
 end
 
 return M

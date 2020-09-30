@@ -13,6 +13,7 @@ function M:handleEvent(viewportId)
 
   local distanceJoints = self.engine.domains.physics.distanceJoints
   local ropeJoints = self.engine.domains.physics.ropeJoints
+  local circleFixtures = self.engine.domains.physics.circleFixtures
 
   local localJointNormals = self.engine.componentManagers.foot.localJointNormals
   local kneeDirections = self.engine.componentManagers.foot.kneeDirections
@@ -32,8 +33,18 @@ function M:handleEvent(viewportId)
     love.graphics.polygon("fill", points)
   end
 
-  love.graphics.pop()
+  for id in pairs(self.engine.componentEntitySets.ball) do
+    local transform = transformComponents:getInterpolatedTransform(id, t)
+    local x, y, angle = transform:getTransform2()
+    local radius = circleFixtures[id]:getShape():getRadius()
+    love.graphics.push()
+    love.graphics.translate(x, y)
+    love.graphics.rotate(angle)
+    love.graphics.circle("fill", 0, 0, radius)
+    love.graphics.pop()
+  end
 
+  love.graphics.pop()
   love.graphics.push()
 
   for id in pairs(self.engine.componentEntitySets.spider) do
@@ -112,11 +123,11 @@ function M:handleEvent(viewportId)
     love.graphics.translate(x, y)
     love.graphics.rotate(angle)
 
-    love.graphics.setColor(1, 0.5, 0, 1)
-    love.graphics.circle("fill", 0, 0, 0.5)
+    -- love.graphics.setColor(1, 0.5, 0, 1)
+    -- love.graphics.circle("fill", 0, 0, 0.5)
 
-    love.graphics.setColor(0.875, 0.5, 0, 1)
-    love.graphics.circle("fill", 0, 0.75, 0.5)
+    -- love.graphics.setColor(0.875, 0.5, 0, 1)
+    -- love.graphics.circle("fill", 0, 0.75, 0.5)
 
     love.graphics.push("all")
     love.graphics.setColor(0, 0, 0, 1)

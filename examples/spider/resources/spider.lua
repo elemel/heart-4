@@ -10,12 +10,18 @@ return {
     },
 
     circleFixture = {},
+
+    sprite = {
+      image = "resources/images/spider/cephalothorax.png",
+      transform = {0, 0, 0, 1 / 16, 1 / 16, 9, 9},
+    },
+
     spider = {},
   },
 
   children = {
     {
-      title = "Tail",
+      title = "Abdomen",
 
       components = {
         transform = {
@@ -25,6 +31,11 @@ return {
         circleFixture = {
           radius = 0.5,
           sensor = true,
+        },
+
+        sprite = {
+          image = "resources/images/spider/abdomen.png",
+          transform = {0, 0, 0, 1 / 16, 1 / 16, 10, 10},
         },
       },
     },

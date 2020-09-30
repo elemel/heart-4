@@ -3,8 +3,11 @@ local heart = require("heart")
 local M = heart.class.newClass()
 
 function M:init()
-  local resourceLoaders = {}
-  local config = heart.config.expand(require("resources.levels.earth"))
+  local resourceLoaders = {
+    image = heart.graphics.ImageResourceLoader.new()
+  }
+
+  local config = heart.config.expand(require("resources.levels.spring"))
   self.engine = heart.Engine.new(resourceLoaders, config)
 end
 

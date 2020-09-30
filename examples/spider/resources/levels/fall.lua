@@ -10,7 +10,7 @@ return {
         viewport = {},
 
         camera = {
-          transform = {0, 0, 0, 16},
+          transform = {0, 0, 0, 24},
         },
       },
     },
